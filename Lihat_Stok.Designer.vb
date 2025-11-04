@@ -22,139 +22,151 @@ Partial Class Lihat_Stok
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        BtnRefresh = New Button()
-        TxtCariObat = New TextBox()
-        BtnKembali = New Button()
-        DgvStokObat = New DataGridView()
-        ColKodeObat = New DataGridViewTextBoxColumn()
-        ColNamaObat = New DataGridViewTextBoxColumn()
-        ColKategori = New DataGridViewTextBoxColumn()
-        ColStok = New DataGridViewTextBoxColumn()
-        ColHarga = New DataGridViewTextBoxColumn()
-        GbFilter = New GroupBox()
-        LblCari = New Label()
-        CType(DgvStokObat, ComponentModel.ISupportInitialize).BeginInit()
-        GbFilter.SuspendLayout()
-        SuspendLayout()
-        ' 
-        ' BtnRefresh
-        ' 
-        BtnRefresh.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        BtnRefresh.FlatStyle = FlatStyle.Flat
-        BtnRefresh.Location = New Point(595, 26)
-        BtnRefresh.Name = "BtnRefresh"
-        BtnRefresh.Size = New Size(84, 27)
-        BtnRefresh.TabIndex = 2
-        BtnRefresh.Text = "Refresh"
-        BtnRefresh.UseVisualStyleBackColor = True
-        ' 
-        ' TxtCariObat
-        ' 
-        TxtCariObat.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        TxtCariObat.Location = New Point(84, 29)
-        TxtCariObat.Name = "TxtCariObat"
-        TxtCariObat.PlaceholderText = "Ketik nama atau kode obat..."
-        TxtCariObat.Size = New Size(505, 23)
-        TxtCariObat.TabIndex = 1
-        ' 
-        ' BtnKembali
-        ' 
-        BtnKembali.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        BtnKembali.FlatStyle = FlatStyle.Flat
-        BtnKembali.Location = New Point(685, 26)
-        BtnKembali.Name = "BtnKembali"
-        BtnKembali.Size = New Size(84, 27)
-        BtnKembali.TabIndex = 3
-        BtnKembali.Text = "Kembali"
-        BtnKembali.UseVisualStyleBackColor = True
-        ' 
-        ' DgvStokObat
-        ' 
-        DgvStokObat.AllowUserToAddRows = False
-        DgvStokObat.AllowUserToDeleteRows = False
-        DgvStokObat.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        DgvStokObat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvStokObat.Columns.AddRange(New DataGridViewColumn() {ColKodeObat, ColNamaObat, ColKategori, ColStok, ColHarga})
-        DgvStokObat.Location = New Point(12, 91)
-        DgvStokObat.Name = "DgvStokObat"
-        DgvStokObat.ReadOnly = True
-        DgvStokObat.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DgvStokObat.Size = New Size(776, 347)
-        DgvStokObat.TabIndex = 1
-        ' 
-        ' ColKodeObat
-        ' 
-        ColKodeObat.HeaderText = "Kode Obat"
-        ColKodeObat.Name = "ColKodeObat"
-        ColKodeObat.ReadOnly = True
-        ColKodeObat.Width = 120
-        ' 
-        ' ColNamaObat
-        ' 
-        ColNamaObat.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-        ColNamaObat.HeaderText = "Nama Obat"
-        ColNamaObat.Name = "ColNamaObat"
-        ColNamaObat.ReadOnly = True
-        ' 
-        ' ColKategori
-        ' 
-        ColKategori.HeaderText = "Kategori"
-        ColKategori.Name = "ColKategori"
-        ColKategori.ReadOnly = True
-        ColKategori.Width = 150
-        ' 
-        ' ColStok
-        ' 
-        ColStok.HeaderText = "Stok"
-        ColStok.Name = "ColStok"
-        ColStok.ReadOnly = True
-        ColStok.Width = 80
-        ' 
-        ' ColHarga
-        ' 
-        ColHarga.HeaderText = "Harga"
-        ColHarga.Name = "ColHarga"
-        ColHarga.ReadOnly = True
-        ColHarga.Width = 120
-        ' 
-        ' GbFilter
-        ' 
-        GbFilter.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        GbFilter.Controls.Add(LblCari)
-        GbFilter.Controls.Add(TxtCariObat)
-        GbFilter.Controls.Add(BtnRefresh)
-        GbFilter.Controls.Add(BtnKembali)
-        GbFilter.Location = New Point(12, 12)
-        GbFilter.Name = "GbFilter"
-        GbFilter.Size = New Size(776, 73)
-        GbFilter.TabIndex = 0
-        GbFilter.TabStop = False
-        GbFilter.Text = "Pencarian"
-        ' 
-        ' LblCari
-        ' 
-        LblCari.AutoSize = True
-        LblCari.Location = New Point(15, 33)
-        LblCari.Name = "LblCari"
-        LblCari.Size = New Size(60, 15)
-        LblCari.TabIndex = 0
-        LblCari.Text = "Cari Obat:"
-        ' 
-        ' Lihat_Stok
-        ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
-        AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
-        Controls.Add(GbFilter)
-        Controls.Add(DgvStokObat)
-        MinimumSize = New Size(600, 400)
-        Name = "Lihat_Stok"
-        StartPosition = FormStartPosition.CenterParent
-        Text = "Lihat Stok Obat"
-        CType(DgvStokObat, ComponentModel.ISupportInitialize).EndInit()
-        GbFilter.ResumeLayout(False)
-        GbFilter.PerformLayout()
-        ResumeLayout(False)
+        Me.BtnRefresh = New System.Windows.Forms.Button()
+        Me.TxtCariObat = New System.Windows.Forms.TextBox()
+        Me.BtnKembali = New System.Windows.Forms.Button()
+        Me.DgvStokObat = New System.Windows.Forms.DataGridView()
+        Me.GbFilter = New System.Windows.Forms.GroupBox()
+        Me.LblCari = New System.Windows.Forms.Label()
+        Me.ColKodeObat = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColNamaObat = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColKategori = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColStok = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ColKadaluarsa = New System.Windows.Forms.DataGridViewTextBoxColumn() ' <-- TAMBAHAN
+        Me.ColHarga = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        CType(Me.DgvStokObat, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GbFilter.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'BtnRefresh
+        '
+        Me.BtnRefresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnRefresh.Location = New System.Drawing.Point(595, 26)
+        Me.BtnRefresh.Name = "BtnRefresh"
+        Me.BtnRefresh.Size = New System.Drawing.Size(84, 27)
+        Me.BtnRefresh.TabIndex = 2
+        Me.BtnRefresh.Text = "Refresh"
+        Me.BtnRefresh.UseVisualStyleBackColor = True
+        '
+        'TxtCariObat
+        '
+        Me.TxtCariObat.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtCariObat.Location = New System.Drawing.Point(84, 29)
+        Me.TxtCariObat.Name = "TxtCariObat"
+        Me.TxtCariObat.PlaceholderText = "Ketik nama atau kode obat..."
+        Me.TxtCariObat.Size = New System.Drawing.Size(505, 23)
+        Me.TxtCariObat.TabIndex = 1
+        '
+        'BtnKembali
+        '
+        Me.BtnKembali.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnKembali.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnKembali.Location = New System.Drawing.Point(685, 26)
+        Me.BtnKembali.Name = "BtnKembali"
+        Me.BtnKembali.Size = New System.Drawing.Size(84, 27)
+        Me.BtnKembali.TabIndex = 3
+        Me.BtnKembali.Text = "Kembali"
+        Me.BtnKembali.UseVisualStyleBackColor = True
+        '
+        'DgvStokObat
+        '
+        Me.DgvStokObat.AllowUserToAddRows = False
+        Me.DgvStokObat.AllowUserToDeleteRows = False
+        Me.DgvStokObat.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DgvStokObat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvStokObat.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ColKodeObat, Me.ColNamaObat, Me.ColKategori, Me.ColStok, Me.ColKadaluarsa, Me.ColHarga}) ' <-- TAMBAHAN DISINI
+        Me.DgvStokObat.Location = New System.Drawing.Point(12, 91)
+        Me.DgvStokObat.Name = "DgvStokObat"
+        Me.DgvStokObat.ReadOnly = True
+        Me.DgvStokObat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DgvStokObat.Size = New System.Drawing.Size(776, 347)
+        Me.DgvStokObat.TabIndex = 1
+        '
+        'GbFilter
+        '
+        Me.GbFilter.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GbFilter.Controls.Add(Me.LblCari)
+        Me.GbFilter.Controls.Add(Me.TxtCariObat)
+        Me.GbFilter.Controls.Add(Me.BtnRefresh)
+        Me.GbFilter.Controls.Add(Me.BtnKembali)
+        Me.GbFilter.Location = New System.Drawing.Point(12, 12)
+        Me.GbFilter.Name = "GbFilter"
+        Me.GbFilter.Size = New System.Drawing.Size(776, 73)
+        Me.GbFilter.TabIndex = 0
+        Me.GbFilter.TabStop = False
+        Me.GbFilter.Text = "Pencarian"
+        '
+        'LblCari
+        '
+        Me.LblCari.AutoSize = True
+        Me.LblCari.Location = New System.Drawing.Point(15, 33)
+        Me.LblCari.Name = "LblCari"
+        Me.LblCari.Size = New System.Drawing.Size(63, 15)
+        Me.LblCari.TabIndex = 0
+        Me.LblCari.Text = "Cari Obat:"
+        '
+        'ColKodeObat
+        '
+        Me.ColKodeObat.HeaderText = "Kode Obat"
+        Me.ColKodeObat.Name = "ColKodeObat"
+        Me.ColKodeObat.ReadOnly = True
+        Me.ColKodeObat.Width = 120
+        '
+        'ColNamaObat
+        '
+        Me.ColNamaObat.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.ColNamaObat.HeaderText = "Nama Obat"
+        Me.ColNamaObat.Name = "ColNamaObat"
+        Me.ColNamaObat.ReadOnly = True
+        '
+        'ColKategori
+        '
+        Me.ColKategori.HeaderText = "Kategori"
+        Me.ColKategori.Name = "ColKategori"
+        Me.ColKategori.ReadOnly = True
+        Me.ColKategori.Width = 150
+        '
+        'ColStok
+        '
+        Me.ColStok.HeaderText = "Stok"
+        Me.ColStok.Name = "ColStok"
+        Me.ColStok.ReadOnly = True
+        Me.ColStok.Width = 80
+        '
+        'ColKadaluarsa
+        '
+        Me.ColKadaluarsa.HeaderText = "Kadaluarsa"
+        Me.ColKadaluarsa.Name = "ColKadaluarsa"
+        Me.ColKadaluarsa.ReadOnly = True
+        Me.ColKadaluarsa.Width = 110
+        '
+        'ColHarga
+        '
+        Me.ColHarga.HeaderText = "Harga"
+        Me.ColHarga.Name = "ColHarga"
+        Me.ColHarga.ReadOnly = True
+        Me.ColHarga.Width = 120
+        '
+        'Lihat_Stok
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.GbFilter)
+        Me.Controls.Add(Me.DgvStokObat)
+        Me.MinimumSize = New System.Drawing.Size(600, 400)
+        Me.Name = "Lihat_Stok"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "Lihat Stok Obat"
+        CType(Me.DgvStokObat, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GbFilter.ResumeLayout(False)
+        Me.GbFilter.PerformLayout()
+        Me.ResumeLayout(False)
 
     End Sub
 
@@ -169,4 +181,5 @@ Partial Class Lihat_Stok
     Friend WithEvents ColKategori As DataGridViewTextBoxColumn
     Friend WithEvents ColStok As DataGridViewTextBoxColumn
     Friend WithEvents ColHarga As DataGridViewTextBoxColumn
+    Friend WithEvents ColKadaluarsa As DataGridViewTextBoxColumn ' <-- TAMBAHAN
 End Class
