@@ -22,9 +22,116 @@ Partial Class Register
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Text = "Register"
+        BtnKembali = New Button()
+        BtnReset = New Button()
+        TxtPasswordBaru = New TextBox()
+        TxtUsername = New TextBox()
+        Label4 = New Label()
+        Label3 = New Label()
+        Label2 = New Label()
+        Label1 = New Label()
+        SuspendLayout()
+        ' 
+        ' BtnKembali
+        ' 
+        BtnKembali.Font = New Font("Segoe UI", 12F)
+        BtnKembali.Location = New Point(418, 183)
+        BtnKembali.Name = "BtnKembali"
+        BtnKembali.Size = New Size(213, 38)
+        BtnKembali.TabIndex = 16
+        BtnKembali.Text = "Reset"
+        BtnKembali.UseVisualStyleBackColor = True
+        ' 
+        ' BtnReset
+        ' 
+        BtnReset.Font = New Font("Segoe UI", 12F)
+        BtnReset.Location = New Point(180, 183)
+        BtnReset.Name = "BtnReset"
+        BtnReset.Size = New Size(218, 38)
+        BtnReset.TabIndex = 15
+        BtnReset.Text = "Kembali"
+        BtnReset.UseVisualStyleBackColor = True
+        ' 
+        ' TxtPasswordBaru
+        ' 
+        TxtPasswordBaru.Font = New Font("Segoe UI", 12F)
+        TxtPasswordBaru.Location = New Point(298, 133)
+        TxtPasswordBaru.Name = "TxtPasswordBaru"
+        TxtPasswordBaru.Size = New Size(333, 29)
+        TxtPasswordBaru.TabIndex = 14
+        ' 
+        ' TxtUsername
+        ' 
+        TxtUsername.Font = New Font("Segoe UI", 12F)
+        TxtUsername.Location = New Point(298, 101)
+        TxtUsername.Name = "TxtUsername"
+        TxtUsername.Size = New Size(333, 29)
+        TxtUsername.TabIndex = 13
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(180, 136)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(76, 21)
+        Label4.TabIndex = 12
+        Label4.Text = "Password"
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label3.Location = New Point(180, 104)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(81, 21)
+        Label3.TabIndex = 11
+        Label3.Text = "Username"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(348, 67)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(114, 21)
+        Label2.TabIndex = 10
+        Label2.Text = "Lupa Password"
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(202, 21)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(408, 30)
+        Label1.TabIndex = 9
+        Label1.Text = "Sistem Administrasi Apotek Obat-Obatan"
+        ' 
+        ' Register
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(800, 450)
+        Controls.Add(BtnKembali)
+        Controls.Add(BtnReset)
+        Controls.Add(TxtPasswordBaru)
+        Controls.Add(TxtUsername)
+        Controls.Add(Label4)
+        Controls.Add(Label3)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
+        Name = "Register"
+        Text = "Register"
+        ResumeLayout(False)
+        PerformLayout()
     End Sub
+    Friend WithEvents BtnKembali As Button
+    Friend WithEvents BtnReset As Button
+    Friend WithEvents TxtPasswordBaru As TextBox
+    Friend WithEvents TxtUsername As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
 End Class

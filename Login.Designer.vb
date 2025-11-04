@@ -22,9 +22,131 @@ Partial Class Login
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Text = "Login"
+        Label1 = New Label()
+        Label2 = New Label()
+        Label3 = New Label()
+        Label4 = New Label()
+        TxtUsername = New TextBox()
+        TxtPassword = New TextBox()
+        BtnKeluar = New Button()
+        BtnMasuk = New Button()
+        BtnLupaPwd = New Button()
+        SuspendLayout()
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(201, 19)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(408, 30)
+        Label1.TabIndex = 0
+        Label1.Text = "Sistem Administrasi Apotek Obat-Obatan"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(377, 62)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(56, 21)
+        Label2.TabIndex = 1
+        Label2.Text = "Masuk"
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label3.Location = New Point(179, 102)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(81, 21)
+        Label3.TabIndex = 2
+        Label3.Text = "Username"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(179, 134)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(76, 21)
+        Label4.TabIndex = 3
+        Label4.Text = "Password"
+        ' 
+        ' TxtUsername
+        ' 
+        TxtUsername.Font = New Font("Segoe UI", 12F)
+        TxtUsername.Location = New Point(297, 99)
+        TxtUsername.Name = "TxtUsername"
+        TxtUsername.Size = New Size(333, 29)
+        TxtUsername.TabIndex = 4
+        ' 
+        ' TxtPassword
+        ' 
+        TxtPassword.Font = New Font("Segoe UI", 12F)
+        TxtPassword.Location = New Point(297, 131)
+        TxtPassword.Name = "TxtPassword"
+        TxtPassword.Size = New Size(263, 29)
+        TxtPassword.TabIndex = 5
+        ' 
+        ' BtnKeluar
+        ' 
+        BtnKeluar.Font = New Font("Segoe UI", 12F)
+        BtnKeluar.Location = New Point(179, 201)
+        BtnKeluar.Name = "BtnKeluar"
+        BtnKeluar.Size = New Size(218, 38)
+        BtnKeluar.TabIndex = 6
+        BtnKeluar.Text = "Keluar"
+        BtnKeluar.UseVisualStyleBackColor = True
+        ' 
+        ' BtnMasuk
+        ' 
+        BtnMasuk.Font = New Font("Segoe UI", 12F)
+        BtnMasuk.Location = New Point(417, 201)
+        BtnMasuk.Name = "BtnMasuk"
+        BtnMasuk.Size = New Size(213, 38)
+        BtnMasuk.TabIndex = 7
+        BtnMasuk.Text = "Masuk"
+        BtnMasuk.UseVisualStyleBackColor = True
+        ' 
+        ' BtnLupaPwd
+        ' 
+        BtnLupaPwd.Font = New Font("Segoe UI", 9F)
+        BtnLupaPwd.Location = New Point(566, 134)
+        BtnLupaPwd.Name = "BtnLupaPwd"
+        BtnLupaPwd.Size = New Size(64, 26)
+        BtnLupaPwd.TabIndex = 8
+        BtnLupaPwd.Text = "lupa?"
+        BtnLupaPwd.UseVisualStyleBackColor = True
+        ' 
+        ' Login
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(800, 450)
+        Controls.Add(BtnLupaPwd)
+        Controls.Add(BtnMasuk)
+        Controls.Add(BtnKeluar)
+        Controls.Add(TxtPassword)
+        Controls.Add(TxtUsername)
+        Controls.Add(Label4)
+        Controls.Add(Label3)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
+        Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Name = "Login"
+        Text = "Login"
+        ResumeLayout(False)
+        PerformLayout()
     End Sub
+
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TxtUsername As TextBox
+    Friend WithEvents TxtPassword As TextBox
+    Friend WithEvents BtnKeluar As Button
+    Friend WithEvents BtnMasuk As Button
+    Friend WithEvents BtnLupaPwd As Button
 End Class
