@@ -34,152 +34,155 @@ Partial Class DashBoard
         LblCaptionUser = New Label()
         LblTotalUser = New Label()
         GroupBoxActions = New GroupBox()
-        BtnKelolaStok = New Button()
-        BtnKelolaUser = New Button()
         BtnKeluar = New Button()
+        BtnKelolaUser = New Button()
+        BtnKelolaStok = New Button()
         GroupBoxFilter = New GroupBox()
         CmbFilterKategori = New ComboBox()
         TxtFilterKataKunci = New TextBox()
         BtnFilter = New Button()
         BtnTampilSemua = New Button()
         DgvRiwayatTransaksi = New DataGridView()
+        PanelHeader.SuspendLayout()
+        PanelCardObat.SuspendLayout()
+        PanelCardTransaksi.SuspendLayout()
+        PanelCardUser.SuspendLayout()
+        GroupBoxActions.SuspendLayout()
+        GroupBoxFilter.SuspendLayout()
         CType(DgvRiwayatTransaksi, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' PanelHeader
         ' 
-        PanelHeader.BackColor = System.Drawing.Color.FromArgb(37, 99, 235)
-        PanelHeader.Dock = DockStyle.Top
-        PanelHeader.Height = 64
+        PanelHeader.BackColor = Color.FromArgb(CByte(37), CByte(99), CByte(235))
         PanelHeader.Controls.Add(LblTitle)
+        PanelHeader.Dock = DockStyle.Top
+        PanelHeader.Location = New Point(0, 0)
+        PanelHeader.Name = "PanelHeader"
+        PanelHeader.Size = New Size(800, 64)
+        PanelHeader.TabIndex = 16
         ' 
         ' LblTitle
         ' 
-        LblTitle.ForeColor = System.Drawing.Color.White
-        LblTitle.Font = New Font("Segoe UI", 16.0F, FontStyle.Bold, GraphicsUnit.Point)
+        LblTitle.Font = New Font("Segoe UI", 16.0F, FontStyle.Bold)
+        LblTitle.ForeColor = Color.White
         LblTitle.Location = New Point(12, 12)
         LblTitle.Name = "LblTitle"
         LblTitle.Size = New Size(400, 40)
+        LblTitle.TabIndex = 0
         LblTitle.Text = "Dashboard"
         LblTitle.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' PanelCardObat
         ' 
-        PanelCardObat.BackColor = System.Drawing.Color.FromArgb(249, 250, 251)
+        PanelCardObat.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
         PanelCardObat.BorderStyle = BorderStyle.FixedSingle
+        PanelCardObat.Controls.Add(LblCaptionObat)
+        PanelCardObat.Controls.Add(LblTotalObat)
         PanelCardObat.Location = New Point(12, 84)
         PanelCardObat.Name = "PanelCardObat"
         PanelCardObat.Size = New Size(220, 90)
-        PanelCardObat.Controls.Add(LblCaptionObat)
-        PanelCardObat.Controls.Add(LblTotalObat)
+        PanelCardObat.TabIndex = 15
         ' 
         ' LblCaptionObat
         ' 
         LblCaptionObat.AutoSize = True
-        LblCaptionObat.Font = New Font("Segoe UI", 9.0F, FontStyle.Regular, GraphicsUnit.Point)
-        LblCaptionObat.ForeColor = System.Drawing.Color.DarkSlateGray
+        LblCaptionObat.Font = New Font("Segoe UI", 9.0F)
+        LblCaptionObat.ForeColor = Color.DarkSlateGray
         LblCaptionObat.Location = New Point(12, 12)
         LblCaptionObat.Name = "LblCaptionObat"
         LblCaptionObat.Size = New Size(62, 15)
+        LblCaptionObat.TabIndex = 0
         LblCaptionObat.Text = "Total Obat"
         ' 
         ' LblTotalObat
         ' 
         LblTotalObat.AutoSize = True
-        LblTotalObat.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold, GraphicsUnit.Point)
-        LblTotalObat.ForeColor = System.Drawing.Color.Black
+        LblTotalObat.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
+        LblTotalObat.ForeColor = Color.Black
         LblTotalObat.Location = New Point(12, 30)
         LblTotalObat.Name = "LblTotalObat"
-        LblTotalObat.Size = New Size(60, 37)
+        LblTotalObat.Size = New Size(33, 37)
+        LblTotalObat.TabIndex = 1
         LblTotalObat.Text = "0"
         ' 
         ' PanelCardTransaksi
         ' 
-        PanelCardTransaksi.BackColor = System.Drawing.Color.FromArgb(249, 250, 251)
+        PanelCardTransaksi.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
         PanelCardTransaksi.BorderStyle = BorderStyle.FixedSingle
+        PanelCardTransaksi.Controls.Add(LblCaptionTransaksi)
+        PanelCardTransaksi.Controls.Add(LblTotalTransaksi)
         PanelCardTransaksi.Location = New Point(248, 84)
         PanelCardTransaksi.Name = "PanelCardTransaksi"
         PanelCardTransaksi.Size = New Size(220, 90)
-        PanelCardTransaksi.Controls.Add(LblCaptionTransaksi)
-        PanelCardTransaksi.Controls.Add(LblTotalTransaksi)
+        PanelCardTransaksi.TabIndex = 14
         ' 
         ' LblCaptionTransaksi
         ' 
         LblCaptionTransaksi.AutoSize = True
-        LblCaptionTransaksi.Font = New Font("Segoe UI", 9.0F, FontStyle.Regular, GraphicsUnit.Point)
-        LblCaptionTransaksi.ForeColor = System.Drawing.Color.DarkSlateGray
+        LblCaptionTransaksi.Font = New Font("Segoe UI", 9.0F)
+        LblCaptionTransaksi.ForeColor = Color.DarkSlateGray
         LblCaptionTransaksi.Location = New Point(12, 12)
         LblCaptionTransaksi.Name = "LblCaptionTransaksi"
-        LblCaptionTransaksi.Size = New Size(99, 15)
+        LblCaptionTransaksi.Size = New Size(96, 15)
+        LblCaptionTransaksi.TabIndex = 0
         LblCaptionTransaksi.Text = "Transaksi Hari Ini"
         ' 
         ' LblTotalTransaksi
         ' 
         LblTotalTransaksi.AutoSize = True
-        LblTotalTransaksi.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold, GraphicsUnit.Point)
-        LblTotalTransaksi.ForeColor = System.Drawing.Color.Black
+        LblTotalTransaksi.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
+        LblTotalTransaksi.ForeColor = Color.Black
         LblTotalTransaksi.Location = New Point(12, 30)
         LblTotalTransaksi.Name = "LblTotalTransaksi"
-        LblTotalTransaksi.Size = New Size(60, 37)
+        LblTotalTransaksi.Size = New Size(33, 37)
+        LblTotalTransaksi.TabIndex = 1
         LblTotalTransaksi.Text = "0"
         ' 
         ' PanelCardUser
         ' 
-        PanelCardUser.BackColor = System.Drawing.Color.FromArgb(249, 250, 251)
+        PanelCardUser.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
         PanelCardUser.BorderStyle = BorderStyle.FixedSingle
+        PanelCardUser.Controls.Add(LblCaptionUser)
+        PanelCardUser.Controls.Add(LblTotalUser)
         PanelCardUser.Location = New Point(484, 84)
         PanelCardUser.Name = "PanelCardUser"
         PanelCardUser.Size = New Size(220, 90)
-        PanelCardUser.Controls.Add(LblCaptionUser)
-        PanelCardUser.Controls.Add(LblTotalUser)
+        PanelCardUser.TabIndex = 13
         ' 
         ' LblCaptionUser
         ' 
         LblCaptionUser.AutoSize = True
-        LblCaptionUser.Font = New Font("Segoe UI", 9.0F, FontStyle.Regular, GraphicsUnit.Point)
-        LblCaptionUser.ForeColor = System.Drawing.Color.DarkSlateGray
+        LblCaptionUser.Font = New Font("Segoe UI", 9.0F)
+        LblCaptionUser.ForeColor = Color.DarkSlateGray
         LblCaptionUser.Location = New Point(12, 12)
         LblCaptionUser.Name = "LblCaptionUser"
-        LblCaptionUser.Size = New Size(71, 15)
+        LblCaptionUser.Size = New Size(61, 15)
+        LblCaptionUser.TabIndex = 0
         LblCaptionUser.Text = "Total Kasir"
         ' 
         ' LblTotalUser
         ' 
         LblTotalUser.AutoSize = True
-        LblTotalUser.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold, GraphicsUnit.Point)
-        LblTotalUser.ForeColor = System.Drawing.Color.Black
+        LblTotalUser.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
+        LblTotalUser.ForeColor = Color.Black
         LblTotalUser.Location = New Point(12, 30)
         LblTotalUser.Name = "LblTotalUser"
-        LblTotalUser.Size = New Size(60, 37)
+        LblTotalUser.Size = New Size(33, 37)
+        LblTotalUser.TabIndex = 1
         LblTotalUser.Text = "0"
         ' 
         ' GroupBoxActions
         ' 
-        GroupBoxActions.Location = New Point(720, 84)
-        GroupBoxActions.Name = "GroupBoxActions"
-        GroupBoxActions.Size = New Size(68, 190)
-        GroupBoxActions.Text = "Aksi"
         GroupBoxActions.Controls.Add(BtnKeluar)
         GroupBoxActions.Controls.Add(BtnKelolaUser)
         GroupBoxActions.Controls.Add(BtnKelolaStok)
-        ' 
-        ' BtnKelolaStok
-        ' 
-        BtnKelolaStok.Location = New Point(6, 22)
-        BtnKelolaStok.Name = "BtnKelolaStok"
-        BtnKelolaStok.Size = New Size(56, 28)
-        BtnKelolaStok.TabIndex = 0
-        BtnKelolaStok.Text = "Stok"
-        BtnKelolaStok.UseVisualStyleBackColor = True
-        ' 
-        ' BtnKelolaUser
-        ' 
-        BtnKelolaUser.Location = New Point(6, 56)
-        BtnKelolaUser.Name = "BtnKelolaUser"
-        BtnKelolaUser.Size = New Size(56, 28)
-        BtnKelolaUser.TabIndex = 1
-        BtnKelolaUser.Text = "User"
-        BtnKelolaUser.UseVisualStyleBackColor = True
+        GroupBoxActions.Location = New Point(720, 84)
+        GroupBoxActions.Name = "GroupBoxActions"
+        GroupBoxActions.Size = New Size(68, 190)
+        GroupBoxActions.TabIndex = 12
+        GroupBoxActions.TabStop = False
+        GroupBoxActions.Text = "Aksi"
         ' 
         ' BtnKeluar
         ' 
@@ -190,16 +193,36 @@ Partial Class DashBoard
         BtnKeluar.Text = "Keluar"
         BtnKeluar.UseVisualStyleBackColor = True
         ' 
+        ' BtnKelolaUser
+        ' 
+        BtnKelolaUser.Location = New Point(6, 56)
+        BtnKelolaUser.Name = "BtnKelolaUser"
+        BtnKelolaUser.Size = New Size(56, 28)
+        BtnKelolaUser.TabIndex = 1
+        BtnKelolaUser.Text = "User"
+        BtnKelolaUser.UseVisualStyleBackColor = True
+        ' 
+        ' BtnKelolaStok
+        ' 
+        BtnKelolaStok.Location = New Point(6, 22)
+        BtnKelolaStok.Name = "BtnKelolaStok"
+        BtnKelolaStok.Size = New Size(56, 28)
+        BtnKelolaStok.TabIndex = 0
+        BtnKelolaStok.Text = "Stok"
+        BtnKelolaStok.UseVisualStyleBackColor = True
+        ' 
         ' GroupBoxFilter
         ' 
-        GroupBoxFilter.Location = New Point(12, 190)
-        GroupBoxFilter.Name = "GroupBoxFilter"
-        GroupBoxFilter.Size = New Size(692, 68)
-        GroupBoxFilter.Text = "Filter Riwayat Transaksi"
         GroupBoxFilter.Controls.Add(CmbFilterKategori)
         GroupBoxFilter.Controls.Add(TxtFilterKataKunci)
         GroupBoxFilter.Controls.Add(BtnFilter)
         GroupBoxFilter.Controls.Add(BtnTampilSemua)
+        GroupBoxFilter.Location = New Point(12, 190)
+        GroupBoxFilter.Name = "GroupBoxFilter"
+        GroupBoxFilter.Size = New Size(692, 68)
+        GroupBoxFilter.TabIndex = 11
+        GroupBoxFilter.TabStop = False
+        GroupBoxFilter.Text = "Filter Riwayat Transaksi"
         ' 
         ' CmbFilterKategori
         ' 
@@ -257,9 +280,18 @@ Partial Class DashBoard
         Controls.Add(PanelHeader)
         Name = "DashBoard"
         Text = "DashBoard"
+        PanelHeader.ResumeLayout(False)
+        PanelCardObat.ResumeLayout(False)
+        PanelCardObat.PerformLayout()
+        PanelCardTransaksi.ResumeLayout(False)
+        PanelCardTransaksi.PerformLayout()
+        PanelCardUser.ResumeLayout(False)
+        PanelCardUser.PerformLayout()
+        GroupBoxActions.ResumeLayout(False)
+        GroupBoxFilter.ResumeLayout(False)
+        GroupBoxFilter.PerformLayout()
         CType(DgvRiwayatTransaksi, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
-        PerformLayout()
     End Sub
 
     Friend WithEvents PanelHeader As Panel

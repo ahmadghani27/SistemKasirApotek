@@ -167,4 +167,7 @@ Public Class DashBoard
         End Try
     End Sub
 
+    Private Sub PanelCardUser_Paint(sender As Object, e As PaintEventArgs) Handles PanelCardUser.Paint
+
+    End Sub
 End Class
