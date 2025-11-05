@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class Koneksi
 
     ' 1. String koneksi Anda
-    Private Shared connectionString As String = "Server=localhost;Database=NAMA_DATABASE_ANDA;User=root;Password=;"
+    Private Shared connectionString As String = "Server=localhost;Database=si_apotek;User=root;Password=;"
 
     ' 2. Objek koneksi yang dipakai bersama
     Public Shared conn As New MySqlConnection(connectionString)

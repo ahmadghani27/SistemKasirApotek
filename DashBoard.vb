@@ -135,7 +135,7 @@ Public Class DashBoard
     Private Sub BtnKelolaStok_Click(sender As Object, e As EventArgs) Handles BtnKelolaStok.Click
         Try
             ' Adjust form class name if different
-            Dim f As New KelolaStok()
+            Dim f As New Kelola_Stok()
             f.ShowDialog()
             LoadTotals()
             LoadTransactions()
@@ -147,7 +147,7 @@ Public Class DashBoard
     Private Sub BtnKelolaUser_Click(sender As Object, e As EventArgs) Handles BtnKelolaUser.Click
         Try
             ' Adjust form class name if different
-            Dim f As New KelolaUser()
+            Dim f As New Kelola_User()
             f.ShowDialog()
             LoadTotals()
             LoadTransactions()
@@ -159,7 +159,7 @@ Public Class DashBoard
     Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
         Try
             ' Adjust login form class name if different
-            Dim f As New LoginForm()
+            Dim f As New Login()
             f.Show()
             Me.Close()
         Catch ex As Exception
