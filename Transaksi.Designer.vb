@@ -22,304 +22,324 @@ Partial Class Transaksi
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.TxtIDTransaksi = New System.Windows.Forms.TextBox()
-        Me.TxtNamaObat = New System.Windows.Forms.TextBox()
-        Me.TxtHarga = New System.Windows.Forms.TextBox()
-        Me.TxtJumlah = New System.Windows.Forms.TextBox()
-        Me.BtnTambahList = New System.Windows.Forms.Button()
-        Me.BtnSimpanTransaksi = New System.Windows.Forms.Button()
-        Me.BtnBatal = New System.Windows.Forms.Button()
-        Me.BtnHapus = New System.Windows.Forms.Button()
-        Me.BtnKeluar = New System.Windows.Forms.Button()
-        Me.LblTotalBayar = New System.Windows.Forms.Label()
-        Me.DgvListTransaksi = New System.Windows.Forms.DataGridView()
-        Me.colID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colNama = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colHarga = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colJumlah = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colSubtotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GbInputObat = New System.Windows.Forms.GroupBox()
-        Me.LblLabelJumlah = New System.Windows.Forms.Label()
-        Me.LblLabelHarga = New System.Windows.Forms.Label()
-        Me.LblLabelNamaObat = New System.Windows.Forms.Label()
-        Me.LblLabelIDObat = New System.Windows.Forms.Label()
-        Me.GbAksi = New System.Windows.Forms.GroupBox()
-        Me.GbKeranjang = New System.Windows.Forms.GroupBox()
-        Me.LblLabelTotal = New System.Windows.Forms.Label()
-        CType(Me.DgvListTransaksi, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GbInputObat.SuspendLayout()
-        Me.GbAksi.SuspendLayout()
-        Me.GbKeranjang.SuspendLayout()
-        Me.SuspendLayout()
-        '
-        'TxtIDTransaksi
-        '
-        Me.TxtIDTransaksi.Location = New System.Drawing.Point(74, 30)
-        Me.TxtIDTransaksi.Name = "TxtIDTransaksi"
-        Me.TxtIDTransaksi.Size = New System.Drawing.Size(113, 23)
-        Me.TxtIDTransaksi.TabIndex = 0
-        '
-        'TxtNamaObat
-        '
-        Me.TxtNamaObat.Location = New System.Drawing.Point(267, 30)
-        Me.TxtNamaObat.Name = "TxtNamaObat"
-        Me.TxtNamaObat.Size = New System.Drawing.Size(161, 23)
-        Me.TxtNamaObat.TabIndex = 1
-        '
-        'TxtHarga
-        '
-        Me.TxtHarga.Location = New System.Drawing.Point(489, 30)
-        Me.TxtHarga.Name = "TxtHarga"
-        Me.TxtHarga.Size = New System.Drawing.Size(111, 23)
-        Me.TxtHarga.TabIndex = 2
-        '
-        'TxtJumlah
-        '
-        Me.TxtJumlah.Location = New System.Drawing.Point(659, 30)
-        Me.TxtJumlah.Name = "TxtJumlah"
-        Me.TxtJumlah.Size = New System.Drawing.Size(51, 23)
-        Me.TxtJumlah.TabIndex = 3
-        '
-        'BtnTambahList
-        '
-        Me.BtnTambahList.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnTambahList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnTambahList.Location = New System.Drawing.Point(727, 28)
-        Me.BtnTambahList.Name = "BtnTambahList"
-        Me.BtnTambahList.Size = New System.Drawing.Size(75, 27)
-        Me.BtnTambahList.TabIndex = 4
-        Me.BtnTambahList.Text = "Tambah"
-        Me.BtnTambahList.UseVisualStyleBackColor = True
-        '
-        'BtnSimpanTransaksi
-        '
-        Me.BtnSimpanTransaksi.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnSimpanTransaksi.Location = New System.Drawing.Point(15, 28)
-        Me.BtnSimpanTransaksi.Name = "BtnSimpanTransaksi"
-        Me.BtnSimpanTransaksi.Size = New System.Drawing.Size(84, 27)
-        Me.BtnSimpanTransaksi.TabIndex = 5
-        Me.BtnSimpanTransaksi.Text = "Simpan"
-        Me.BtnSimpanTransaksi.UseVisualStyleBackColor = True
-        '
-        'BtnBatal
-        '
-        Me.BtnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnBatal.Location = New System.Drawing.Point(111, 28)
-        Me.BtnBatal.Name = "BtnBatal"
-        Me.BtnBatal.Size = New System.Drawing.Size(84, 27)
-        Me.BtnBatal.TabIndex = 6
-        Me.BtnBatal.Text = "Batal"
-        Me.BtnBatal.UseVisualStyleBackColor = True
-        '
-        'BtnHapus
-        '
-        Me.BtnHapus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnHapus.Location = New System.Drawing.Point(207, 28)
-        Me.BtnHapus.Name = "BtnHapus"
-        Me.BtnHapus.Size = New System.Drawing.Size(84, 27)
-        Me.BtnHapus.TabIndex = 7
-        Me.BtnHapus.Text = "Hapus Item"
-        Me.BtnHapus.UseVisualStyleBackColor = True
-        '
-        'BtnKeluar
-        '
-        Me.BtnKeluar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnKeluar.Location = New System.Drawing.Point(303, 28)
-        Me.BtnKeluar.Name = "BtnKeluar"
-        Me.BtnKeluar.Size = New System.Drawing.Size(84, 27)
-        Me.BtnKeluar.TabIndex = 8
-        Me.BtnKeluar.Text = "Keluar"
-        Me.BtnKeluar.UseVisualStyleBackColor = True
-        '
-        'LblTotalBayar
-        '
-        Me.LblTotalBayar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblTotalBayar.Font = New System.Drawing.Font("Segoe UI", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.LblTotalBayar.ForeColor = System.Drawing.Color.Maroon
-        Me.LblTotalBayar.Location = New System.Drawing.Point(544, 451)
-        Me.LblTotalBayar.Name = "LblTotalBayar"
-        Me.LblTotalBayar.Size = New System.Drawing.Size(244, 37)
-        Me.LblTotalBayar.TabIndex = 9
-        Me.LblTotalBayar.Text = "Rp 0"
-        Me.LblTotalBayar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'DgvListTransaksi
-        '
-        Me.DgvListTransaksi.AllowUserToAddRows = False
-        Me.DgvListTransaksi.AllowUserToDeleteRows = False
-        Me.DgvListTransaksi.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DgvListTransaksi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvListTransaksi.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colNama, Me.colHarga, Me.colJumlah, Me.colSubtotal})
-        Me.DgvListTransaksi.Location = New System.Drawing.Point(15, 28)
-        Me.DgvListTransaksi.Name = "DgvListTransaksi"
-        Me.DgvListTransaksi.ReadOnly = True
-        Me.DgvListTransaksi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvListTransaksi.Size = New System.Drawing.Size(787, 219)
-        Me.DgvListTransaksi.TabIndex = 10
-        '
-        'colID
-        '
-        Me.colID.HeaderText = "ID Obat"
-        Me.colID.Name = "IDObat"
-        Me.colID.ReadOnly = True
-        Me.colID.Width = 90
-        '
-        'colNama
-        '
-        Me.colNama.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colNama.HeaderText = "Nama Obat"
-        Me.colNama.Name = "NamaObat"
-        Me.colNama.ReadOnly = True
-        '
-        'colHarga
-        '
-        Me.colHarga.HeaderText = "Harga"
-        Me.colHarga.Name = "Harga"
-        Me.colHarga.ReadOnly = True
-        Me.colHarga.Width = 120
-        '
-        'colJumlah
-        '
-        Me.colJumlah.HeaderText = "Jumlah"
-        Me.colJumlah.Name = "Jumlah"
-        Me.colJumlah.ReadOnly = True
-        Me.colJumlah.Width = 80
-        '
-        'colSubtotal
-        '
-        Me.colSubtotal.HeaderText = "Subtotal"
-        Me.colSubtotal.Name = "Subtotal"
-        Me.colSubtotal.ReadOnly = True
-        Me.colSubtotal.Width = 130
-        '
-        'GbInputObat
-        '
-        Me.GbInputObat.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GbInputObat.Controls.Add(Me.LblLabelJumlah)
-        Me.GbInputObat.Controls.Add(Me.LblLabelHarga)
-        Me.GbInputObat.Controls.Add(Me.LblLabelNamaObat)
-        Me.GbInputObat.Controls.Add(Me.LblLabelIDObat)
-        Me.GbInputObat.Controls.Add(Me.TxtIDTransaksi)
-        Me.GbInputObat.Controls.Add(Me.TxtNamaObat)
-        Me.GbInputObat.Controls.Add(Me.TxtHarga)
-        Me.GbInputObat.Controls.Add(Me.TxtJumlah)
-        Me.GbInputObat.Controls.Add(Me.BtnTambahList)
-        Me.GbInputObat.Location = New System.Drawing.Point(12, 12)
-        Me.GbInputObat.Name = "GbInputObat"
-        Me.GbInputObat.Size = New System.Drawing.Size(818, 73)
-        Me.GbInputObat.TabIndex = 0
-        Me.GbInputObat.TabStop = False
-        Me.GbInputObat.Text = "Input Obat"
-        '
-        'LblLabelJumlah
-        '
-        Me.LblLabelJumlah.AutoSize = True
-        Me.LblLabelJumlah.Location = New System.Drawing.Point(606, 34)
-        Me.LblLabelJumlah.Name = "LblLabelJumlah"
-        Me.LblLabelJumlah.Size = New System.Drawing.Size(48, 15)
-        Me.LblLabelJumlah.TabIndex = 8
-        Me.LblLabelJumlah.Text = "Jumlah:"
-        '
-        'LblLabelHarga
-        '
-        Me.LblLabelHarga.AutoSize = True
-        Me.LblLabelHarga.Location = New System.Drawing.Point(443, 34)
-        Me.LblLabelHarga.Name = "LblLabelHarga"
-        Me.LblLabelHarga.Size = New System.Drawing.Size(42, 15)
-        Me.LblLabelHarga.TabIndex = 7
-        Me.LblLabelHarga.Text = "Harga:"
-        '
-        'LblLabelNamaObat
-        '
-        Me.LblLabelNamaObat.AutoSize = True
-        Me.LblLabelNamaObat.Location = New System.Drawing.Point(193, 34)
-        Me.LblLabelNamaObat.Name = "LblLabelNamaObat"
-        Me.LblLabelNamaObat.Size = New System.Drawing.Size(71, 15)
-        Me.LblLabelNamaObat.TabIndex = 6
-        Me.LblLabelNamaObat.Text = "Nama Obat:"
-        '
-        'LblLabelIDObat
-        '
-        Me.LblLabelIDObat.AutoSize = True
-        Me.LblLabelIDObat.Location = New System.Drawing.Point(15, 34)
-        Me.LblLabelIDObat.Name = "LblLabelIDObat"
-        Me.LblLabelIDObat.Size = New System.Drawing.Size(53, 15)
-        Me.LblLabelIDObat.TabIndex = 5
-        Me.LblLabelIDObat.Text = "ID Obat:"
-        '
-        'GbAksi
-        '
-        Me.GbAksi.Controls.Add(Me.BtnSimpanTransaksi)
-        Me.GbAksi.Controls.Add(Me.BtnBatal)
-        Me.GbAksi.Controls.Add(Me.BtnHapus)
-        Me.GbAksi.Controls.Add(Me.BtnKeluar)
-        Me.GbAksi.Location = New System.Drawing.Point(12, 91)
-        Me.GbAksi.Name = "GbAksi"
-        Me.GbAksi.Size = New System.Drawing.Size(401, 71)
-        Me.GbAksi.TabIndex = 1
-        Me.GbAksi.TabStop = False
-        Me.GbAksi.Text = "Aksi Transaksi"
-        '
-        'GbKeranjang
-        '
-        Me.GbKeranjang.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GbKeranjang.Controls.Add(Me.DgvListTransaksi)
-        Me.GbKeranjang.Location = New System.Drawing.Point(12, 180)
-        Me.GbKeranjang.Name = "GbKeranjang"
-        Me.GbKeranjang.Size = New System.Drawing.Size(818, 261)
-        Me.GbKeranjang.TabIndex = 2
-        Me.GbKeranjang.TabStop = False
-        Me.GbKeranjang.Text = "Keranjang Belanja"
-        '
-        'LblLabelTotal
-        '
-        Me.LblLabelTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblLabelTotal.AutoSize = True
-        Me.LblLabelTotal.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.LblLabelTotal.Location = New System.Drawing.Point(413, 461)
-        Me.LblLabelTotal.Name = "LblLabelTotal"
-        Me.LblLabelTotal.Size = New System.Drawing.Size(125, 21)
-        Me.LblLabelTotal.TabIndex = 11
-        Me.LblLabelTotal.Text = "TOTAL BAYAR:"
-        '
-        'Transaksi
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(842, 497)
-        Me.Controls.Add(Me.LblLabelTotal)
-        Me.Controls.Add(Me.GbKeranjang)
-        Me.Controls.Add(Me.GbAksi)
-        Me.Controls.Add(Me.GbInputObat)
-        Me.Controls.Add(Me.LblTotalBayar)
-        Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(858, 536)
-        Me.Name = "Transaksi"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Transaksi - Kasir Apotek"
-        CType(Me.DgvListTransaksi, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GbInputObat.ResumeLayout(False)
-        Me.GbInputObat.PerformLayout()
-        Me.GbAksi.ResumeLayout(False)
-        Me.GbKeranjang.ResumeLayout(False)
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        TxtIDObat = New TextBox()
+        TxtNamaObat = New TextBox()
+        TxtJumlah = New TextBox()
+        BtnTambah = New Button()
+        BtnSimpan = New Button()
+        BtnBatal = New Button()
+        BtnHapusItem = New Button()
+        BtnKeluar = New Button()
+        LblTotalBayar = New Label()
+        DgvListTransaksi = New DataGridView()
+        colID = New DataGridViewTextBoxColumn()
+        colNama = New DataGridViewTextBoxColumn()
+        colHarga = New DataGridViewTextBoxColumn()
+        colJumlah = New DataGridViewTextBoxColumn()
+        colSubtotal = New DataGridViewTextBoxColumn()
+        GbInputObat = New GroupBox()
+        BtnCari = New Button()
+        LblLabelJumlah = New Label()
+        LblLabelNamaObat = New Label()
+        LblLabelIDObat = New Label()
+        GbAksi = New GroupBox()
+        GbKeranjang = New GroupBox()
+        LblLabelTotal = New Label()
+        GroupBox1 = New GroupBox()
+        Label1 = New Label()
+        TxtHarga = New TextBox()
+        CType(DgvListTransaksi, ComponentModel.ISupportInitialize).BeginInit()
+        GbInputObat.SuspendLayout()
+        GbAksi.SuspendLayout()
+        GbKeranjang.SuspendLayout()
+        GroupBox1.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' TxtIDObat
+        ' 
+        TxtIDObat.Location = New Point(74, 30)
+        TxtIDObat.Name = "TxtIDObat"
+        TxtIDObat.Size = New Size(158, 23)
+        TxtIDObat.TabIndex = 0
+        ' 
+        ' TxtNamaObat
+        ' 
+        TxtNamaObat.Location = New Point(316, 32)
+        TxtNamaObat.Name = "TxtNamaObat"
+        TxtNamaObat.Size = New Size(163, 23)
+        TxtNamaObat.TabIndex = 1
+        ' 
+        ' TxtJumlah
+        ' 
+        TxtJumlah.Location = New Point(217, 30)
+        TxtJumlah.Name = "TxtJumlah"
+        TxtJumlah.Size = New Size(74, 23)
+        TxtJumlah.TabIndex = 3
+        ' 
+        ' BtnTambah
+        ' 
+        BtnTambah.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        BtnTambah.FlatStyle = FlatStyle.Flat
+        BtnTambah.Location = New Point(311, 28)
+        BtnTambah.Name = "BtnTambah"
+        BtnTambah.Size = New Size(75, 27)
+        BtnTambah.TabIndex = 4
+        BtnTambah.Text = "Tambah"
+        BtnTambah.UseVisualStyleBackColor = True
+        ' 
+        ' BtnSimpan
+        ' 
+        BtnSimpan.FlatStyle = FlatStyle.Flat
+        BtnSimpan.Location = New Point(15, 28)
+        BtnSimpan.Name = "BtnSimpan"
+        BtnSimpan.Size = New Size(84, 27)
+        BtnSimpan.TabIndex = 5
+        BtnSimpan.Text = "Simpan"
+        BtnSimpan.UseVisualStyleBackColor = True
+        ' 
+        ' BtnBatal
+        ' 
+        BtnBatal.FlatStyle = FlatStyle.Flat
+        BtnBatal.Location = New Point(111, 28)
+        BtnBatal.Name = "BtnBatal"
+        BtnBatal.Size = New Size(84, 27)
+        BtnBatal.TabIndex = 6
+        BtnBatal.Text = "Batal"
+        BtnBatal.UseVisualStyleBackColor = True
+        ' 
+        ' BtnHapusItem
+        ' 
+        BtnHapusItem.FlatStyle = FlatStyle.Flat
+        BtnHapusItem.Location = New Point(207, 28)
+        BtnHapusItem.Name = "BtnHapusItem"
+        BtnHapusItem.Size = New Size(84, 27)
+        BtnHapusItem.TabIndex = 7
+        BtnHapusItem.Text = "Hapus Item"
+        BtnHapusItem.UseVisualStyleBackColor = True
+        ' 
+        ' BtnKeluar
+        ' 
+        BtnKeluar.FlatStyle = FlatStyle.Flat
+        BtnKeluar.Location = New Point(303, 28)
+        BtnKeluar.Name = "BtnKeluar"
+        BtnKeluar.Size = New Size(84, 27)
+        BtnKeluar.TabIndex = 8
+        BtnKeluar.Text = "Keluar"
+        BtnKeluar.UseVisualStyleBackColor = True
+        ' 
+        ' LblTotalBayar
+        ' 
+        LblTotalBayar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        LblTotalBayar.Font = New Font("Segoe UI", 20.25F, FontStyle.Bold)
+        LblTotalBayar.ForeColor = Color.Maroon
+        LblTotalBayar.Location = New Point(544, 451)
+        LblTotalBayar.Name = "LblTotalBayar"
+        LblTotalBayar.Size = New Size(244, 37)
+        LblTotalBayar.TabIndex = 9
+        LblTotalBayar.Text = "Rp 0"
+        LblTotalBayar.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' DgvListTransaksi
+        ' 
+        DgvListTransaksi.AllowUserToAddRows = False
+        DgvListTransaksi.AllowUserToDeleteRows = False
+        DgvListTransaksi.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        DgvListTransaksi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvListTransaksi.Columns.AddRange(New DataGridViewColumn() {colID, colNama, colHarga, colJumlah, colSubtotal})
+        DgvListTransaksi.Location = New Point(15, 28)
+        DgvListTransaksi.Name = "DgvListTransaksi"
+        DgvListTransaksi.ReadOnly = True
+        DgvListTransaksi.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        DgvListTransaksi.Size = New Size(787, 219)
+        DgvListTransaksi.TabIndex = 10
+        ' 
+        ' colID
+        ' 
+        colID.HeaderText = "ID Obat"
+        colID.Name = "colID"
+        colID.ReadOnly = True
+        colID.Width = 90
+        ' 
+        ' colNama
+        ' 
+        colNama.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        colNama.HeaderText = "Nama Obat"
+        colNama.Name = "colNama"
+        colNama.ReadOnly = True
+        ' 
+        ' colHarga
+        ' 
+        colHarga.HeaderText = "Harga"
+        colHarga.Name = "colHarga"
+        colHarga.ReadOnly = True
+        colHarga.Width = 120
+        ' 
+        ' colJumlah
+        ' 
+        colJumlah.HeaderText = "Jumlah"
+        colJumlah.Name = "colJumlah"
+        colJumlah.ReadOnly = True
+        colJumlah.Width = 80
+        ' 
+        ' colSubtotal
+        ' 
+        colSubtotal.HeaderText = "Subtotal"
+        colSubtotal.Name = "colSubtotal"
+        colSubtotal.ReadOnly = True
+        colSubtotal.Width = 130
+        ' 
+        ' GbInputObat
+        ' 
+        GbInputObat.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        GbInputObat.Controls.Add(Label1)
+        GbInputObat.Controls.Add(TxtHarga)
+        GbInputObat.Controls.Add(BtnCari)
+        GbInputObat.Controls.Add(LblLabelNamaObat)
+        GbInputObat.Controls.Add(LblLabelIDObat)
+        GbInputObat.Controls.Add(TxtIDObat)
+        GbInputObat.Controls.Add(TxtNamaObat)
+        GbInputObat.Location = New Point(12, 12)
+        GbInputObat.Name = "GbInputObat"
+        GbInputObat.Size = New Size(818, 73)
+        GbInputObat.TabIndex = 0
+        GbInputObat.TabStop = False
+        GbInputObat.Text = "Input Obat"
+        ' 
+        ' BtnCari
+        ' 
+        BtnCari.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        BtnCari.FlatStyle = FlatStyle.Flat
+        BtnCari.Location = New Point(485, 30)
+        BtnCari.Name = "BtnCari"
+        BtnCari.Size = New Size(54, 27)
+        BtnCari.TabIndex = 9
+        BtnCari.Text = "Cari"
+        BtnCari.UseVisualStyleBackColor = True
+        ' 
+        ' LblLabelJumlah
+        ' 
+        LblLabelJumlah.AutoSize = True
+        LblLabelJumlah.Location = New Point(164, 34)
+        LblLabelJumlah.Name = "LblLabelJumlah"
+        LblLabelJumlah.Size = New Size(48, 15)
+        LblLabelJumlah.TabIndex = 8
+        LblLabelJumlah.Text = "Jumlah:"
+        ' 
+        ' LblLabelNamaObat
+        ' 
+        LblLabelNamaObat.AutoSize = True
+        LblLabelNamaObat.Location = New Point(242, 36)
+        LblLabelNamaObat.Name = "LblLabelNamaObat"
+        LblLabelNamaObat.Size = New Size(71, 15)
+        LblLabelNamaObat.TabIndex = 6
+        LblLabelNamaObat.Text = "Nama Obat:"
+        ' 
+        ' LblLabelIDObat
+        ' 
+        LblLabelIDObat.AutoSize = True
+        LblLabelIDObat.Location = New Point(15, 34)
+        LblLabelIDObat.Name = "LblLabelIDObat"
+        LblLabelIDObat.Size = New Size(50, 15)
+        LblLabelIDObat.TabIndex = 5
+        LblLabelIDObat.Text = "ID Obat:"
+        ' 
+        ' GbAksi
+        ' 
+        GbAksi.Controls.Add(BtnSimpan)
+        GbAksi.Controls.Add(BtnBatal)
+        GbAksi.Controls.Add(BtnHapusItem)
+        GbAksi.Controls.Add(BtnKeluar)
+        GbAksi.Location = New Point(12, 91)
+        GbAksi.Name = "GbAksi"
+        GbAksi.Size = New Size(401, 71)
+        GbAksi.TabIndex = 1
+        GbAksi.TabStop = False
+        GbAksi.Text = "Aksi Transaksi"
+        ' 
+        ' GbKeranjang
+        ' 
+        GbKeranjang.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        GbKeranjang.Controls.Add(DgvListTransaksi)
+        GbKeranjang.Location = New Point(12, 180)
+        GbKeranjang.Name = "GbKeranjang"
+        GbKeranjang.Size = New Size(818, 261)
+        GbKeranjang.TabIndex = 2
+        GbKeranjang.TabStop = False
+        GbKeranjang.Text = "Keranjang Belanja"
+        ' 
+        ' LblLabelTotal
+        ' 
+        LblLabelTotal.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        LblLabelTotal.AutoSize = True
+        LblLabelTotal.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        LblLabelTotal.Location = New Point(413, 461)
+        LblLabelTotal.Name = "LblLabelTotal"
+        LblLabelTotal.Size = New Size(114, 21)
+        LblLabelTotal.TabIndex = 11
+        LblLabelTotal.Text = "TOTAL BAYAR:"
+        ' 
+        ' GroupBox1
+        ' 
+        GroupBox1.Controls.Add(LblLabelJumlah)
+        GroupBox1.Controls.Add(BtnTambah)
+        GroupBox1.Controls.Add(TxtJumlah)
+        GroupBox1.Location = New Point(429, 91)
+        GroupBox1.Name = "GroupBox1"
+        GroupBox1.Size = New Size(401, 71)
+        GroupBox1.TabIndex = 9
+        GroupBox1.TabStop = False
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Location = New Point(569, 35)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(42, 15)
+        Label1.TabIndex = 11
+        Label1.Text = "Harga:"
+        ' 
+        ' TxtHarga
+        ' 
+        TxtHarga.Location = New Point(622, 31)
+        TxtHarga.Name = "TxtHarga"
+        TxtHarga.Size = New Size(180, 23)
+        TxtHarga.TabIndex = 10
+        ' 
+        ' Transaksi
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(842, 497)
+        Controls.Add(GroupBox1)
+        Controls.Add(LblLabelTotal)
+        Controls.Add(GbKeranjang)
+        Controls.Add(GbAksi)
+        Controls.Add(GbInputObat)
+        Controls.Add(LblTotalBayar)
+        MaximizeBox = False
+        MinimumSize = New Size(858, 536)
+        Name = "Transaksi"
+        StartPosition = FormStartPosition.CenterParent
+        Text = "Transaksi - Kasir Apotek"
+        CType(DgvListTransaksi, ComponentModel.ISupportInitialize).EndInit()
+        GbInputObat.ResumeLayout(False)
+        GbInputObat.PerformLayout()
+        GbAksi.ResumeLayout(False)
+        GbKeranjang.ResumeLayout(False)
+        GroupBox1.ResumeLayout(False)
+        GroupBox1.PerformLayout()
+        ResumeLayout(False)
+        PerformLayout()
 
     End Sub
 
-    Friend WithEvents TxtIDTransaksi As TextBox
+    Friend WithEvents TxtIDObat As TextBox
     Friend WithEvents TxtNamaObat As TextBox
-    Friend WithEvents TxtHarga As TextBox
     Friend WithEvents TxtJumlah As TextBox
-    Friend WithEvents BtnTambahList As Button
-    Friend WithEvents BtnSimpanTransaksi As Button
+    Friend WithEvents BtnTambah As Button
+    Friend WithEvents BtnSimpan As Button
     Friend WithEvents BtnBatal As Button
-    Friend WithEvents BtnHapus As Button
+    Friend WithEvents BtnHapusItem As Button
     Friend WithEvents BtnKeluar As Button
     Friend WithEvents LblTotalBayar As Label
     Friend WithEvents DgvListTransaksi As DataGridView
@@ -330,10 +350,13 @@ Partial Class Transaksi
     Friend WithEvents colSubtotal As DataGridViewTextBoxColumn
     Friend WithEvents GbInputObat As GroupBox
     Friend WithEvents LblLabelJumlah As Label
-    Friend WithEvents LblLabelHarga As Label
     Friend WithEvents LblLabelNamaObat As Label
     Friend WithEvents LblLabelIDObat As Label
     Friend WithEvents GbAksi As GroupBox
     Friend WithEvents GbKeranjang As GroupBox
     Friend WithEvents LblLabelTotal As Label
+    Friend WithEvents BtnCari As Button
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TxtHarga As TextBox
 End Class
