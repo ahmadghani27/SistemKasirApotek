@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Register
+Partial Class ResetPassword
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -30,12 +30,14 @@ Partial Class Register
         Label3 = New Label()
         Label2 = New Label()
         Label1 = New Label()
+        TxtKonfirmasiPassword = New TextBox()
+        Label5 = New Label()
         SuspendLayout()
         ' 
         ' BtnKembali
         ' 
         BtnKembali.Font = New Font("Segoe UI", 12F)
-        BtnKembali.Location = New Point(418, 183)
+        BtnKembali.Location = New Point(418, 241)
         BtnKembali.Name = "BtnKembali"
         BtnKembali.Size = New Size(213, 38)
         BtnKembali.TabIndex = 16
@@ -45,7 +47,7 @@ Partial Class Register
         ' BtnReset
         ' 
         BtnReset.Font = New Font("Segoe UI", 12F)
-        BtnReset.Location = New Point(180, 183)
+        BtnReset.Location = New Point(180, 241)
         BtnReset.Name = "BtnReset"
         BtnReset.Size = New Size(218, 38)
         BtnReset.TabIndex = 15
@@ -55,7 +57,7 @@ Partial Class Register
         ' TxtPasswordBaru
         ' 
         TxtPasswordBaru.Font = New Font("Segoe UI", 12F)
-        TxtPasswordBaru.Location = New Point(298, 133)
+        TxtPasswordBaru.Location = New Point(315, 141)
         TxtPasswordBaru.Name = "TxtPasswordBaru"
         TxtPasswordBaru.Size = New Size(333, 29)
         TxtPasswordBaru.TabIndex = 14
@@ -63,7 +65,7 @@ Partial Class Register
         ' TxtUsername
         ' 
         TxtUsername.Font = New Font("Segoe UI", 12F)
-        TxtUsername.Location = New Point(298, 101)
+        TxtUsername.Location = New Point(315, 109)
         TxtUsername.Name = "TxtUsername"
         TxtUsername.Size = New Size(333, 29)
         TxtUsername.TabIndex = 13
@@ -72,7 +74,7 @@ Partial Class Register
         ' 
         Label4.AutoSize = True
         Label4.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label4.Location = New Point(180, 136)
+        Label4.Location = New Point(134, 144)
         Label4.Name = "Label4"
         Label4.Size = New Size(76, 21)
         Label4.TabIndex = 12
@@ -82,7 +84,7 @@ Partial Class Register
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(180, 104)
+        Label3.Location = New Point(134, 112)
         Label3.Name = "Label3"
         Label3.Size = New Size(81, 21)
         Label3.TabIndex = 11
@@ -108,11 +110,31 @@ Partial Class Register
         Label1.TabIndex = 9
         Label1.Text = "Sistem Administrasi Apotek Obat-Obatan"
         ' 
-        ' Register
+        ' TxtKonfirmasiPassword
+        ' 
+        TxtKonfirmasiPassword.Font = New Font("Segoe UI", 12F)
+        TxtKonfirmasiPassword.Location = New Point(315, 176)
+        TxtKonfirmasiPassword.Name = "TxtKonfirmasiPassword"
+        TxtKonfirmasiPassword.Size = New Size(333, 29)
+        TxtKonfirmasiPassword.TabIndex = 18
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label5.Location = New Point(134, 179)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(155, 21)
+        Label5.TabIndex = 17
+        Label5.Text = "Konfirmasi Password"
+        ' 
+        ' ResetPassword
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(TxtKonfirmasiPassword)
+        Controls.Add(Label5)
         Controls.Add(BtnKembali)
         Controls.Add(BtnReset)
         Controls.Add(TxtPasswordBaru)
@@ -121,7 +143,7 @@ Partial Class Register
         Controls.Add(Label3)
         Controls.Add(Label2)
         Controls.Add(Label1)
-        Name = "Register"
+        Name = "ResetPassword"
         Text = "Register"
         ResumeLayout(False)
         PerformLayout()
@@ -134,4 +156,6 @@ Partial Class Register
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents TxtKonfirmasiPassword As TextBox
+    Friend WithEvents Label5 As Label
 End Class

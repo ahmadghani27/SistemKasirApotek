@@ -3,213 +3,31 @@ Imports MySql.Data.MySqlClient
 
 Public Class Login
 
-    Private Sub BtnMasuk_Click(sender As Object, e As EventArgs) Handles BtnMasuk.Click
+    ' ... (Kode BtnMasuk_Click dan BtnKeluar_Click tetap sama) ...
+    ' ... (Saya tidak salin ulang agar tidak terlalu panjang) ...
 
-        ' 1. Validasi Input
-        If String.IsNullOrWhiteSpace(TxtUsername.Text) Then
-            MessageBox.Show("Username tidak boleh kosong.", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            TxtUsername.Focus()
-            Return
-        End If
-        If String.IsNullOrWhiteSpace(TxtPassword.Text) Then
-            MessageBox.Show("Password tidak boleh kosong.", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            TxtPassword.Focus()
-            Return
-        End If
+    ' ====================================================================
+    ' PERUBAHAN DI SINI
+    ' ====================================================================
 
-        ' --- Variabel untuk menyimpan hasil login ---
-        Dim loginBerhasil As Boolean = False
-        Dim userRole As String = ""
-        Dim namaPengguna As String = ""
-        ' ------------------------------------------
-
-        ' 2. Coba Buka Koneksi
-        If Koneksi.BukaKoneksi() = False Then
-            MessageBox.Show("Koneksi ke Database Gagal." & vbCrLf &
-                        "Pastikan XAMPP sudah berjalan dan nama database benar.",
-                        "Koneksi Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
-        ' 3. Proses Login
-        Try
-            Dim query As String = "SELECT role, nama FROM pengguna WHERE username = @user AND pass = @pass"
-            Using cmd As New MySqlCommand(query, Koneksi.conn)
-                cmd.Parameters.AddWithValue("@user", TxtUsername.Text)
-                cmd.Parameters.AddWithValue("@pass", TxtPassword.Text)
-
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    If reader.HasRows Then
-                        reader.Read()
-                        ' 4. Simpan hasilnya ke variabel, JANGAN buka form dulu
-                        loginBerhasil = True
-                        userRole = reader.GetString("role")
-                        namaPengguna = reader.GetString("nama")
-                    Else
-                        ' 7. Jika username atau password salah
-                        MessageBox.Show("Username atau Password salah.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End If
-                End Using ' <-- DataReader (reader) DITUTUP di sini
-            End Using ' <-- Command di-dispose di sini
-        Catch ex As Exception
-            ' 8. Jika terjadi error saat menjalankan query
-            MessageBox.Show("Terjadi kesalahan: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error
-                            )
-        Finally
-            ' 9. Selalu tutup koneksi
-            Koneksi.TutupKoneksi() ' <-- Koneksi DITUTUP di sini
-        End Try
-
-
-        ' 10. SETELAH KONEKSI & READER DITUTUP, baru kita buka form baru
-        If loginBerhasil Then
-            MessageBox.Show($"Selamat datang, {namaPengguna}!", "Login Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            If userRole = "Admin" Then
-                Dim frmDashboard As New DashBoard()
-                frmDashboard.Show()
-            ElseIf userRole = "Kasir" Then
-                Dim frmTransaksi As New Transaksi() ' Pastikan nama Form-nya "Transaksi"
-                frmTransaksi.Show()
-            Else
-                MessageBox.Show("Role Anda tidak dikenali.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-
-            ' Sembunyikan Form Login ini
-            Me.Hide()
-        End If
-
-    End Sub
-
-    ' Anda bisa tambahkan kode untuk BtnKeluar di sini
-    Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
-        ' Tampilkan konfirmasi sebelum keluar
-        Dim result = MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.Yes Then
-            Application.Exit()
-        End If
-    End Sub
-
-
-    ' Kode untuk BtnLupaPwd bisa ditambahkan nanti
     Private Sub BtnLupaPwd_Click(sender As Object, e As EventArgs) Handles BtnLupaPwd.Click
-
-        ' 1. Cek apakah username yang mau direset sudah diisi
-
-        If String.IsNullOrWhiteSpace(TxtUsername.Text) Then
-
-            MessageBox.Show("Silakan isi 'Username' akun yang ingin Anda reset passwordnya.", "Username Kosong", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-
-            TxtUsername.Focus()
-
-            Return
-
-        End If
-
-
-
-        Dim usernameYgDireset As String = TxtUsername.Text
-
-
-
-        ' 2. Minta password baru menggunakan "InputBox" (ini jawaban untuk "bisakah dibuat dalam msg box?")
-
-        ' Interaction.InputBox adalah pop-up bawaan VB untuk meminta input teks.
-
-        Dim passwordBaru As String = Interaction.InputBox($"Masukkan password BARU untuk akun '{usernameYgDireset}':", "Reset Password")
-
-
-
-        ' 3. Cek jika pengguna klik "Cancel" atau tidak mengisi apa-apa
-
-        If String.IsNullOrWhiteSpace(passwordBaru) Then
-
-            MessageBox.Show("Reset password dibatalkan.", "Dibatalkan", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            Return
-
-        End If
-
-
-
-        ' 4. Konfirmasi sekali lagi
-
-        Dim konfirmasi = MessageBox.Show($"Apakah Anda yakin ingin mengganti password untuk '{usernameYgDireset}'?", "Konfirmasi Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-
-
-        If konfirmasi = DialogResult.No Then
-
-            Return
-
-        End If
-
-
-
-        ' 5. Buka Koneksi dan jalankan query UPDATE
-
-        If Koneksi.BukaKoneksi() = False Then
-
-            MessageBox.Show("Koneksi ke Database Gagal.", "Koneksi Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-            Return
-
-        End If
-
-
-
-        Try
-
-            ' Ganti "pengguna" jika nama tabel Anda berbeda
-
-            Dim query As String = "UPDATE pengguna SET pass = @passBaru WHERE username = @userLama"
-
-
-
-            Using cmd As New MySqlCommand(query, Koneksi.conn)
-
-                ' Tambahkan parameter
-
-                cmd.Parameters.AddWithValue("@passBaru", passwordBaru)
-
-                cmd.Parameters.AddWithValue("@userLama", usernameYgDireset)
-
-
-
-                ' ExecuteNonQuery() digunakan untuk UPDATE/INSERT/DELETE
-
-                ' Ini mengembalikan jumlah baris yang terpengaruh
-
-                Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
-
-
-
-                If rowsAffected > 0 Then
-
-                    MessageBox.Show("Password berhasil direset! Silakan login dengan password baru Anda.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    TxtPassword.Clear() ' Bersihkan field password lama
-
-                Else
-
-                    MessageBox.Show($"Username '{usernameYgDireset}' tidak ditemukan di database.", "Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-                End If
-
-            End Using
-
-        Catch ex As Exception
-
-            MessageBox.Show("Terjadi kesalahan saat update: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-
-            Koneksi.TutupKoneksi()
-
-        End Try
-
+        ' 1. Ambil username dari TxtUsername di form login
+        Dim usernameYgAkanDireset As String = TxtUsername.Text
+
+        ' 2. Buat instance (objek) dari form ResetPassword
+        Dim frmReset As New ResetPassword()
+
+        ' 3. Kirim username ke form ResetPassword
+        '    (Kita akan buat properti publik di ResetPassword.vb)
+        frmReset.UsernameDariLogin = usernameYgAkanDireset
+
+        ' 4. Tampilkan form ResetPassword
+        '    Gunakan ShowDialog() agar form Login "terjeda"
+        '    menunggu form ResetPassword ditutup.
+        frmReset.ShowDialog()
+
+        ' 5. Logika UPDATE database sudah TIDAK ADA di sini lagi.
+        '    Semua pindah ke Form ResetPassword.
     End Sub
-
-
 
 End Class

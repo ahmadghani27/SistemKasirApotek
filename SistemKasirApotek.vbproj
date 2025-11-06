@@ -14,22 +14,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
 
-<ItemGroup>
-  <Compile Include="Transaksi.vb">
-    <SubType>Form</SubType>
-  </Compile>
-  <Compile Include="Transaksi.Designer.vb">
-    <DependentUpon>FormKasir.vb</DependentUpon>
-  </Compile>
-  <EmbeddedResource Include="Transaksi.resx">
-    <DependentUpon>FormKasir.vb</DependentUpon>
-  </EmbeddedResource>
-</ItemGroup>
-
-<ItemGroup>
-  <PackageReference Include="MySql.Data" Version="9.5.0" />
-</ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.5.0" />
   </ItemGroup>
