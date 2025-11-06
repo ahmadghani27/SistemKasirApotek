@@ -40,8 +40,8 @@ Partial Class ResetPassword
         BtnKembali.Location = New Point(418, 241)
         BtnKembali.Name = "BtnKembali"
         BtnKembali.Size = New Size(213, 38)
-        BtnKembali.TabIndex = 16
-        BtnKembali.Text = "Reset"
+        BtnKembali.TabIndex = 20
+        BtnKembali.Text = "Kembali"
         BtnKembali.UseVisualStyleBackColor = True
         ' 
         ' BtnReset
@@ -50,8 +50,8 @@ Partial Class ResetPassword
         BtnReset.Location = New Point(180, 241)
         BtnReset.Name = "BtnReset"
         BtnReset.Size = New Size(218, 38)
-        BtnReset.TabIndex = 15
-        BtnReset.Text = "Kembali"
+        BtnReset.TabIndex = 19
+        BtnReset.Text = "Reset"
         BtnReset.UseVisualStyleBackColor = True
         ' 
         ' TxtPasswordBaru
