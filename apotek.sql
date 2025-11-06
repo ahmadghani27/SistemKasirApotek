@@ -33,8 +33,7 @@ CREATE TABLE `detail_transaksi` (
   `id_obat` varchar(10) NOT NULL,
   `jumlah_beli` int(11) NOT NULL,
   `harga_satuan` int(11) NOT NULL,
-  `sub_total` int(11) NOT NULL,
-  `tgl_transaksi` datetime NOT NULL DEFAULT current_timestamp()
+  `sub_total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
