@@ -40,9 +40,9 @@ CREATE TABLE `detail_transaksi` (
 -- Dumping data for table `detail_transaksi`
 --
 
-INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah_beli`, `harga_satuan`, `sub_total`, `tgl_transaksi`) VALUES
-(1, 'T001', 'B001', 3, 8000, 16000, '2025-11-06 08:47:21'),
-(2, 'T001', 'B002', 1, 6000, 6000, '2025-11-06 08:47:21');
+INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah_beli`, `harga_satuan`, `sub_total`) VALUES
+(1, 'T001', 'B001', 3, 8000, 16000),
+(2, 'T001', 'B002', 1, 6000, 6000);
 
 -- --------------------------------------------------------
 
