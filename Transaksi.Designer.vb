@@ -38,16 +38,18 @@ Partial Class Transaksi
         colJumlah = New DataGridViewTextBoxColumn()
         colSubtotal = New DataGridViewTextBoxColumn()
         GbInputObat = New GroupBox()
+        Label1 = New Label()
+        TxtHarga = New TextBox()
         BtnCari = New Button()
-        LblLabelJumlah = New Label()
         LblLabelNamaObat = New Label()
         LblLabelIDObat = New Label()
+        LblLabelJumlah = New Label()
         GbAksi = New GroupBox()
         GbKeranjang = New GroupBox()
         LblLabelTotal = New Label()
         GroupBox1 = New GroupBox()
-        Label1 = New Label()
-        TxtHarga = New TextBox()
+        BtnLihatStok = New Button()
+        BtnRiwayat = New Button()
         CType(DgvListTransaksi, ComponentModel.ISupportInitialize).BeginInit()
         GbInputObat.SuspendLayout()
         GbAksi.SuspendLayout()
@@ -205,6 +207,22 @@ Partial Class Transaksi
         GbInputObat.TabStop = False
         GbInputObat.Text = "Input Obat"
         ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Location = New Point(569, 35)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(42, 15)
+        Label1.TabIndex = 11
+        Label1.Text = "Harga:"
+        ' 
+        ' TxtHarga
+        ' 
+        TxtHarga.Location = New Point(622, 31)
+        TxtHarga.Name = "TxtHarga"
+        TxtHarga.Size = New Size(180, 23)
+        TxtHarga.TabIndex = 10
+        ' 
         ' BtnCari
         ' 
         BtnCari.Anchor = AnchorStyles.Top Or AnchorStyles.Right
@@ -215,15 +233,6 @@ Partial Class Transaksi
         BtnCari.TabIndex = 9
         BtnCari.Text = "Cari"
         BtnCari.UseVisualStyleBackColor = True
-        ' 
-        ' LblLabelJumlah
-        ' 
-        LblLabelJumlah.AutoSize = True
-        LblLabelJumlah.Location = New Point(164, 34)
-        LblLabelJumlah.Name = "LblLabelJumlah"
-        LblLabelJumlah.Size = New Size(48, 15)
-        LblLabelJumlah.TabIndex = 8
-        LblLabelJumlah.Text = "Jumlah:"
         ' 
         ' LblLabelNamaObat
         ' 
@@ -242,6 +251,15 @@ Partial Class Transaksi
         LblLabelIDObat.Size = New Size(50, 15)
         LblLabelIDObat.TabIndex = 5
         LblLabelIDObat.Text = "ID Obat:"
+        ' 
+        ' LblLabelJumlah
+        ' 
+        LblLabelJumlah.AutoSize = True
+        LblLabelJumlah.Location = New Point(164, 34)
+        LblLabelJumlah.Name = "LblLabelJumlah"
+        LblLabelJumlah.Size = New Size(48, 15)
+        LblLabelJumlah.TabIndex = 8
+        LblLabelJumlah.Text = "Jumlah:"
         ' 
         ' GbAksi
         ' 
@@ -289,27 +307,33 @@ Partial Class Transaksi
         GroupBox1.TabIndex = 9
         GroupBox1.TabStop = False
         ' 
-        ' Label1
+        ' BtnLihatStok
         ' 
-        Label1.AutoSize = True
-        Label1.Location = New Point(569, 35)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(42, 15)
-        Label1.TabIndex = 11
-        Label1.Text = "Harga:"
+        BtnLihatStok.FlatStyle = FlatStyle.Flat
+        BtnLihatStok.Location = New Point(27, 455)
+        BtnLihatStok.Name = "BtnLihatStok"
+        BtnLihatStok.Size = New Size(106, 27)
+        BtnLihatStok.TabIndex = 12
+        BtnLihatStok.Text = "Lihat Stok"
+        BtnLihatStok.UseVisualStyleBackColor = True
         ' 
-        ' TxtHarga
+        ' BtnRiwayat
         ' 
-        TxtHarga.Location = New Point(622, 31)
-        TxtHarga.Name = "TxtHarga"
-        TxtHarga.Size = New Size(180, 23)
-        TxtHarga.TabIndex = 10
+        BtnRiwayat.FlatStyle = FlatStyle.Flat
+        BtnRiwayat.Location = New Point(139, 455)
+        BtnRiwayat.Name = "BtnRiwayat"
+        BtnRiwayat.Size = New Size(106, 27)
+        BtnRiwayat.TabIndex = 13
+        BtnRiwayat.Text = "Riwayat"
+        BtnRiwayat.UseVisualStyleBackColor = True
         ' 
         ' Transaksi
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(842, 497)
+        Controls.Add(BtnRiwayat)
+        Controls.Add(BtnLihatStok)
         Controls.Add(GroupBox1)
         Controls.Add(LblLabelTotal)
         Controls.Add(GbKeranjang)
@@ -359,4 +383,6 @@ Partial Class Transaksi
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label1 As Label
     Friend WithEvents TxtHarga As TextBox
+    Friend WithEvents BtnLihatStok As Button
+    Friend WithEvents BtnRiwayat As Button
 End Class

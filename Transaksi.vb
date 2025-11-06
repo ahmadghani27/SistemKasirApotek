@@ -13,9 +13,11 @@ Public Class Transaksi
         Public Property Subtotal As Decimal
     End Class
 
-    ' --- 2. "ARRAY" MODERN (List) ---
-    ' Ini adalah "keranjang belanja" Anda, menggantikan array 2D
-    Private keranjang As New List(Of TransaksiItem)
+    ' --- 2. "ARRAY" KLASIK (UBAHAN) ---
+    ' Ini adalah "keranjang belanja" Anda, menggunakan array klasik
+    Private keranjang() As TransaksiItem ' Deklarasi array
+    Private jumlahItemDiKeranjang As Integer = 0 ' Pelacak jumlah item
+    Private Const UKURAN_AWAL_KERANJANG As Integer = 10 ' Kapasitas awal
 
     ' --- 3. VARIABEL BANTU ---
     ' Untuk menyimpan ID dan Nama dari hasil pencarian
@@ -26,15 +28,16 @@ Public Class Transaksi
     ' Ganti '1' dengan ID pengguna yang login
     Public IDPenggunaLogin As Integer = 1
 
-    ' --- 4. FORM LOAD (DIPERBAIKI) ---
+    ' --- 4. FORM LOAD (DIPERBAIKI + UBAHAN) ---
     Private Sub Transaksi_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' --- UBAHAN: Inisialisasi Array Klasik ---
+        ' Kita harus memberi ukuran awal pada array kita
+        ReDim keranjang(UKURAN_AWAL_KERANJANG - 1)
+        jumlahItemDiKeranjang = 0
+        ' --- AKHIR UBAHAN ---
+
         ' Panggil Sub baru untuk mengatur DGV
         SetupDataGridView()
-
-        ' --- DIHAPUS ---
-        ' TxtIDTransaksi.Text = "TRX-" & DateTime.Now.ToString("yyyyMMddHHmmss")
-        ' TxtIDTransaksi.ReadOnly = True
-        ' --- AKHIR HAPUS ---
 
         ' Aktifkan input obat
         TxtIDObat.Enabled = True
@@ -56,7 +59,6 @@ Public Class Transaksi
         ' Penting: Matikan auto-generate kolom
         DgvListTransaksi.AutoGenerateColumns = False
 
-
         ' Atur format tampilan (kode Anda sebelumnya, sudah bagus)
         colHarga.DefaultCellStyle.Format = "Rp #,##0"
         colSubtotal.DefaultCellStyle.Format = "Rp #,##0"
@@ -67,15 +69,12 @@ Public Class Transaksi
 
     ' --- 6. ALUR PENCARIAN (BARU) ---
     ' Ini adalah logika untuk tombol 'Cari'
-    ' (Di dalam Transaksi.vb)
-
+    ' (Logika ini TIDAK BERUBAH karena tidak menyentuh keranjang)
     Private Sub BtnCari_Click(sender As Object, e As EventArgs) Handles BtnCari.Click
         Dim kataKunci As String = TxtNamaObat.Text.Trim()
         ' (Validasi kataKunci...)
 
         Using frmCari As New FormHasilPencarian()
-
-            ' --- PERBAIKAN DI SINI ---
             ' 1. Panggil fungsi MuatData DAN simpan hasilnya (True/False)
             Dim dataDitemukan As Boolean = frmCari.MuatData(kataKunci)
 
@@ -98,17 +97,14 @@ Public Class Transaksi
 
             Else
                 ' 4. Jika dataTIDAKditemukan, jangan lakukan apa-apa.
-                '    MessageBox "Obat tidak ditemukan" sudah ditampilkan oleh MuatData.
                 TxtNamaObat.Focus()
                 TxtNamaObat.SelectAll()
             End If
-            ' --- AKHIR PERBAIKAN ---
-
         End Using
     End Sub
 
-    ' --- 7. BTN TAMBAH (DIPERBAIKI TOTAL) ---
-    ' Menggunakan data hasil pencarian dan 'List'
+    ' --- 7. BTN TAMBAH (UBAHAN TOTAL) ---
+    ' Menggunakan data hasil pencarian dan Array Klasik
     Private Sub BtnTambah_Click(sender As Object, e As EventArgs) Handles BtnTambah.Click
         ' Validasi 1: Pastikan obat sudah dipilih
         If String.IsNullOrWhiteSpace(_selectedObatID) Then
@@ -125,12 +121,20 @@ Public Class Transaksi
             Return
         End If
 
-        ' Validasi 3: Cek duplikat di keranjang
-        If keranjang.Any(Function(item) item.IDObat = _selectedObatID) Then
+        ' --- UBAHAN: Validasi 3 (Cek duplikat manual) ---
+        Dim duplikatDitemukan As Boolean = False
+        For i As Integer = 0 To jumlahItemDiKeranjang - 1
+            If keranjang(i) IsNot Nothing AndAlso keranjang(i).IDObat = _selectedObatID Then
+                duplikatDitemukan = True
+                Exit For
+            End If
+        Next
+        If duplikatDitemukan Then
             MessageBox.Show("Obat ini sudah ada di keranjang.", "Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ClearInputsObat() ' Bersihkan input obat
             Return
         End If
+        ' --- AKHIR UBAHAN ---
 
         ' Buat item baru
         Dim itemBaru As New TransaksiItem With {
@@ -141,8 +145,18 @@ Public Class Transaksi
             .Subtotal = _selectedObatHarga * jumlah
         }
 
-        ' Tambahkan ke "array" List
-        keranjang.Add(itemBaru)
+        ' --- UBAHAN: Tambahkan ke Array Klasik ---
+        ' Cek apakah array penuh?
+        If jumlahItemDiKeranjang = keranjang.Length Then
+            ' Jika penuh, gandakan ukuran array.
+            ReDim Preserve keranjang((keranjang.Length * 2) - 1)
+        End If
+
+        ' Tambahkan item baru ke slot berikutnya yang tersedia
+        keranjang(jumlahItemDiKeranjang) = itemBaru
+        ' Tambah pelacak jumlah item
+        jumlahItemDiKeranjang += 1
+        ' --- AKHIR UBAHAN ---
 
         ' Perbarui DGV, Total, dan bersihkan input
         RefreshGrid()
@@ -150,7 +164,7 @@ Public Class Transaksi
         ClearInputsObat()
     End Sub
 
-    ' --- 8. BTN HAPUS (DIPERBAIKI TOTAL) ---
+    ' --- 8. BTN HAPUS (UBAHAN TOTAL) ---
     ' Memperbaiki Bug Sinkronisasi
     Private Sub BtnHapusItem_Click(sender As Object, e As EventArgs) Handles BtnHapusItem.Click
         If DgvListTransaksi.SelectedRows.Count = 0 Then
@@ -159,37 +173,58 @@ Public Class Transaksi
         End If
 
         ' Dapatkan index baris yang dipilih
-        Dim selectedIndex As Integer = DgvListTransaksi.SelectedRows(0).Index
+        Dim selectedIndex = DgvListTransaksi.SelectedRows(0).Index
 
-        ' HAPUS DARI 'List' (Sumber Data)
-        ' Ini adalah perbaikan bug yang kritis
-        keranjang.RemoveAt(selectedIndex)
+        ' --- UBAHAN: Hapus dari Array Klasik ---
+        ' Kita harus "menggeser" semua item setelahnya ke kiri.
+        For i = selectedIndex To jumlahItemDiKeranjang - 2
+            ' Timpa item saat ini dengan item berikutnya
+            keranjang(i) = keranjang(i + 1)
+        Next
+
+        ' Kosongkan slot terakhir (yang sekarang duplikat)
+        If jumlahItemDiKeranjang > 0 Then
+            keranjang(jumlahItemDiKeranjang - 1) = Nothing
+        End If
+
+        ' Kurangi pelacak jumlah item
+        jumlahItemDiKeranjang -= 1
+        ' --- AKHIR UBAHAN ---
 
         ' Perbarui DGV, Total
         RefreshGrid()
         UpdateTotalBayar()
     End Sub
 
-    ' --- 9. BTN BATAL (DIPERBAIKI) ---
-    ' Menggunakan 'List'
+    ' --- 9. BTN BATAL (UBAHAN) ---
+    ' Menggunakan Array Klasik
     Private Sub BtnBatal_Click(sender As Object, e As EventArgs) Handles BtnBatal.Click
-        If keranjang.Count = 0 Then Return
+        ' --- UBAHAN: Cek jumlah item manual ---
+        If jumlahItemDiKeranjang = 0 Then Return
+        ' --- AKHIR UBAHAN ---
 
         If MessageBox.Show("Batalkan transaksi dan kosongkan keranjang?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            keranjang.Clear()
+            ' --- UBAHAN: Mengosongkan Array Klasik ---
+            jumlahItemDiKeranjang = 0
+            Array.Clear(keranjang, 0, keranjang.Length)
+            ' --- AKHIR UBAHAN ---
+
             RefreshGrid()
             UpdateTotalBayar()
             ClearInputsObat()
         End If
     End Sub
 
-    ' --- 10. BTN SIMPAN (DIPERBAIKI TOTAL) ---
-    ' Menggunakan 'List' dan Transaksi Database
+    ' --- 10. BTN SIMPAN (UBAHAN TOTAL) ---
+    ' Menggunakan Array Klasik dan Transaksi Database
     Private Sub BtnSimpan_Click(sender As Object, e As EventArgs) Handles BtnSimpan.Click
-        If keranjang.Count = 0 Then
+        ' --- UBAHAN: Cek jumlah item manual ---
+        If jumlahItemDiKeranjang = 0 Then
             MessageBox.Show("Keranjang belanja masih kosong.", "Gagal Simpan", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+        ' --- AKHIR UBAHAN ---
+
         If MessageBox.Show("Simpan transaksi ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
             Return
         End If
@@ -204,54 +239,60 @@ Public Class Transaksi
         cmd.Transaction = dbTransaction
 
         Try
-            ' --- PERUBAHAN UTAMA DI SINI ---
-            ' 1. Hasilkan ID Transaksi SEKARANG (saat mau simpan)
-            '    Formatnya bisa Anda ubah, misal: "TRT-"
+            ' 1. Hasilkan ID Transaksi SEKARANG
             Dim idTransaksi As String = "TRX-" & DateTime.Now.ToString("yyyyMMddHHmmssfff")
-            ' --- AKHIR PERUBAHAN ---
 
-            ' 2. Hitung Total Bayar dari 'List'
-            Dim totalBayar As Decimal = keranjang.Sum(Function(item) item.Subtotal)
+            ' --- UBAHAN: Hitung Total Bayar manual ---
+            Dim totalBayar As Decimal = 0
+            For i As Integer = 0 To jumlahItemDiKeranjang - 1
+                totalBayar += keranjang(i).Subtotal
+            Next
+            ' --- AKHIR UBAHAN ---
 
             ' 3. Simpan ke Tabel Master `transaksi`
             cmd.CommandText = "INSERT INTO transaksi (id_transaksi, id_pengguna, total_bayar, tgl_transaksi) VALUES (@id, @idPengguna, @total, NOW())"
-            cmd.Parameters.AddWithValue("@id", idTransaksi) ' <-- Pakai ID yang baru dibuat
+            cmd.Parameters.AddWithValue("@id", idTransaksi)
             cmd.Parameters.AddWithValue("@idPengguna", IDPenggunaLogin)
             cmd.Parameters.AddWithValue("@total", totalBayar)
             cmd.ExecuteNonQuery()
 
-            ' 4. Loop 'List' (keranjang) dan simpan ke detail & update stok
-            For Each item As TransaksiItem In keranjang
+            ' --- UBAHAN: Loop Array Klasik ---
+            For i As Integer = 0 To jumlahItemDiKeranjang - 1
+                Dim item As TransaksiItem = keranjang(i)
+
                 ' 4a. Simpan ke detail_transaksi
                 cmd.Parameters.Clear()
                 cmd.CommandText = "INSERT INTO detail_transaksi (id_transaksi, id_obat, jumlah_beli, harga_satuan, sub_total) VALUES (@idTrx, @idObat, @jml, @harga, @sub)"
-                cmd.Parameters.AddWithValue("@idTrx", idTransaksi) ' <-- Pakai ID yang sama
+                cmd.Parameters.AddWithValue("@idTrx", idTransaksi)
                 cmd.Parameters.AddWithValue("@idObat", item.IDObat)
                 cmd.Parameters.AddWithValue("@jml", item.Jumlah)
                 cmd.Parameters.AddWithValue("@harga", item.Harga)
                 cmd.Parameters.AddWithValue("@sub", item.Subtotal)
                 cmd.ExecuteNonQuery()
 
-                ' 4b. Kurangi stok (logika tetap sama)
+                ' 4b. Kurangi stok
                 cmd.Parameters.Clear()
                 cmd.CommandText = "UPDATE obat SET stock = stock - @jmlBeli WHERE id_obat = @idObat"
                 cmd.Parameters.AddWithValue("@jmlBeli", item.Jumlah)
                 cmd.Parameters.AddWithValue("@idObat", item.IDObat)
                 cmd.ExecuteNonQuery()
             Next
+            ' --- AKHIR UBAHAN ---
 
             ' 5. Commit transaksi
             dbTransaction.Commit()
 
-            ' Tampilkan ID yang baru dibuat di pesan sukses
             MessageBox.Show($"Transaksi {idTransaksi} berhasil disimpan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' 6. Bersihkan form untuk transaksi berikutnya
-            keranjang.Clear()
+            ' 6. Bersihkan form
+            ' --- UBAHAN: Mengosongkan Array Klasik ---
+            jumlahItemDiKeranjang = 0
+            Array.Clear(keranjang, 0, keranjang.Length)
+            ' --- AKHIR UBAHAN ---
+
             RefreshGrid()
             UpdateTotalBayar()
             ClearInputsObat()
-            ' Tidak perlu buat ID baru lagi
 
         Catch ex As Exception
             dbTransaction.Rollback()
@@ -262,17 +303,19 @@ Public Class Transaksi
     End Sub
 
     Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
-        If keranjang.Count > 0 Then
+        ' --- UBAHAN: Cek jumlah item manual ---
+        If jumlahItemDiKeranjang > 0 Then
             If MessageBox.Show("Ada item di keranjang. Yakin ingin keluar?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
                 Return
             End If
         End If
+        ' --- AKHIR UBAHAN ---
         Close()
     End Sub
 
-    ' --- 11. FUNGSI BANTU (DIPERBAIKI) ---
+    ' --- 11. FUNGSI BANTU (UBAHAN) ---
 
-    ' Fungsi ParseDecimalSafe (Kode Anda sudah bagus)
+    ' Fungsi ParseDecimalSafe (Tidak Berubah)
     Private Function ParseDecimalSafe(text As String, ByRef value As Decimal) As Boolean
         If String.IsNullOrWhiteSpace(text) Then
             value = 0D
@@ -282,32 +325,40 @@ Public Class Transaksi
         Return Decimal.TryParse(cleaned, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.InvariantCulture, value)
     End Function
 
-    ' Memperbarui DGV dari 'List'
-    ' Memperbarui DGV dari 'List' (MODE MANUAL / UNBOUND)
+    ' Memperbarui DGV dari Array Klasik (MODE MANUAL / UNBOUND)
     Private Sub RefreshGrid()
         ' 1. Kosongkan semua baris yang ada di DGV
         DgvListTransaksi.Rows.Clear()
 
-        ' 2. Loop 'List' keranjang Anda
-        For Each item As TransaksiItem In keranjang
+        ' --- UBAHAN: Loop Array Klasik ---
+        ' 2. Loop Array keranjang Anda
+        For i As Integer = 0 To jumlahItemDiKeranjang - 1
+            Dim item As TransaksiItem = keranjang(i)
+
             ' 3. Tambahkan satu per satu baris ke DGV
             DgvListTransaksi.Rows.Add(
-            item.IDObat,
-            item.NamaObat,
-            item.Harga,
-            item.Jumlah,
-            item.Subtotal
-        )
+                item.IDObat,
+                item.NamaObat,
+                item.Harga,
+                item.Jumlah,
+                item.Subtotal
+            )
         Next
+        ' --- AKHIR UBAHAN ---
     End Sub
 
-    ' Memperbarui Total dari 'List'
+    ' Memperbarui Total dari Array Klasik
     Private Sub UpdateTotalBayar()
-        Dim total As Decimal = keranjang.Sum(Function(item) item.Subtotal)
+        ' --- UBAHAN: Hitung Total Bayar manual ---
+        Dim total As Decimal = 0
+        For i As Integer = 0 To jumlahItemDiKeranjang - 1
+            total += keranjang(i).Subtotal
+        Next
         LblTotalBayar.Text = "Rp " & total.ToString("N0")
+        ' --- AKHIR UBAHAN ---
     End Sub
 
-    ' Membersihkan input obat
+    ' Membersihkan input obat (Tidak Berubah)
     Private Sub ClearInputsObat()
         TxtIDObat.Clear() ' TxtCariObat
         TxtNamaObat.Clear()
@@ -320,6 +371,20 @@ Public Class Transaksi
     End Sub
 
     Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+        ' (Kosong)
+    End Sub
 
+    Private Sub BtnRiwayat_Click(sender As Object, e As EventArgs) Handles BtnRiwayat.Click
+        ' Membuat objek form riwayat
+        Dim frmRiwayat As New Riwayat_Transaksi()
+        ' Menampilkan form riwayat
+        frmRiwayat.Show()
+    End Sub
+
+    Private Sub BtnLihatStok_Click(sender As Object, e As EventArgs) Handles BtnLihatStok.Click
+        ' Membuat objek form lihat stok
+        Dim frmStok As New Lihat_Stok()
+        ' Menampilkan form lihat stok
+        frmStok.Show()
     End Sub
 End Class
