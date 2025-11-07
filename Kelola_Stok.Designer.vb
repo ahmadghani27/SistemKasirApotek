@@ -43,6 +43,7 @@ Partial Class Kelola_Stok
         BtnHapus = New Button()
         BtnBersih = New Button()
         DgvObat = New DataGridView()
+        BtnKeluar = New Button()
         PanelHeader.SuspendLayout()
         PanelFormCard.SuspendLayout()
         PanelActions.SuspendLayout()
@@ -52,6 +53,7 @@ Partial Class Kelola_Stok
         ' PanelHeader
         ' 
         PanelHeader.BackColor = Color.FromArgb(CByte(37), CByte(99), CByte(235))
+        PanelHeader.Controls.Add(BtnKeluar)
         PanelHeader.Controls.Add(LblTitle)
         PanelHeader.Dock = DockStyle.Top
         PanelHeader.Location = New Point(0, 0)
@@ -61,7 +63,7 @@ Partial Class Kelola_Stok
         ' 
         ' LblTitle
         ' 
-        LblTitle.Font = New Font("Segoe UI", 16.0F, FontStyle.Bold)
+        LblTitle.Font = New Font("Segoe UI", 16F, FontStyle.Bold)
         LblTitle.ForeColor = Color.White
         LblTitle.Location = New Point(12, 12)
         LblTitle.Name = "LblTitle"
@@ -94,7 +96,7 @@ Partial Class Kelola_Stok
         ' LblID
         ' 
         LblID.AutoSize = True
-        LblID.Font = New Font("Segoe UI", 9.0F)
+        LblID.Font = New Font("Segoe UI", 9F)
         LblID.ForeColor = Color.DarkSlateGray
         LblID.Location = New Point(16, 16)
         LblID.Name = "LblID"
@@ -112,7 +114,7 @@ Partial Class Kelola_Stok
         ' LblNama
         ' 
         LblNama.AutoSize = True
-        LblNama.Font = New Font("Segoe UI", 9.0F)
+        LblNama.Font = New Font("Segoe UI", 9F)
         LblNama.ForeColor = Color.DarkSlateGray
         LblNama.Location = New Point(16, 72)
         LblNama.Name = "LblNama"
@@ -130,7 +132,7 @@ Partial Class Kelola_Stok
         ' LblJenis
         ' 
         LblJenis.AutoSize = True
-        LblJenis.Font = New Font("Segoe UI", 9.0F)
+        LblJenis.Font = New Font("Segoe UI", 9F)
         LblJenis.ForeColor = Color.DarkSlateGray
         LblJenis.Location = New Point(16, 128)
         LblJenis.Name = "LblJenis"
@@ -150,7 +152,7 @@ Partial Class Kelola_Stok
         ' LblHarga
         ' 
         LblHarga.AutoSize = True
-        LblHarga.Font = New Font("Segoe UI", 9.0F)
+        LblHarga.Font = New Font("Segoe UI", 9F)
         LblHarga.ForeColor = Color.DarkSlateGray
         LblHarga.Location = New Point(212, 128)
         LblHarga.Name = "LblHarga"
@@ -168,7 +170,7 @@ Partial Class Kelola_Stok
         ' LblStok
         ' 
         LblStok.AutoSize = True
-        LblStok.Font = New Font("Segoe UI", 9.0F)
+        LblStok.Font = New Font("Segoe UI", 9F)
         LblStok.ForeColor = Color.DarkSlateGray
         LblStok.Location = New Point(16, 184)
         LblStok.Name = "LblStok"
@@ -186,7 +188,7 @@ Partial Class Kelola_Stok
         ' LblKadaluarsa
         ' 
         LblKadaluarsa.AutoSize = True
-        LblKadaluarsa.Font = New Font("Segoe UI", 9.0F)
+        LblKadaluarsa.Font = New Font("Segoe UI", 9F)
         LblKadaluarsa.ForeColor = Color.DarkSlateGray
         LblKadaluarsa.Location = New Point(212, 184)
         LblKadaluarsa.Name = "LblKadaluarsa"
@@ -264,9 +266,18 @@ Partial Class Kelola_Stok
         DgvObat.Size = New Size(776, 240)
         DgvObat.TabIndex = 10
         ' 
+        ' BtnKeluar
+        ' 
+        BtnKeluar.Location = New Point(724, 12)
+        BtnKeluar.Name = "BtnKeluar"
+        BtnKeluar.Size = New Size(68, 40)
+        BtnKeluar.TabIndex = 3
+        BtnKeluar.Text = "Keluar"
+        BtnKeluar.UseVisualStyleBackColor = True
+        ' 
         ' Kelola_Stok
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(804, 640)
         Controls.Add(DgvObat)
@@ -306,4 +317,5 @@ Partial Class Kelola_Stok
     Friend WithEvents BtnHapus As Button
     Friend WithEvents BtnBersih As Button
     Friend WithEvents DgvObat As DataGridView
+    Friend WithEvents BtnKeluar As Button
 End Class
