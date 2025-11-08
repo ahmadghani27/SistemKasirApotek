@@ -37,7 +37,7 @@ Partial Class ResetPassword
         ' BtnKembali
         ' 
         BtnKembali.Font = New Font("Segoe UI", 12F)
-        BtnKembali.Location = New Point(418, 241)
+        BtnKembali.Location = New Point(211, 236)
         BtnKembali.Name = "BtnKembali"
         BtnKembali.Size = New Size(213, 38)
         BtnKembali.TabIndex = 20
@@ -47,7 +47,7 @@ Partial Class ResetPassword
         ' BtnReset
         ' 
         BtnReset.Font = New Font("Segoe UI", 12F)
-        BtnReset.Location = New Point(180, 241)
+        BtnReset.Location = New Point(430, 236)
         BtnReset.Name = "BtnReset"
         BtnReset.Size = New Size(218, 38)
         BtnReset.TabIndex = 19
