@@ -1,17 +1,15 @@
-﻿Public Class Lihat_Stok
+﻿' Impor library MySQL
+Imports MySql.Data.MySqlClient
+Imports System.Data
+
+Public Class Lihat_Stok
 
     Private Sub Lihat_Stok_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Atur format kolom agar angka terlihat rapi
-        ' Kolom Stok (rata tengah)
+        ' (Pastikan nama kolom ini sudah benar di desainer)
         DgvStokObat.Columns("ColStok").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-
-        ' --- TAMBAHAN ---
-        ' Kolom Kadaluarsa (rata tengah, format tanggal)
         DgvStokObat.Columns("ColKadaluarsa").DefaultCellStyle.Format = "dd MMM yyyy"
         DgvStokObat.Columns("ColKadaluarsa").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-        ' --- AKHIR TAMBAHAN ---
-
-        ' Kolom Harga (rata kanan, format mata uang)
         DgvStokObat.Columns("ColHarga").DefaultCellStyle.Format = "Rp #,##0"
         DgvStokObat.Columns("ColHarga").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
@@ -19,29 +17,56 @@
         LoadStok()
     End Sub
 
+    ''' <summary>
+    ''' Mengambil data dari tabel 'obat' dan menampilkannya di grid
+    ''' (DIUBAH UNTUK KONEKSI DATABASE)
+    ''' </summary>
     Private Sub LoadStok()
         ' Hapus data lama
         DgvStokObat.Rows.Clear()
 
-        ' --- TODO: GANTI BAGIAN INI DENGAN KODE DATABASE ANDA ---
-        ' Lakukan query ke database untuk mengambil semua data obat
-        ' CONTOH: "SELECT Kode_Obat, Nama_Obat, Kategori, Stok, Tgl_Kadaluarsa, Harga_Jual FROM Obat"
+        ' --- KODE DATABASE DIMULAI ---
+        Dim query As String = "SELECT id_obat, nama, jenis, stock, tgl_expired, harga FROM obat ORDER BY nama"
 
-        ' Ini adalah data dummy (contoh)
-        ' Saya tambahkan tanggal kadaluarsa (sebagai object Date)
-        DgvStokObat.Rows.Add("P001", "Paracetamol 500mg", "Obat Bebas", 100, New Date(2026, 12, 31), 5000)
-        DgvStokObat.Rows.Add("A001", "Amoxicillin 250mg", "Obat Keras", 50, New Date(2025, 11, 30), 15000) ' <-- SEGERA HABIS (KUNING)
-        DgvStokObat.Rows.Add("V001", "Vitamin C IPI", "Vitamin", 200, New Date(2025, 10, 1), 8000)     ' <-- SUDAH HABIS (MERAH)
-        DgvStokObat.Rows.Add("B001", "Obat Batuk Hitam", "Obat Bebas", 75, New Date(2027, 5, 1), 20000)
-        ' --- AKHIR BAGIAN DATABASE ---
+        If Not Koneksi.BukaKoneksi() Then
+            MessageBox.Show("Gagal terhubung ke database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
 
-        ' --- TAMBAHAN ---
+        Dim da As New MySqlDataAdapter(query, Koneksi.conn)
+        Dim dt As New DataTable()
+
+        Try
+            ' 1. Ambil semua data obat ke DataTable
+            da.Fill(dt)
+
+        Catch ex As Exception
+            MessageBox.Show("Terjadi kesalahan saat memuat data obat: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' 2. Selalu tutup koneksi setelah data diambil
+            Koneksi.TutupKoneksi()
+        End Try
+
+        ' 3. Loop data dari DataTable dan masukkan ke DGV secara manual
+        For Each row As DataRow In dt.Rows
+            Dim idObat As String = row.Item("id_obat").ToString()
+            Dim nama As String = row.Item("nama").ToString()
+            Dim jenis As String = row.Item("jenis").ToString()
+            Dim stok As Integer = CInt(row.Item("stock"))
+            Dim tglExpired As Date = CDate(row.Item("tgl_expired"))
+            Dim harga As Decimal = CDec(row.Item("harga"))
+
+            ' Tambahkan ke grid (6 kolom sesuai urutan di Petunjuk)
+            DgvStokObat.Rows.Add(idObat, nama, jenis, stok, tglExpired, harga)
+        Next
+        ' --- KODE DATABASE SELESAI ---
+
         ' Panggil fungsi untuk memberi warna pada baris
         HighlightKadaluarsa()
-        ' --- AKHIR TAMBAHAN ---
     End Sub
 
     ' --- FUNGSI BARU UNTUK MEMBERI WARNA ---
+    ' (Tidak ada perubahan, kode ini sudah benar)
     Private Sub HighlightKadaluarsa()
         Dim hariIni As Date = Date.Today
         Dim batasWajar As Integer = 30 ' Peringatan kuning jika sisa 30 hari
@@ -69,7 +94,6 @@
             End If
         Next
     End Sub
-    ' --- AKHIR FUNGSI BARU ---
 
     Private Sub BtnKembali_Click(sender As Object, e As EventArgs) Handles BtnKembali.Click
         Me.Close()
@@ -82,20 +106,25 @@
         LoadStok()
     End Sub
 
+    ''' <summary>
+    ''' Fungsi LIVE SEARCH
+    ''' (DIPERBAIKI: Menghapus CurrencyManager yang tidak perlu)
+    ''' </summary>
     Private Sub TxtCariObat_TextChanged(sender As Object, e As EventArgs) Handles TxtCariObat.TextChanged
-        ' Fungsi LIVE SEARCH
         Dim filterTeks As String = TxtCariObat.Text.ToLower()
 
-        ' Simpan CurrencyManager untuk menghindari error saat baris disembunyikan
-        Dim cm As CurrencyManager = CType(BindingContext(DgvStokObat.DataSource), CurrencyManager)
-        If cm IsNot Nothing Then cm.SuspendBinding()
+        ' --- PERBAIKAN ---
+        ' Kode CurrencyManager dihapus karena kita menggunakan grid Unbound (Rows.Add)
+        ' Menyembunyikan baris secara manual sudah cukup.
 
         For Each row As DataGridViewRow In DgvStokObat.Rows
             If row.IsNewRow Then Continue For
 
+            ' Ambil data dari sel dengan aman (null-check)
             Dim namaObat As String = If(row.Cells("ColNamaObat").Value IsNot Nothing, row.Cells("ColNamaObat").Value.ToString().ToLower(), "")
             Dim kodeObat As String = If(row.Cells("ColKodeObat").Value IsNot Nothing, row.Cells("ColKodeObat").Value.ToString().ToLower(), "")
 
+            ' Logika filter
             If namaObat.Contains(filterTeks) OrElse kodeObat.Contains(filterTeks) Then
                 row.Visible = True
             Else
@@ -103,7 +132,8 @@
             End If
         Next
 
-        If cm IsNot Nothing Then cm.ResumeBinding()
+        ' --- PERBAIKAN ---
+        ' Kode ResumeBinding() dihapus
     End Sub
 
 End Class
