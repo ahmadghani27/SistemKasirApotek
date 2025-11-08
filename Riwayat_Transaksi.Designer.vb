@@ -31,6 +31,8 @@ Partial Class Riwayat_Transaksi
         LblTotalHarian = New Label()
         BtnKembali = New Button()
         GbFilter = New GroupBox()
+        Label1 = New Label()
+        LblTotalBulanan = New Label()
         LblLabelTotal = New Label()
         LblPilihTanggal = New Label()
         DgvDetail = New DataGridView()
@@ -66,7 +68,7 @@ Partial Class Riwayat_Transaksi
         DgvRiwayat.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         DgvRiwayat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvRiwayat.Columns.AddRange(New DataGridViewColumn() {ColIDTransaksi, ColWaktu, ColTotalH})
-        DgvRiwayat.Location = New Point(12, 102)
+        DgvRiwayat.Location = New Point(12, 136)
         DgvRiwayat.MultiSelect = False
         DgvRiwayat.Name = "DgvRiwayat"
         DgvRiwayat.ReadOnly = True
@@ -103,7 +105,7 @@ Partial Class Riwayat_Transaksi
         BtnCari.FlatStyle = FlatStyle.Flat
         BtnCari.Location = New Point(261, 27)
         BtnCari.Name = "BtnCari"
-        BtnCari.Size = New Size(75, 25)
+        BtnCari.Size = New Size(157, 25)
         BtnCari.TabIndex = 2
         BtnCari.Text = "Cari"
         BtnCari.UseVisualStyleBackColor = True
@@ -112,7 +114,7 @@ Partial Class Riwayat_Transaksi
         ' 
         LblTotalHarian.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         LblTotalHarian.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LblTotalHarian.Location = New Point(582, 30)
+        LblTotalHarian.Location = New Point(185, 74)
         LblTotalHarian.Name = "LblTotalHarian"
         LblTotalHarian.Size = New Size(188, 21)
         LblTotalHarian.TabIndex = 10
@@ -123,9 +125,9 @@ Partial Class Riwayat_Transaksi
         ' 
         BtnKembali.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         BtnKembali.FlatStyle = FlatStyle.Flat
-        BtnKembali.Location = New Point(342, 27)
+        BtnKembali.Location = New Point(424, 26)
         BtnKembali.Name = "BtnKembali"
-        BtnKembali.Size = New Size(75, 25)
+        BtnKembali.Size = New Size(167, 25)
         BtnKembali.TabIndex = 11
         BtnKembali.Text = "Kembali"
         BtnKembali.UseVisualStyleBackColor = True
@@ -133,6 +135,8 @@ Partial Class Riwayat_Transaksi
         ' GbFilter
         ' 
         GbFilter.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        GbFilter.Controls.Add(Label1)
+        GbFilter.Controls.Add(LblTotalBulanan)
         GbFilter.Controls.Add(LblLabelTotal)
         GbFilter.Controls.Add(LblPilihTanggal)
         GbFilter.Controls.Add(DtpFilter)
@@ -141,21 +145,43 @@ Partial Class Riwayat_Transaksi
         GbFilter.Controls.Add(LblTotalHarian)
         GbFilter.Location = New Point(12, 12)
         GbFilter.Name = "GbFilter"
-        GbFilter.Size = New Size(776, 73)
+        GbFilter.Size = New Size(776, 116)
         GbFilter.TabIndex = 0
         GbFilter.TabStop = False
         GbFilter.Text = "Filter Riwayat"
+        ' 
+        ' Label1
+        ' 
+        Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold)
+        Label1.Location = New Point(407, 77)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(62, 17)
+        Label1.TabIndex = 15
+        Label1.Text = "Bulanan:"
+        ' 
+        ' LblTotalBulanan
+        ' 
+        LblTotalBulanan.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        LblTotalBulanan.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        LblTotalBulanan.Location = New Point(528, 74)
+        LblTotalBulanan.Name = "LblTotalBulanan"
+        LblTotalBulanan.Size = New Size(242, 21)
+        LblTotalBulanan.TabIndex = 14
+        LblTotalBulanan.Text = "Rp 0"
+        LblTotalBulanan.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' LblLabelTotal
         ' 
         LblLabelTotal.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         LblLabelTotal.AutoSize = True
         LblLabelTotal.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold)
-        LblLabelTotal.Location = New Point(461, 33)
+        LblLabelTotal.Location = New Point(14, 77)
         LblLabelTotal.Name = "LblLabelTotal"
-        LblLabelTotal.Size = New Size(120, 17)
+        LblLabelTotal.Size = New Size(165, 17)
         LblLabelTotal.TabIndex = 13
-        LblLabelTotal.Text = "Total Pendapatan:"
+        LblLabelTotal.Text = "Total Pendapatan Harian:"
         ' 
         ' LblPilihTanggal
         ' 
@@ -173,10 +199,10 @@ Partial Class Riwayat_Transaksi
         DgvDetail.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvDetail.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvDetail.Columns.AddRange(New DataGridViewColumn() {ColNamaObat, ColHarga, ColJumlah, ColSubtotal})
-        DgvDetail.Location = New Point(12, 394)
+        DgvDetail.Location = New Point(12, 424)
         DgvDetail.Name = "DgvDetail"
         DgvDetail.ReadOnly = True
-        DgvDetail.Size = New Size(776, 188)
+        DgvDetail.Size = New Size(776, 187)
         DgvDetail.TabIndex = 2
         ' 
         ' ColNamaObat
@@ -211,7 +237,7 @@ Partial Class Riwayat_Transaksi
         ' 
         LblDetail.AutoSize = True
         LblDetail.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        LblDetail.Location = New Point(12, 295)
+        LblDetail.Location = New Point(12, 325)
         LblDetail.Name = "LblDetail"
         LblDetail.Size = New Size(171, 15)
         LblDetail.TabIndex = 13
@@ -224,7 +250,7 @@ Partial Class Riwayat_Transaksi
         GroupBox1.Controls.Add(Label2)
         GroupBox1.Controls.Add(BtnCariObat)
         GroupBox1.Controls.Add(Label3)
-        GroupBox1.Location = New Point(12, 315)
+        GroupBox1.Location = New Point(12, 345)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Size = New Size(776, 73)
         GroupBox1.TabIndex = 14
@@ -233,7 +259,7 @@ Partial Class Riwayat_Transaksi
         ' 
         ' TxtFilter
         ' 
-        TxtFilter.Location = New Point(485, 29)
+        TxtFilter.Location = New Point(79, 31)
         TxtFilter.Name = "TxtFilter"
         TxtFilter.Size = New Size(163, 23)
         TxtFilter.TabIndex = 14
@@ -241,7 +267,7 @@ Partial Class Riwayat_Transaksi
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(417, 34)
+        Label2.Location = New Point(11, 36)
         Label2.Name = "Label2"
         Label2.Size = New Size(62, 15)
         Label2.TabIndex = 12
@@ -250,7 +276,7 @@ Partial Class Riwayat_Transaksi
         ' BtnCariObat
         ' 
         BtnCariObat.FlatStyle = FlatStyle.Flat
-        BtnCariObat.Location = New Point(654, 29)
+        BtnCariObat.Location = New Point(248, 31)
         BtnCariObat.Name = "BtnCariObat"
         BtnCariObat.Size = New Size(116, 25)
         BtnCariObat.TabIndex = 2
@@ -272,7 +298,7 @@ Partial Class Riwayat_Transaksi
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 594)
+        ClientSize = New Size(800, 623)
         Controls.Add(GroupBox1)
         Controls.Add(LblDetail)
         Controls.Add(DgvDetail)
@@ -314,4 +340,9 @@ Partial Class Riwayat_Transaksi
     Friend WithEvents BtnCariObat As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents TxtFilter As TextBox
+    Friend WithEvents BtnKeluar As Button
+    Friend WithEvents LblTitle As Label
+    Friend WithEvents PanelHeader As Panel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents LblTotalBulanan As Label
 End Class
