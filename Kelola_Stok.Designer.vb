@@ -23,6 +23,7 @@ Partial Class Kelola_Stok
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         PanelHeader = New Panel()
+        BtnKeluar = New Button()
         LblTitle = New Label()
         PanelFormCard = New Panel()
         LblID = New Label()
@@ -43,7 +44,6 @@ Partial Class Kelola_Stok
         BtnHapus = New Button()
         BtnBersih = New Button()
         DgvObat = New DataGridView()
-        BtnKeluar = New Button()
         PanelHeader.SuspendLayout()
         PanelFormCard.SuspendLayout()
         PanelActions.SuspendLayout()
@@ -60,6 +60,15 @@ Partial Class Kelola_Stok
         PanelHeader.Name = "PanelHeader"
         PanelHeader.Size = New Size(804, 64)
         PanelHeader.TabIndex = 13
+        ' 
+        ' BtnKeluar
+        ' 
+        BtnKeluar.Location = New Point(724, 12)
+        BtnKeluar.Name = "BtnKeluar"
+        BtnKeluar.Size = New Size(68, 40)
+        BtnKeluar.TabIndex = 3
+        BtnKeluar.Text = "Keluar"
+        BtnKeluar.UseVisualStyleBackColor = True
         ' 
         ' LblTitle
         ' 
@@ -90,7 +99,7 @@ Partial Class Kelola_Stok
         PanelFormCard.Controls.Add(DtpKadaluarsa)
         PanelFormCard.Location = New Point(12, 84)
         PanelFormCard.Name = "PanelFormCard"
-        PanelFormCard.Size = New Size(588, 280)
+        PanelFormCard.Size = New Size(588, 243)
         PanelFormCard.TabIndex = 12
         ' 
         ' LblID
@@ -212,7 +221,7 @@ Partial Class Kelola_Stok
         PanelActions.Controls.Add(BtnBersih)
         PanelActions.Location = New Point(630, 84)
         PanelActions.Name = "PanelActions"
-        PanelActions.Size = New Size(158, 280)
+        PanelActions.Size = New Size(158, 243)
         PanelActions.TabIndex = 11
         ' 
         ' BtnTambah
@@ -258,28 +267,19 @@ Partial Class Kelola_Stok
         DgvObat.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvObat.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DgvObat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvObat.Location = New Point(12, 380)
+        DgvObat.Location = New Point(12, 333)
         DgvObat.MultiSelect = False
         DgvObat.Name = "DgvObat"
         DgvObat.ReadOnly = True
         DgvObat.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DgvObat.Size = New Size(776, 240)
+        DgvObat.Size = New Size(776, 230)
         DgvObat.TabIndex = 10
-        ' 
-        ' BtnKeluar
-        ' 
-        BtnKeluar.Location = New Point(724, 12)
-        BtnKeluar.Name = "BtnKeluar"
-        BtnKeluar.Size = New Size(68, 40)
-        BtnKeluar.TabIndex = 3
-        BtnKeluar.Text = "Keluar"
-        BtnKeluar.UseVisualStyleBackColor = True
         ' 
         ' Kelola_Stok
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(804, 640)
+        ClientSize = New Size(804, 575)
         Controls.Add(DgvObat)
         Controls.Add(PanelActions)
         Controls.Add(PanelFormCard)

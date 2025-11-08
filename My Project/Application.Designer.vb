@@ -28,7 +28,7 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Kelola_User
+            Me.MainForm = Kelola_Stok
         End Sub
     End Class
 End Namespace
