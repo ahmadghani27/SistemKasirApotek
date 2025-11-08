@@ -6,151 +6,139 @@ Imports MySql.Data.MySqlClient
 
 Public Class DashBoard
 
-    ' HAPUS SEMUA VARIABEL "ConnectionString" DARI SINI
-    ' Kita akan menggunakan Koneksi.vb
-
-    ' Sesuaikan nama tabel/kolom ini jika diperlukan
-    Private Const TableTransaksi As String = "transaksi" ' Pastikan nama tabel benar
-    Private Const TableObat As String = "obat"          ' Pastikan nama tabel benar
-    ' Diubah agar KONSISTEN dengan form Login Anda
-    Private Const TableUser As String = "pengguna"
-    Private Const ColTransaksiTanggal As String = "Tanggal" ' Ganti jika nama kolom beda
-    Private Const ColTransaksiKasir As String = "NamaKasir"
-    Private Const ColTransaksiIdObat As String = "IdObat"
-    Private Const ColObatNama As String = "NamaObat"
-    Private Const ColObatJenis As String = "JenisObat"
+    ' --- Konstanta yang Diperlukan ---
+    Private Const TableTransaksi As String = "transaksi"
+    Private Const TableObat As String = "obat"
+    Private Const ColTransaksiTanggal As String = "tgl_transaksi"
 
     Private Sub DashBoard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Populate filter categories
-        CmbFilterKategori.Items.Clear()
-        CmbFilterKategori.Items.Add("Kasir")
-        CmbFilterKategori.Items.Add("Jenis Obat")
-        CmbFilterKategori.Items.Add("Nama Obat")
-        CmbFilterKategori.Items.Add("ID Obat")
-        CmbFilterKategori.SelectedIndex = 0
+        ' --- Atur format DGV ---
+        Try
+            DgvRiwayatTransaksi.Columns("ColTotalbayar").DefaultCellStyle.Format = "Rp #,##0"
+            DgvRiwayatTransaksi.Columns("ColTotalbayar").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            DgvRiwayatTransaksi.Columns("ColTglTransaksi").DefaultCellStyle.Format = "dd/MM/yyyy HH:mm"
+            DgvRiwayatTransaksi.Columns("ColTglTransaksi").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        Catch ex As Exception
+            MessageBox.Show("Nama kolom di DGV designer (ColTotalbayar/ColTglTransaksi) mungkin salah." & vbCrLf & ex.Message, "Error Desain", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
 
-        ' Load initial data
+        ' Muat data awal
         LoadTotals()
         LoadTransactions()
     End Sub
 
+    ''' <summary>
+    ''' DIPERBARUI: Menambahkan kalkulasi bulanan
+    ''' </summary>
     Private Sub LoadTotals()
-        ' Diubah agar menggunakan Koneksi.vb
         If Koneksi.BukaKoneksi() = False Then
             MessageBox.Show("Gagal terhubung ke DB saat memuat total.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
         Try
-            ' Total Obat
+            ' 1. Total Obat (Total obat terdaftar)
             Using cmd As New MySqlCommand($"SELECT COUNT(*) FROM {TableObat}", Koneksi.conn)
                 Dim totalObat = Convert.ToInt32(cmd.ExecuteScalar())
                 LblTotalObat.Text = totalObat.ToString("N0")
             End Using
 
-            ' Total Transaksi hari ini (MySQL DATE() and CURDATE())
+            ' 2. Total Transaksi hari ini
             Using cmd As New MySqlCommand($"SELECT COUNT(*) FROM {TableTransaksi} WHERE DATE({ColTransaksiTanggal}) = CURDATE()", Koneksi.conn)
                 Dim totalToday = Convert.ToInt32(cmd.ExecuteScalar())
                 LblTotalTransaksi.Text = totalToday.ToString("N0")
             End Using
 
-            ' Total User (kasir)
-            Using cmd As New MySqlCommand($"SELECT COUNT(*) FROM {TableUser}", Koneksi.conn)
-                Dim totalUser = Convert.ToInt32(cmd.ExecuteScalar())
-                LblTotalUser.Text = totalUser.ToString("N0")
+            ' 3. Total Pendapatan hari ini
+            Using cmd As New MySqlCommand($"SELECT SUM(total_bayar) FROM {TableTransaksi} WHERE DATE({ColTransaksiTanggal}) = CURDATE()", Koneksi.conn)
+                Dim totalRevenue As Object = cmd.ExecuteScalar()
+                Dim totalPendapatan As Decimal = 0
+                If totalRevenue IsNot DBNull.Value AndAlso totalRevenue IsNot Nothing Then
+                    totalPendapatan = Convert.ToDecimal(totalRevenue)
+                End If
+                LblTotalPendapatan.Text = totalPendapatan.ToString("Rp #,##0")
             End Using
+
+            ' --- TAMBAHAN BARU: STATISTIK BULANAN ---
+
+            ' 4. Total Transaksi Bulan Ini
+            ' (Query MySQL: Cek Bulan DAN Tahun saat ini)
+            Using cmd As New MySqlCommand($"SELECT COUNT(*) FROM {TableTransaksi} WHERE MONTH({ColTransaksiTanggal}) = MONTH(CURDATE()) AND YEAR({ColTransaksiTanggal}) = YEAR(CURDATE())", Koneksi.conn)
+                Dim totalMonthCount = Convert.ToInt32(cmd.ExecuteScalar())
+                LblTotalTransaksiBulan.Text = totalMonthCount.ToString("N0")
+            End Using
+
+            ' 5. Total Pendapatan Bulan Ini
+            Using cmd As New MySqlCommand($"SELECT SUM(total_bayar) FROM {TableTransaksi} WHERE MONTH({ColTransaksiTanggal}) = MONTH(CURDATE()) AND YEAR({ColTransaksiTanggal}) = YEAR(CURDATE())", Koneksi.conn)
+                Dim totalMonthRevenue As Object = cmd.ExecuteScalar()
+                Dim totalPendapatanBulan As Decimal = 0
+                If totalMonthRevenue IsNot DBNull.Value AndAlso totalMonthRevenue IsNot Nothing Then
+                    totalPendapatanBulan = Convert.ToDecimal(totalMonthRevenue)
+                End If
+                LblTotalPendapatanBulan.Text = totalPendapatanBulan.ToString("Rp #,##0")
+            End Using
+            ' --- AKHIR TAMBAHAN ---
 
         Catch ex As Exception
             LblTotalObat.Text = "N/A"
             LblTotalTransaksi.Text = "N/A"
-            LblTotalUser.Text = "N/A"
-            ' Ini adalah pesan error yang Anda lihat
+            LblTotalPendapatan.Text = "N/A"
+            ' Tambahkan label baru ke error handler
+            LblTotalTransaksiBulan.Text = "N/A"
+            LblTotalPendapatanBulan.Text = "N/A"
             MessageBox.Show($"Gagal memuat total: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            ' Selalu tutup koneksi
             Koneksi.TutupKoneksi()
         End Try
     End Sub
 
-    Private Sub LoadTransactions(Optional sql As String = "", Optional params As MySqlParameter() = Nothing)
-        ' Diubah agar menggunakan Koneksi.vb
+    ''' <summary>
+    ''' Menggunakan Rows.Add() manual, bukan DataSource
+    ''' </summary>
+    Private Sub LoadTransactions()
+        DgvRiwayatTransaksi.Rows.Clear()
+
         If Koneksi.BukaKoneksi() = False Then
-            MessageBox.Show("Gagal terhubung ke DB saat memuat transaksi.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Gagal terhubung ke DB saat memuat riwayat.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        Try
-            Dim query As String = sql
-            If String.IsNullOrWhiteSpace(query) Then
-                ' Gunakan LIMIT untuk MySQL
-                query = $"SELECT * FROM {TableTransaksi} ORDER BY {ColTransaksiTanggal} DESC LIMIT 100"
-            End If
+        Dim query As String = $"SELECT id_transaksi, total_bayar, {ColTransaksiTanggal} FROM {TableTransaksi} " &
+                              $"ORDER BY {ColTransaksiTanggal} DESC LIMIT 10"
 
-            Using cmd As New MySqlCommand(query, Koneksi.conn)
-                If params IsNot Nothing Then
-                    cmd.Parameters.AddRange(params)
-                End If
-                Using da As New MySqlDataAdapter(cmd)
-                    Dim dt As New DataTable()
-                    da.Fill(dt)
-                    DgvRiwayatTransaksi.DataSource = dt
-                End Using
-            End Using
+        Dim da As New MySqlDataAdapter(query, Koneksi.conn)
+        Dim dt As New DataTable()
+
+        Try
+            da.Fill(dt)
         Catch ex As Exception
             MessageBox.Show($"Gagal memuat riwayat transaksi: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            ' Selalu tutup koneksi
             Koneksi.TutupKoneksi()
+        End Try
+
+        Try
+            For Each row As DataRow In dt.Rows
+                Dim id As String = row.Item("id_transaksi").ToString()
+                Dim total As Decimal = CDec(row.Item("total_bayar"))
+                Dim tgl As Date = CDate(row.Item(ColTransaksiTanggal))
+
+                Dim n As Integer = DgvRiwayatTransaksi.Rows.Add()
+                DgvRiwayatTransaksi.Rows(n).Cells("ColIDTransaksi").Value = id
+                DgvRiwayatTransaksi.Rows(n).Cells("ColTotalbayar").Value = total
+                DgvRiwayatTransaksi.Rows(n).Cells("ColTglTransaksi").Value = tgl
+            Next
+        Catch ex As Exception
+            MessageBox.Show("Nama kolom di DGV designer (ColIDTransaksi/ColTotalbayar/ColTglTransaksi) mungkin salah." & vbCrLf & ex.Message, "Error Desain", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    Private Sub BtnFilter_Click(sender As Object, e As EventArgs) Handles BtnFilter.Click
-        Dim kategori = If(CmbFilterKategori.SelectedItem?.ToString(), String.Empty)
-        Dim keyword = TxtFilterKataKunci.Text.Trim()
-
-        If String.IsNullOrEmpty(kategori) OrElse String.IsNullOrEmpty(keyword) Then
-            MessageBox.Show("Pilih kategori dan masukkan kata kunci.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Return
-        End If
-
-        Dim sql As String = ""
-        Dim prm As MySqlParameter() = Nothing
-
-        Select Case kategori
-            Case "Kasir"
-                sql = $"SELECT * FROM {TableTransaksi} WHERE {ColTransaksiKasir} LIKE @kw ORDER BY {ColTransaksiTanggal} DESC"
-                prm = New MySqlParameter() {New MySqlParameter("@kw", MySqlDbType.VarChar) With {.Value = $"%{keyword}%"}}
-            Case "Jenis Obat"
-                ' Asumsi Anda perlu JOIN ke tabel Obat
-                sql = $"SELECT t.* FROM {TableTransaksi} t JOIN {TableObat} o ON t.{ColTransaksiIdObat} = o.IdObat WHERE o.{ColObatJenis} LIKE @kw ORDER BY t.{ColTransaksiTanggal} DESC"
-                prm = New MySqlParameter() {New MySqlParameter("@kw", MySqlDbType.VarChar) With {.Value = $"%{keyword}%"}}
-            Case "Nama Obat"
-                ' Asumsi Anda perlu JOIN ke tabel Obat
-                sql = $"SELECT t.* FROM {TableTransaksi} t JOIN {TableObat} o ON t.{ColTransaksiIdObat} = o.IdObat WHERE o.{ColObatNama} LIKE @kw ORDER BY t.{ColTransaksiTanggal} DESC"
-                prm = New MySqlParameter() {New MySqlParameter("@kw", MySqlDbType.VarChar) With {.Value = $"%{keyword}%"}}
-            Case "ID Obat"
-                sql = $"SELECT * FROM {TableTransaksi} WHERE {ColTransaksiIdObat} = @kw ORDER BY {ColTransaksiTanggal} DESC"
-                prm = New MySqlParameter() {New MySqlParameter("@kw", MySqlDbType.VarChar) With {.Value = keyword}}
-            Case Else
-                MessageBox.Show("Kategori tidak dikenali.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-        End Select
-
-        LoadTransactions(sql, prm)
-    End Sub
-
-    Private Sub BtnTampilSemua_Click(sender As Object, e As EventArgs) Handles BtnTampilSemua.Click
-        TxtFilterKataKunci.Clear()
-        CmbFilterKategori.SelectedIndex = 0
-        LoadTransactions()
-    End Sub
+    ' --- Tombol Navigasi ---
 
     Private Sub BtnKelolaStok_Click(sender As Object, e As EventArgs) Handles BtnKelolaStok.Click
         Try
-            ' Ganti "Kelola_Stok" dengan nama Form Anda
             Dim f As New Kelola_Stok()
             f.ShowDialog()
-            ' Muat ulang data setelah form ditutup
             LoadTotals()
             LoadTransactions()
         Catch ex As Exception
@@ -160,10 +148,8 @@ Public Class DashBoard
 
     Private Sub BtnKelolaUser_Click(sender As Object, e As EventArgs) Handles BtnKelolaUser.Click
         Try
-            ' Ganti "Kelola_User" dengan nama Form Anda
-            Dim f As New Kelola_User()
+            Dim f As New Kelola_User
             f.ShowDialog()
-            ' Muat ulang data setelah form ditutup
             LoadTotals()
             LoadTransactions()
         Catch ex As Exception
@@ -171,9 +157,19 @@ Public Class DashBoard
         End Try
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BtnDetailRiwayat.Click
+        Try
+            Dim f As New Riwayat_Transaksi()
+            f.ShowDialog()
+            LoadTotals()
+            LoadTransactions()
+        Catch ex As Exception
+            MessageBox.Show($"Gagal membuka form Riwayat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
         Try
-            ' Ganti "Login" dengan nama Form Login Anda
             Dim f As New Login()
             f.Show()
             Me.Close()
@@ -182,4 +178,9 @@ Public Class DashBoard
         End Try
     End Sub
 
+    ' --- Event Handler Kosong (biarkan saja) ---
+    Private Sub LblCaptionUser_Click(sender As Object, e As EventArgs) Handles LblCaptionUser.Click
+    End Sub
+    Private Sub PanelCardTransaksi_Paint(sender As Object, e As PaintEventArgs) Handles PanelCardTransaksi.Paint
+    End Sub
 End Class
