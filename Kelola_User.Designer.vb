@@ -28,23 +28,29 @@ Partial Class Kelola_User
         BtnHapusUser = New Button()
         BtnTambahUser = New Button()
         DgvUser = New DataGridView()
+        ColId = New DataGridViewTextBoxColumn()
+        ColNama = New DataGridViewTextBoxColumn()
+        ColTelp = New DataGridViewTextBoxColumn()
+        ColRole = New DataGridViewTextBoxColumn()
+        ColUsername = New DataGridViewTextBoxColumn()
         TxtTelepon = New TextBox()
         LblTitle = New Label()
         PanelHeader = New Panel()
+        BtnKeluar = New Button()
         TxtNama = New TextBox()
         PanelFormCard = New Panel()
+        BtnClear = New Button()
         LblID = New Label()
         LblNama = New Label()
         LblJenis = New Label()
         LblHarga = New Label()
         LblStok = New Label()
         LblCaptionUser = New Label()
-        LblTotalUser = New Label()
+        LblTotalAdmin = New Label()
         PanelCardUser = New Panel()
         Panel1 = New Panel()
         Label1 = New Label()
-        Label2 = New Label()
-        BtnKeluar = New Button()
+        LblTotalKasir = New Label()
         CType(DgvUser, ComponentModel.ISupportInitialize).BeginInit()
         PanelHeader.SuspendLayout()
         PanelFormCard.SuspendLayout()
@@ -79,7 +85,7 @@ Partial Class Kelola_User
         ' 
         ' BtnHapusUser
         ' 
-        BtnHapusUser.Location = New Point(389, 104)
+        BtnHapusUser.Location = New Point(432, 102)
         BtnHapusUser.Name = "BtnHapusUser"
         BtnHapusUser.Size = New Size(86, 57)
         BtnHapusUser.TabIndex = 13
@@ -88,9 +94,9 @@ Partial Class Kelola_User
         ' 
         ' BtnTambahUser
         ' 
-        BtnTambahUser.Location = New Point(481, 103)
+        BtnTambahUser.Location = New Point(339, 101)
         BtnTambahUser.Name = "BtnTambahUser"
-        BtnTambahUser.Size = New Size(113, 58)
+        BtnTambahUser.Size = New Size(87, 58)
         BtnTambahUser.TabIndex = 12
         BtnTambahUser.Text = "Tambah"
         BtnTambahUser.UseVisualStyleBackColor = True
@@ -98,10 +104,45 @@ Partial Class Kelola_User
         ' DgvUser
         ' 
         DgvUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvUser.Columns.AddRange(New DataGridViewColumn() {ColId, ColNama, ColTelp, ColRole, ColUsername})
         DgvUser.Location = New Point(12, 257)
         DgvUser.Name = "DgvUser"
+        DgvUser.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DgvUser.Size = New Size(776, 181)
         DgvUser.TabIndex = 11
+        ' 
+        ' ColId
+        ' 
+        ColId.HeaderText = "Id"
+        ColId.MinimumWidth = 60
+        ColId.Name = "ColId"
+        ColId.Width = 60
+        ' 
+        ' ColNama
+        ' 
+        ColNama.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        ColNama.HeaderText = "Nama Lengkap"
+        ColNama.Name = "ColNama"
+        ' 
+        ' ColTelp
+        ' 
+        ColTelp.HeaderText = "Telepon"
+        ColTelp.MinimumWidth = 100
+        ColTelp.Name = "ColTelp"
+        ' 
+        ' ColRole
+        ' 
+        ColRole.HeaderText = "Peran"
+        ColRole.MinimumWidth = 80
+        ColRole.Name = "ColRole"
+        ColRole.Width = 80
+        ' 
+        ' ColUsername
+        ' 
+        ColUsername.HeaderText = "Username"
+        ColUsername.MinimumWidth = 130
+        ColUsername.Name = "ColUsername"
+        ColUsername.Width = 130
         ' 
         ' TxtTelepon
         ' 
@@ -133,6 +174,15 @@ Partial Class Kelola_User
         PanelHeader.Size = New Size(800, 64)
         PanelHeader.TabIndex = 15
         ' 
+        ' BtnKeluar
+        ' 
+        BtnKeluar.Location = New Point(720, 12)
+        BtnKeluar.Name = "BtnKeluar"
+        BtnKeluar.Size = New Size(68, 40)
+        BtnKeluar.TabIndex = 18
+        BtnKeluar.Text = "Keluar"
+        BtnKeluar.UseVisualStyleBackColor = True
+        ' 
         ' TxtNama
         ' 
         TxtNama.Location = New Point(121, 6)
@@ -145,6 +195,7 @@ Partial Class Kelola_User
         ' 
         PanelFormCard.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
         PanelFormCard.BorderStyle = BorderStyle.FixedSingle
+        PanelFormCard.Controls.Add(BtnClear)
         PanelFormCard.Controls.Add(LblID)
         PanelFormCard.Controls.Add(TxtNama)
         PanelFormCard.Controls.Add(BtnHapusUser)
@@ -161,6 +212,15 @@ Partial Class Kelola_User
         PanelFormCard.Name = "PanelFormCard"
         PanelFormCard.Size = New Size(613, 172)
         PanelFormCard.TabIndex = 6
+        ' 
+        ' BtnClear
+        ' 
+        BtnClear.Location = New Point(524, 104)
+        BtnClear.Name = "BtnClear"
+        BtnClear.Size = New Size(70, 57)
+        BtnClear.TabIndex = 17
+        BtnClear.Text = "Bersihkan"
+        BtnClear.UseVisualStyleBackColor = True
         ' 
         ' LblID
         ' 
@@ -182,9 +242,9 @@ Partial Class Kelola_User
         LblNama.Location = New Point(16, 42)
         LblNama.Margin = New Padding(5)
         LblNama.Name = "LblNama"
-        LblNama.Size = New Size(68, 15)
+        LblNama.Size = New Size(60, 15)
         LblNama.TabIndex = 1
-        LblNama.Text = "Nama Obat"
+        LblNama.Text = "Username"
         ' 
         ' LblJenis
         ' 
@@ -194,9 +254,9 @@ Partial Class Kelola_User
         LblJenis.Location = New Point(16, 75)
         LblJenis.Margin = New Padding(5)
         LblJenis.Name = "LblJenis"
-        LblJenis.Size = New Size(32, 15)
+        LblJenis.Size = New Size(57, 15)
         LblJenis.TabIndex = 2
-        LblJenis.Text = "Jenis"
+        LblJenis.Text = "Password"
         ' 
         ' LblHarga
         ' 
@@ -206,9 +266,9 @@ Partial Class Kelola_User
         LblHarga.Location = New Point(16, 141)
         LblHarga.Margin = New Padding(5)
         LblHarga.Name = "LblHarga"
-        LblHarga.Size = New Size(39, 15)
+        LblHarga.Size = New Size(49, 15)
         LblHarga.TabIndex = 3
-        LblHarga.Text = "Harga"
+        LblHarga.Text = "Telepon"
         ' 
         ' LblStok
         ' 
@@ -218,9 +278,9 @@ Partial Class Kelola_User
         LblStok.Location = New Point(16, 108)
         LblStok.Margin = New Padding(5)
         LblStok.Name = "LblStok"
-        LblStok.Size = New Size(30, 15)
+        LblStok.Size = New Size(37, 15)
         LblStok.TabIndex = 4
-        LblStok.Text = "Stok"
+        LblStok.Text = "Peran"
         ' 
         ' LblCaptionUser
         ' 
@@ -233,23 +293,23 @@ Partial Class Kelola_User
         LblCaptionUser.TabIndex = 0
         LblCaptionUser.Text = "Total Admin"
         ' 
-        ' LblTotalUser
+        ' LblTotalAdmin
         ' 
-        LblTotalUser.AutoSize = True
-        LblTotalUser.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalUser.ForeColor = Color.Black
-        LblTotalUser.Location = New Point(12, 30)
-        LblTotalUser.Name = "LblTotalUser"
-        LblTotalUser.Size = New Size(33, 37)
-        LblTotalUser.TabIndex = 1
-        LblTotalUser.Text = "0"
+        LblTotalAdmin.AutoSize = True
+        LblTotalAdmin.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        LblTotalAdmin.ForeColor = Color.Black
+        LblTotalAdmin.Location = New Point(12, 30)
+        LblTotalAdmin.Name = "LblTotalAdmin"
+        LblTotalAdmin.Size = New Size(33, 37)
+        LblTotalAdmin.TabIndex = 1
+        LblTotalAdmin.Text = "0"
         ' 
         ' PanelCardUser
         ' 
         PanelCardUser.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
         PanelCardUser.BorderStyle = BorderStyle.FixedSingle
         PanelCardUser.Controls.Add(LblCaptionUser)
-        PanelCardUser.Controls.Add(LblTotalUser)
+        PanelCardUser.Controls.Add(LblTotalAdmin)
         PanelCardUser.Location = New Point(631, 79)
         PanelCardUser.Name = "PanelCardUser"
         PanelCardUser.Size = New Size(157, 84)
@@ -260,7 +320,7 @@ Partial Class Kelola_User
         Panel1.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
         Panel1.BorderStyle = BorderStyle.FixedSingle
         Panel1.Controls.Add(Label1)
-        Panel1.Controls.Add(Label2)
+        Panel1.Controls.Add(LblTotalKasir)
         Panel1.Location = New Point(631, 169)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(157, 82)
@@ -277,25 +337,16 @@ Partial Class Kelola_User
         Label1.TabIndex = 0
         Label1.Text = "Total Kasir"
         ' 
-        ' Label2
+        ' LblTotalKasir
         ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        Label2.ForeColor = Color.Black
-        Label2.Location = New Point(12, 30)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(33, 37)
-        Label2.TabIndex = 1
-        Label2.Text = "0"
-        ' 
-        ' BtnKeluar
-        ' 
-        BtnKeluar.Location = New Point(720, 12)
-        BtnKeluar.Name = "BtnKeluar"
-        BtnKeluar.Size = New Size(68, 40)
-        BtnKeluar.TabIndex = 18
-        BtnKeluar.Text = "Keluar"
-        BtnKeluar.UseVisualStyleBackColor = True
+        LblTotalKasir.AutoSize = True
+        LblTotalKasir.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        LblTotalKasir.ForeColor = Color.Black
+        LblTotalKasir.Location = New Point(12, 30)
+        LblTotalKasir.Name = "LblTotalKasir"
+        LblTotalKasir.Size = New Size(33, 37)
+        LblTotalKasir.TabIndex = 1
+        LblTotalKasir.Text = "0"
         ' 
         ' Kelola_User
         ' 
@@ -337,10 +388,16 @@ Partial Class Kelola_User
     Friend WithEvents LblHarga As Label
     Friend WithEvents LblStok As Label
     Friend WithEvents LblCaptionUser As Label
-    Friend WithEvents LblTotalUser As Label
+    Friend WithEvents LblTotalAdmin As Label
     Friend WithEvents PanelCardUser As Panel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents LblTotalKasir As Label
     Friend WithEvents BtnKeluar As Button
+    Friend WithEvents ColId As DataGridViewTextBoxColumn
+    Friend WithEvents ColNama As DataGridViewTextBoxColumn
+    Friend WithEvents ColTelp As DataGridViewTextBoxColumn
+    Friend WithEvents ColRole As DataGridViewTextBoxColumn
+    Friend WithEvents ColUsername As DataGridViewTextBoxColumn
+    Friend WithEvents BtnClear As Button
 End Class
