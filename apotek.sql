@@ -98,7 +98,7 @@ INSERT INTO `pengguna` (`id_pengguna`, `nama`, `pass`, `telp`, `role`, `username
 CREATE TABLE `transaksi` (
   `id_transaksi` varchar(30) NOT NULL,
   `id_pengguna` int(11) NOT NULL,
-  'total_bayar' int(20) NOT NULL,
+  `total_bayar` int(11) NOT NULL,
   `tgl_transaksi` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -106,9 +106,9 @@ CREATE TABLE `transaksi` (
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `id_pengguna`, `tgl_transaksi`) VALUES
-('T001', 1, '2025-11-05 05:15:02'),
-('T002', 1, '2025-11-07 11:15:50');
+INSERT INTO `transaksi` (`id_transaksi`, `id_pengguna`, `total_bayar`, `tgl_transaksi`) VALUES
+('T001', 1, 22000, '2025-11-05 05:15:02'),
+('T002', 1, 0, '2025-11-07 11:15:50');
 
 --
 -- Indexes for dumped tables
