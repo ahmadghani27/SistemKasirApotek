@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `detail_transaksi` (
   `id_detail` int(11) NOT NULL,
-  `id_transaksi` varchar(15) NOT NULL,
+  `id_transaksi` varchar(30) NOT NULL,
   `id_obat` varchar(10) NOT NULL,
   `jumlah_beli` int(11) NOT NULL,
   `harga_satuan` int(11) NOT NULL,
@@ -96,8 +96,9 @@ INSERT INTO `pengguna` (`id_pengguna`, `nama`, `pass`, `telp`, `role`, `username
 --
 
 CREATE TABLE `transaksi` (
-  `id_transaksi` varchar(15) NOT NULL,
+  `id_transaksi` varchar(30) NOT NULL,
   `id_pengguna` int(11) NOT NULL,
+  'total_bayar' int(20) NOT NULL,
   `tgl_transaksi` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
