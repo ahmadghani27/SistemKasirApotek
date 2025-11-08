@@ -28,8 +28,7 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Transaksi
-
+            Me.MainForm = Login
         End Sub
     End Class
 End Namespace

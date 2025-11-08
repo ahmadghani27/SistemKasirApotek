@@ -121,32 +121,43 @@ Public Class Transaksi
             Return
         End If
 
-        ' --- UBAHAN: Validasi 3 (Cek duplikat manual) ---
-        Dim duplikatDitemukan As Boolean = False
+        ' --- PERUBAHAN: Cek duplikat dan UPDATE ---
+        ' Loop melalui keranjang untuk mencari item yang sama
         For i As Integer = 0 To jumlahItemDiKeranjang - 1
             If keranjang(i) IsNot Nothing AndAlso keranjang(i).IDObat = _selectedObatID Then
-                duplikatDitemukan = True
-                Exit For
+
+                ' DUPLIKAT DITEMUKAN! Lakukan update, bukan blokir.
+
+                ' 1. Tambahkan jumlah baru ke jumlah yang ada
+                keranjang(i).Jumlah += jumlah
+
+                ' 2. Hitung ulang subtotal berdasarkan jumlah baru
+                keranjang(i).Subtotal = keranjang(i).Harga * keranjang(i).Jumlah
+
+                ' 3. Segarkan Grid, Total, dan bersihkan input
+                RefreshGrid()
+                UpdateTotalBayar()
+                ClearInputsObat()
+
+                ' 4. Selesai. Keluar dari Sub agar tidak menambah item baru.
+                Return
             End If
         Next
-        If duplikatDitemukan Then
-            MessageBox.Show("Obat ini sudah ada di keranjang.", "Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            ClearInputsObat() ' Bersihkan input obat
-            Return
-        End If
-        ' --- AKHIR UBAHAN ---
+        ' --- AKHIR PERUBAHAN ---
+
+        ' Jika kode sampai di sini, berarti BUKAN duplikat.
+        ' Lanjutkan logika untuk menambah item baru ke array.
 
         ' Buat item baru
         Dim itemBaru As New TransaksiItem With {
             .IDObat = _selectedObatID,
             .NamaObat = _selectedObatNama,
             .Harga = _selectedObatHarga,
-            .Jumlah = jumlah,
+            .Jumlah = jumlah, ' Jumlah baru dari textbox
             .Subtotal = _selectedObatHarga * jumlah
         }
 
-        ' --- UBAHAN: Tambahkan ke Array Klasik ---
-        ' Cek apakah array penuh?
+        ' Tambahkan ke Array Klasik (Cek apakah array penuh)
         If jumlahItemDiKeranjang = keranjang.Length Then
             ' Jika penuh, gandakan ukuran array.
             ReDim Preserve keranjang((keranjang.Length * 2) - 1)
@@ -156,7 +167,6 @@ Public Class Transaksi
         keranjang(jumlahItemDiKeranjang) = itemBaru
         ' Tambah pelacak jumlah item
         jumlahItemDiKeranjang += 1
-        ' --- AKHIR UBAHAN ---
 
         ' Perbarui DGV, Total, dan bersihkan input
         RefreshGrid()
@@ -240,7 +250,7 @@ Public Class Transaksi
 
         Try
             ' 1. Hasilkan ID Transaksi SEKARANG
-            Dim idTransaksi As String = "TRX-" & DateTime.Now.ToString("yyyyMMddHHmmssfff")
+            Dim idTransaksi As String = "TRX-" & DateTime.Now.ToString("yyyyMMddHHmm")
 
             ' --- UBAHAN: Hitung Total Bayar manual ---
             Dim totalBayar As Decimal = 0
