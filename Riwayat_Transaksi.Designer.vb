@@ -24,6 +24,9 @@ Partial Class Riwayat_Transaksi
     Private Sub InitializeComponent()
         DtpFilter = New DateTimePicker()
         DgvRiwayat = New DataGridView()
+        ColIDTransaksi = New DataGridViewTextBoxColumn()
+        ColWaktu = New DataGridViewTextBoxColumn()
+        ColTotalH = New DataGridViewTextBoxColumn()
         BtnCari = New Button()
         LblTotalHarian = New Label()
         BtnKembali = New Button()
@@ -36,12 +39,15 @@ Partial Class Riwayat_Transaksi
         ColJumlah = New DataGridViewTextBoxColumn()
         ColSubtotal = New DataGridViewTextBoxColumn()
         LblDetail = New Label()
-        ColIDTransaksi = New DataGridViewTextBoxColumn()
-        ColWaktu = New DataGridViewTextBoxColumn()
-        ColTotalH = New DataGridViewTextBoxColumn()
+        GroupBox1 = New GroupBox()
+        TxtFilter = New TextBox()
+        Label2 = New Label()
+        BtnCariObat = New Button()
+        Label3 = New Label()
         CType(DgvRiwayat, ComponentModel.ISupportInitialize).BeginInit()
         GbFilter.SuspendLayout()
         CType(DgvDetail, ComponentModel.ISupportInitialize).BeginInit()
+        GroupBox1.SuspendLayout()
         SuspendLayout()
         ' 
         ' DtpFilter
@@ -67,6 +73,30 @@ Partial Class Riwayat_Transaksi
         DgvRiwayat.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DgvRiwayat.Size = New Size(776, 178)
         DgvRiwayat.TabIndex = 1
+        ' 
+        ' ColIDTransaksi
+        ' 
+        ColIDTransaksi.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        ColIDTransaksi.HeaderText = "ID Transaksi"
+        ColIDTransaksi.MinimumWidth = 200
+        ColIDTransaksi.Name = "ColIDTransaksi"
+        ColIDTransaksi.ReadOnly = True
+        ColIDTransaksi.Width = 200
+        ' 
+        ' ColWaktu
+        ' 
+        ColWaktu.HeaderText = "Waktu"
+        ColWaktu.MinimumWidth = 240
+        ColWaktu.Name = "ColWaktu"
+        ColWaktu.ReadOnly = True
+        ColWaktu.Width = 240
+        ' 
+        ' ColTotalH
+        ' 
+        ColTotalH.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        ColTotalH.HeaderText = "Total"
+        ColTotalH.Name = "ColTotalH"
+        ColTotalH.ReadOnly = True
         ' 
         ' BtnCari
         ' 
@@ -143,10 +173,10 @@ Partial Class Riwayat_Transaksi
         DgvDetail.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvDetail.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvDetail.Columns.AddRange(New DataGridViewColumn() {ColNamaObat, ColHarga, ColJumlah, ColSubtotal})
-        DgvDetail.Location = New Point(12, 311)
+        DgvDetail.Location = New Point(12, 394)
         DgvDetail.Name = "DgvDetail"
         DgvDetail.ReadOnly = True
-        DgvDetail.Size = New Size(776, 176)
+        DgvDetail.Size = New Size(776, 188)
         DgvDetail.TabIndex = 2
         ' 
         ' ColNamaObat
@@ -181,41 +211,69 @@ Partial Class Riwayat_Transaksi
         ' 
         LblDetail.AutoSize = True
         LblDetail.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        LblDetail.Location = New Point(12, 290)
+        LblDetail.Location = New Point(12, 295)
         LblDetail.Name = "LblDetail"
         LblDetail.Size = New Size(171, 15)
         LblDetail.TabIndex = 13
         LblDetail.Text = "Detail Item (klik baris di atas):"
         ' 
-        ' ColIDTransaksi
+        ' GroupBox1
         ' 
-        ColIDTransaksi.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
-        ColIDTransaksi.HeaderText = "ID Transaksi"
-        ColIDTransaksi.MinimumWidth = 200
-        ColIDTransaksi.Name = "ColIDTransaksi"
-        ColIDTransaksi.ReadOnly = True
-        ColIDTransaksi.Width = 200
+        GroupBox1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        GroupBox1.Controls.Add(TxtFilter)
+        GroupBox1.Controls.Add(Label2)
+        GroupBox1.Controls.Add(BtnCariObat)
+        GroupBox1.Controls.Add(Label3)
+        GroupBox1.Location = New Point(12, 315)
+        GroupBox1.Name = "GroupBox1"
+        GroupBox1.Size = New Size(776, 73)
+        GroupBox1.TabIndex = 14
+        GroupBox1.TabStop = False
+        GroupBox1.Text = "Obat Terjual"
         ' 
-        ' ColWaktu
+        ' TxtFilter
         ' 
-        ColWaktu.HeaderText = "Waktu"
-        ColWaktu.MinimumWidth = 240
-        ColWaktu.Name = "ColWaktu"
-        ColWaktu.ReadOnly = True
-        ColWaktu.Width = 240
+        TxtFilter.Location = New Point(485, 29)
+        TxtFilter.Name = "TxtFilter"
+        TxtFilter.Size = New Size(163, 23)
+        TxtFilter.TabIndex = 14
         ' 
-        ' ColTotalH
+        ' Label2
         ' 
-        ColTotalH.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-        ColTotalH.HeaderText = "Total"
-        ColTotalH.Name = "ColTotalH"
-        ColTotalH.ReadOnly = True
+        Label2.AutoSize = True
+        Label2.Location = New Point(417, 34)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(62, 15)
+        Label2.TabIndex = 12
+        Label2.Text = "Filter Obat"
+        ' 
+        ' BtnCariObat
+        ' 
+        BtnCariObat.FlatStyle = FlatStyle.Flat
+        BtnCariObat.Location = New Point(654, 29)
+        BtnCariObat.Name = "BtnCariObat"
+        BtnCariObat.Size = New Size(116, 25)
+        BtnCariObat.TabIndex = 2
+        BtnCariObat.Text = "Cari"
+        BtnCariObat.UseVisualStyleBackColor = True
+        ' 
+        ' Label3
+        ' 
+        Label3.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Label3.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label3.Location = New Point(1158, 30)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(188, 21)
+        Label3.TabIndex = 10
+        Label3.Text = "Rp 0"
+        Label3.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' Riwayat_Transaksi
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 499)
+        ClientSize = New Size(800, 594)
+        Controls.Add(GroupBox1)
         Controls.Add(LblDetail)
         Controls.Add(DgvDetail)
         Controls.Add(GbFilter)
@@ -227,6 +285,8 @@ Partial Class Riwayat_Transaksi
         GbFilter.ResumeLayout(False)
         GbFilter.PerformLayout()
         CType(DgvDetail, ComponentModel.ISupportInitialize).EndInit()
+        GroupBox1.ResumeLayout(False)
+        GroupBox1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
 
@@ -249,4 +309,9 @@ Partial Class Riwayat_Transaksi
     Friend WithEvents ColIDTransaksi As DataGridViewTextBoxColumn
     Friend WithEvents ColWaktu As DataGridViewTextBoxColumn
     Friend WithEvents ColTotalH As DataGridViewTextBoxColumn
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents BtnCariObat As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents TxtFilter As TextBox
 End Class
