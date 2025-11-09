@@ -9,12 +9,12 @@ Public Class Transaksi
         Public Property IDObat As String
         Public Property NamaObat As String
         Public Property Harga As Decimal
-        Public Property Jumlah As Integer ' Jumlah adalah bilangan bulat
+        Public Property Jumlah As Integer
         Public Property Subtotal As Decimal
     End Class
 
     ' --- 2. "ARRAY" KLASIK (UBAHAN) ---
-    ' Ini adalah "keranjang belanja" Anda, menggunakan array klasik
+    ' Ini adalah "keranjang belanja", menggunakan array
     Private keranjang() As TransaksiItem ' Deklarasi array
     Private jumlahItemDiKeranjang As Integer = 0 ' Pelacak jumlah item
     Private Const UKURAN_AWAL_KERANJANG As Integer = 10 ' Kapasitas awal

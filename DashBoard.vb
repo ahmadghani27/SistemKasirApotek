@@ -6,13 +6,13 @@ Imports MySql.Data.MySqlClient
 
 Public Class DashBoard
 
-    ' --- Konstanta yang Diperlukan ---
+    'Konstanta yang Diperlukan
     Private Const TableTransaksi As String = "transaksi"
     Private Const TableObat As String = "obat"
     Private Const ColTransaksiTanggal As String = "tgl_transaksi"
 
     Private Sub DashBoard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' --- Atur format DGV ---
+        'Atur format DGV ---
         Try
             DgvRiwayatTransaksi.Columns("ColTotalbayar").DefaultCellStyle.Format = "Rp #,##0"
             DgvRiwayatTransaksi.Columns("ColTotalbayar").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -27,9 +27,8 @@ Public Class DashBoard
         LoadTransactions()
     End Sub
 
-    ''' <summary>
-    ''' DIPERBARUI: Menambahkan kalkulasi bulanan
-    ''' </summary>
+
+    'Menampilkan total statistik di dashboard 
     Private Sub LoadTotals()
         If Koneksi.BukaKoneksi() = False Then
             MessageBox.Show("Gagal terhubung ke DB saat memuat total.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -59,7 +58,6 @@ Public Class DashBoard
                 LblTotalPendapatan.Text = totalPendapatan.ToString("Rp #,##0")
             End Using
 
-            ' --- TAMBAHAN BARU: STATISTIK BULANAN ---
 
             ' 4. Total Transaksi Bulan Ini
             ' (Query MySQL: Cek Bulan DAN Tahun saat ini)
@@ -77,13 +75,11 @@ Public Class DashBoard
                 End If
                 LblTotalPendapatanBulan.Text = totalPendapatanBulan.ToString("Rp #,##0")
             End Using
-            ' --- AKHIR TAMBAHAN ---
 
         Catch ex As Exception
             LblTotalObat.Text = "N/A"
             LblTotalTransaksi.Text = "N/A"
             LblTotalPendapatan.Text = "N/A"
-            ' Tambahkan label baru ke error handler
             LblTotalTransaksiBulan.Text = "N/A"
             LblTotalPendapatanBulan.Text = "N/A"
             MessageBox.Show($"Gagal memuat total: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -92,9 +88,6 @@ Public Class DashBoard
         End Try
     End Sub
 
-    ''' <summary>
-    ''' Menggunakan Rows.Add() manual, bukan DataSource
-    ''' </summary>
     Private Sub LoadTransactions()
         DgvRiwayatTransaksi.Rows.Clear()
 

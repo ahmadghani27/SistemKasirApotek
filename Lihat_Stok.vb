@@ -5,8 +5,6 @@ Imports System.Data
 Public Class Lihat_Stok
 
     Private Sub Lihat_Stok_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Atur format kolom agar angka terlihat rapi
-        ' (Pastikan nama kolom ini sudah benar di desainer)
         DgvStokObat.Columns("ColStok").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
         DgvStokObat.Columns("ColKadaluarsa").DefaultCellStyle.Format = "dd MMM yyyy"
         DgvStokObat.Columns("ColKadaluarsa").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
@@ -17,15 +15,9 @@ Public Class Lihat_Stok
         LoadStok()
     End Sub
 
-    ''' <summary>
-    ''' Mengambil data dari tabel 'obat' dan menampilkannya di grid
-    ''' (DIUBAH UNTUK KONEKSI DATABASE)
-    ''' </summary>
     Private Sub LoadStok()
         ' Hapus data lama
         DgvStokObat.Rows.Clear()
-
-        ' --- KODE DATABASE DIMULAI ---
         Dim query As String = "SELECT id_obat, nama, jenis, stock, tgl_expired, harga FROM obat ORDER BY nama"
 
         If Not Koneksi.BukaKoneksi() Then
@@ -59,26 +51,20 @@ Public Class Lihat_Stok
             ' Tambahkan ke grid (6 kolom sesuai urutan di Petunjuk)
             DgvStokObat.Rows.Add(idObat, nama, jenis, stok, tglExpired, harga)
         Next
-        ' --- KODE DATABASE SELESAI ---
-
         ' Panggil fungsi untuk memberi warna pada baris
         HighlightKadaluarsa()
     End Sub
 
-    ' --- FUNGSI BARU UNTUK MEMBERI WARNA ---
-    ' (Tidak ada perubahan, kode ini sudah benar)
     Private Sub HighlightKadaluarsa()
         Dim hariIni As Date = Date.Today
-        Dim batasWajar As Integer = 30 ' Peringatan kuning jika sisa 30 hari
+        Dim batasWajar As Integer = 30
 
         For Each row As DataGridViewRow In DgvStokObat.Rows
             If row.IsNewRow Then Continue For
 
-            ' Ambil tanggal dari sel (pastikan tidak null)
             If row.Cells("ColKadaluarsa").Value IsNot Nothing Then
                 Dim tglKadaluarsa As Date = CDate(row.Cells("ColKadaluarsa").Value)
 
-                ' Atur warna default dulu (menghilangkan warna lama saat refresh)
                 row.DefaultCellStyle.BackColor = Color.White
                 row.DefaultCellStyle.ForeColor = Color.Black
 
@@ -106,16 +92,8 @@ Public Class Lihat_Stok
         LoadStok()
     End Sub
 
-    ''' <summary>
-    ''' Fungsi LIVE SEARCH
-    ''' (DIPERBAIKI: Menghapus CurrencyManager yang tidak perlu)
-    ''' </summary>
     Private Sub TxtCariObat_TextChanged(sender As Object, e As EventArgs) Handles TxtCariObat.TextChanged
         Dim filterTeks As String = TxtCariObat.Text.ToLower()
-
-        ' --- PERBAIKAN ---
-        ' Kode CurrencyManager dihapus karena kita menggunakan grid Unbound (Rows.Add)
-        ' Menyembunyikan baris secara manual sudah cukup.
 
         For Each row As DataGridViewRow In DgvStokObat.Rows
             If row.IsNewRow Then Continue For
@@ -132,8 +110,6 @@ Public Class Lihat_Stok
             End If
         Next
 
-        ' --- PERBAIKAN ---
-        ' Kode ResumeBinding() dihapus
     End Sub
 
 End Class

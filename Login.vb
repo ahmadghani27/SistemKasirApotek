@@ -21,7 +21,6 @@ Public Class Login
         Dim loginBerhasil As Boolean = False
         Dim userRole As String = ""
         Dim namaPengguna As String = ""
-        ' ------------------------------------------
 
         ' 2. Coba Buka Koneksi
         If Koneksi.BukaKoneksi() = False Then
@@ -49,19 +48,19 @@ Public Class Login
                         ' 7. Jika username atau password salah
                         MessageBox.Show("Username atau Password salah.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
-                End Using ' <-- DataReader (reader) DITUTUP di sini
-            End Using ' <-- Command di-dispose di sini
-        Catch ex As Exception
+                End Using
+            End Using
+        Catch ex As Exception
             ' 8. Jika terjadi error saat menjalankan query
             MessageBox.Show("Terjadi kesalahan: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error
               )
         Finally
             ' 9. Selalu tutup koneksi
-            Koneksi.TutupKoneksi() ' <-- Koneksi DITUTUP di sini
-        End Try
+            Koneksi.TutupKoneksi()
+        End Try
 
 
-        ' 10. SETELAH KONEKSI & READER DITUTUP, baru kita buka form baru
+        ' 10. SETELAH KONEKSI & READER DITUTUP
         If loginBerhasil Then
             MessageBox.Show($"Selamat datang, {namaPengguna}!", "Login Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -69,8 +68,8 @@ Public Class Login
                 Dim frmDashboard As New DashBoard()
                 frmDashboard.Show()
             ElseIf userRole = "Kasir" Then
-                Dim frmTransaksi As New Transaksi() ' Pastikan nama Form-nya "Transaksi"
-                frmTransaksi.Show()
+                Dim frmTransaksi As New Transaksi()
+                frmTransaksi.Show()
             Else
                 MessageBox.Show("Role Anda tidak dikenali.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
@@ -81,10 +80,8 @@ Public Class Login
 
     End Sub
 
-    ' Anda bisa tambahkan kode untuk BtnKeluar di sini
-    Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
-        ' Tampilkan konfirmasi sebelum keluar
-        Dim result = MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+    Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
+        Dim result = MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.Yes Then
             Application.Exit()
         End If
@@ -100,16 +97,12 @@ Public Class Login
         Dim frmReset As New ResetPassword()
 
         ' 3. Kirim username ke form ResetPassword
-        '    (Kita akan buat properti publik di ResetPassword.vb)
         frmReset.UsernameDariLogin = usernameYgAkanDireset
 
         ' 4. Tampilkan form ResetPassword
-        '    Gunakan ShowDialog() agar form Login "terjeda"
-        '    menunggu form ResetPassword ditutup.
         frmReset.ShowDialog()
 
         ' 5. Logika UPDATE database sudah TIDAK ADA di sini lagi.
-        '    Semua pindah ke Form ResetPassword.
     End Sub
 
 

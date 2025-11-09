@@ -7,11 +7,8 @@ Public Class ResetPassword
     Public Property UsernameDariLogin As String = ""
 
     Private Sub ResetPassword_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Saat form ini dibuka, isi TxtUsername
-        ' dengan data yang dikirim dari Form Login
         TxtUsername.Text = Me.UsernameDariLogin
 
-        ' Opsional: Kunci textbox username jika sudah diisi dari login
         If Not String.IsNullOrWhiteSpace(TxtUsername.Text) Then
             TxtUsername.ReadOnly = True
         End If
@@ -84,8 +81,6 @@ Public Class ResetPassword
     End Sub
 
     Private Sub BtnKembali_Click(sender As Object, e As EventArgs) Handles BtnKembali.Click
-        ' Cukup tutup form ini, maka akan kembali ke Form Login
-        ' (karena Form Login dibuka menggunakan .ShowDialog())
         Me.Close()
     End Sub
 

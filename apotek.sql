@@ -40,10 +40,6 @@ CREATE TABLE `detail_transaksi` (
 -- Dumping data for table `detail_transaksi`
 --
 
-INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah_beli`, `harga_satuan`, `sub_total`) VALUES
-(1, 'T001', 'B001', 3, 8000, 16000),
-(2, 'T001', 'B002', 1, 6000, 6000);
-
 -- --------------------------------------------------------
 
 --
@@ -53,7 +49,7 @@ INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah_
 CREATE TABLE `obat` (
   `id_obat` varchar(10) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `jenis` enum('Kapsul','Tablet','Sirup','Salep','') NOT NULL,
+  `jenis` enum('Tablet', 'Sirup', 'Salep', 'Kapsul', 'Injeksi', 'Lainnya') NOT NULL,
   `harga` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
   `tgl_expired` date NOT NULL
@@ -62,10 +58,6 @@ CREATE TABLE `obat` (
 --
 -- Dumping data for table `obat`
 --
-
-INSERT INTO `obat` (`id_obat`, `nama`, `jenis`, `harga`, `stock`, `tgl_expired`) VALUES
-('B001', 'Proris Ibuprofen', 'Tablet', 8000, 50, '2026-11-30'),
-('B002', 'Decolgen', 'Tablet', 6000, 75, '2027-11-16');
 
 -- --------------------------------------------------------
 
@@ -87,7 +79,7 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `nama`, `pass`, `telp`, `role`, `username`) VALUES
-(1, 'Nizar Retisalya Sulkazimah', '12345678', '081227709133', 'Kasir', 'retisalya123');
+(1, 'Nizar Retisalya Sulkazimah', '12345678', '081227709133', 'Admin', 'retisalya123');
 
 -- --------------------------------------------------------
 
@@ -106,9 +98,6 @@ CREATE TABLE `transaksi` (
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `id_pengguna`, `total_bayar`, `tgl_transaksi`) VALUES
-('T001', 1, 22000, '2025-11-05 05:15:02'),
-('T002', 1, 0, '2025-11-07 11:15:50');
 
 --
 -- Indexes for dumped tables

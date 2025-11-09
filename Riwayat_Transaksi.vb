@@ -17,13 +17,8 @@ Public Class Riwayat_Transaksi
         DgvDetail.Columns("ColSubtotal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         DgvDetail.Columns("ColJumlah").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-        ' --- TAMBAHAN ---
-        ' Atur label bulanan ke 0
-        LblTotalBulanan.Text = "Rp 0"
-        ' --- AKHIR TAMBAHAN ---
 
-        ' Panggil fungsi untuk memuat riwayat saat form dibuka
-        ' (Ini akan otomatis memuat total bulanan untuk bulan ini)
+        LblTotalBulanan.Text = "Rp 0"
         LoadRiwayat(DtpFilter.Value)
     End Sub
 
@@ -32,10 +27,6 @@ Public Class Riwayat_Transaksi
         LoadRiwayat(DtpFilter.Value)
     End Sub
 
-    ''' <summary>
-    ''' DIPERBARUI: Mengambil data harian DAN total bulanan.
-    ''' Query juga dioptimalkan untuk menggunakan 'total_bayar'.
-    ''' </summary>
     Private Sub LoadRiwayat(selectedDate As Date)
         ' Hapus data lama
         DgvRiwayat.Rows.Clear()
@@ -47,8 +38,6 @@ Public Class Riwayat_Transaksi
 
         Dim totalHarian As Decimal = 0
 
-        ' --- KUERI HARIAN (DIPERBAIKI) ---
-        ' Jauh lebih efisien, tidak perlu JOIN/GROUP BY jika hanya butuh total
         Dim queryHarian As String = "SELECT id_transaksi, tgl_transaksi, total_bayar FROM transaksi " &
                                    "WHERE CAST(tgl_transaksi AS DATE) = @Tanggal " &
                                    "ORDER BY tgl_transaksi"
@@ -134,11 +123,6 @@ Public Class Riwayat_Transaksi
 
         LoadDetailRiwayat(idTransaksi)
     End Sub
-
-    ''' <summary>
-    ''' Mengambil data detail item dari database berdasarkan ID Transaksi
-    ''' (Tidak ada perubahan di sini, kode ini sudah benar)
-    ''' </summary>
     Private Sub LoadDetailRiwayat(idTransaksi As String)
         DgvDetail.Rows.Clear()
         Dim query As String = "SELECT o.nama, dt.harga_satuan, dt.jumlah_beli, dt.sub_total " &
@@ -176,10 +160,6 @@ Public Class Riwayat_Transaksi
     Private Sub BtnKembali_Click(sender As Object, e As EventArgs) Handles BtnKembali.Click
         Close()
     End Sub
-
-    ''' <summary>
-    ''' Event handler untuk tombol cari obat baru Anda
-    ''' </summary>
     Private Sub BtnCariObat_Click(sender As Object, e As EventArgs) Handles BtnCariObat.Click
         Dim namaObat As String = TxtFilter.Text.Trim()
 
@@ -191,9 +171,6 @@ Public Class Riwayat_Transaksi
         LoadRiwayatByObat(namaObat)
     End Sub
 
-    ''' <summary>
-    ''' DIPERBARUI: Query dioptimalkan untuk menggunakan 'total_bayar'.
-    ''' </summary>
     Private Sub LoadRiwayatByObat(obatName As String)
         DgvRiwayat.Rows.Clear()
         DgvDetail.Rows.Clear()
@@ -205,7 +182,6 @@ Public Class Riwayat_Transaksi
         Dim query As String = ""
 
         ' --- TAHAP 1: Dapatkan semua ID Transaksi yang relevan ---
-        ' (Tahap 1 ini masih sama, perlu join untuk cari nama)
         query = "SELECT DISTINCT dt.id_transaksi " &
                 "FROM detail_transaksi dt " &
                 "JOIN obat o ON dt.id_obat = o.id_obat " &
@@ -279,7 +255,7 @@ Public Class Riwayat_Transaksi
         For Each row As DataRow In dt.Rows
             Dim id As String = row.Item("id_transaksi").ToString()
             Dim waktu As Date = CDate(row.Item("tgl_transaksi"))
-            Dim total As Decimal = CDec(row.Item("total_bayar")) ' <-- Diperbaiki
+            Dim total As Decimal = CDec(row.Item("total_bayar"))
 
             DgvRiwayat.Rows.Add(id, waktu, total)
             totalDitemukan += total
