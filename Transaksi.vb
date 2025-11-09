@@ -25,8 +25,8 @@ Public Class Transaksi
     Private _selectedObatNama As String = ""
     Private _selectedObatHarga As Decimal = 0
 
-    ' Ganti '1' dengan ID pengguna yang login
-    Public IDPenggunaLogin As Integer = 1
+    ' Variabel ini akan diisi oleh Form Login
+    Public IDPenggunaLogin As Integer
 
     ' --- 4. FORM LOAD (DIPERBAIKI + UBAHAN) ---
     Private Sub Transaksi_Load(sender As Object, e As EventArgs) Handles MyBase.Load

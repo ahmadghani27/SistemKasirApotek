@@ -89,8 +89,8 @@ INSERT INTO `pengguna` (`id_pengguna`, `nama`, `pass`, `telp`, `role`, `username
 
 CREATE TABLE `transaksi` (
   `id_transaksi` varchar(30) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
   `total_bayar` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
   `tgl_transaksi` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -162,9 +162,9 @@ ALTER TABLE `detail_transaksi`
 --
 -- Constraints for table `transaksi`
 --
-ALTER TABLE `transaksi`
-  ADD CONSTRAINT `fk_idpengguna_transaksi` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id_pengguna`);
-COMMIT;
+-- ALTER TABLE `transaksi`
+ -- ADD CONSTRAINT `fk_idpengguna_transaksi` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id_pengguna`);
+-- COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

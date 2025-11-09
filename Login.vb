@@ -5,8 +5,8 @@ Public Class Login
 
     Private Sub BtnMasuk_Click(sender As Object, e As EventArgs) Handles BtnMasuk.Click
 
-        ' 1. Validasi Input
-        If String.IsNullOrWhiteSpace(TxtUsername.Text) Then
+        ' 1. Validasi Input
+        If String.IsNullOrWhiteSpace(TxtUsername.Text) Then
             MessageBox.Show("Username tidak boleh kosong.", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             TxtUsername.Focus()
             Return
@@ -17,22 +17,24 @@ Public Class Login
             Return
         End If
 
-        ' --- Variabel untuk menyimpan hasil login ---
-        Dim loginBerhasil As Boolean = False
+        ' --- Variabel untuk menyimpan hasil login ---
+        Dim loginBerhasil As Boolean = False
         Dim userRole As String = ""
         Dim namaPengguna As String = ""
+        Dim idPenggunaLogin As Integer = 0 ' <-- ID Pengguna yang login
 
-        ' 2. Coba Buka Koneksi
-        If Koneksi.BukaKoneksi() = False Then
+        ' 2. Coba Buka Koneksi
+        If Koneksi.BukaKoneksi() = False Then
             MessageBox.Show("Koneksi ke Database Gagal." & vbCrLf &
-                  "Pastikan XAMPP sudah berjalan dan nama database benar.",
-                  "Koneksi Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            "Pastikan XAMPP sudah berjalan dan nama database benar.",
+                            "Koneksi Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        ' 3. Proses Login
-        Try
-            Dim query As String = "SELECT role, nama FROM pengguna WHERE username = @user AND pass = @pass"
+        ' 3. Proses Login
+        Try
+            ' Ambil ID, Role, dan Nama
+            Dim query As String = "SELECT id_pengguna, role, nama FROM pengguna WHERE username = @user AND pass = @pass"
             Using cmd As New MySqlCommand(query, Koneksi.conn)
                 cmd.Parameters.AddWithValue("@user", TxtUsername.Text)
                 cmd.Parameters.AddWithValue("@pass", TxtPassword.Text)
@@ -40,25 +42,25 @@ Public Class Login
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     If reader.HasRows Then
                         reader.Read()
-                        ' 4. Simpan hasilnya ke variabel, JANGAN buka form dulu
-                        loginBerhasil = True
+                        ' 4. Simpan hasilnya ke variabel
+                        loginBerhasil = True
                         userRole = reader.GetString("role")
                         namaPengguna = reader.GetString("nama")
+                        idPenggunaLogin = reader.GetInt32("id_pengguna") ' <-- Simpan ID
                     Else
                         ' 7. Jika username atau password salah
-                        TxtPassword.Clear()
                         MessageBox.Show("Username atau Password salah.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
                 End Using
             End Using
         Catch ex As Exception
-            ' 8. Jika terjadi error saat menjalankan query
-            MessageBox.Show("Terjadi kesalahan: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error
-              )
+            ' 8. Jika terjadi error saat menjalankan query
+            MessageBox.Show("Terjadi kesalahan: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            ' 9. Selalu tutup koneksi
-            Koneksi.TutupKoneksi()
+            ' 9. Selalu tutup koneksi
+            Koneksi.TutupKoneksi()
         End Try
+
 
         ' 10. SETELAH KONEKSI & READER DITUTUP
         If loginBerhasil Then
@@ -69,22 +71,24 @@ Public Class Login
 
             If userRole = "Admin" Then
                 Dim frmDashboard As New DashBoard()
-                frmDashboard.ShowDialog() ' <-- UBAH DARI .Show()
+                frmDashboard.ShowDialog() ' Buka Dashboard
             ElseIf userRole = "Kasir" Then
+                ' KIRIM ID ke Form Transaksi
                 Dim frmTransaksi As New Transaksi()
-                frmTransaksi.ShowDialog() ' <-- UBAH DARI .Show()
+                frmTransaksi.IDPenggunaLogin = idPenggunaLogin ' <-- KIRIM ID
+                frmTransaksi.ShowDialog() ' Buka Form Transaksi
             Else
                 MessageBox.Show("Role Anda tidak dikenali.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
 
+            ' 2. Kode ini berjalan SETELAH Dashboard/Transaksi ditutup
+
+            ' Kosongkan password agar siap untuk login berikutnya
             TxtPassword.Clear()
-            TxtUsername.Clear()
             TxtUsername.Focus()
 
             ' Tampilkan kembali Form Login
             Me.Show()
-
-            ' --- PERUBAHAN SELESAI ---
         End If
 
     End Sub
@@ -97,12 +101,12 @@ Public Class Login
     End Sub
 
 
-    ' Kode untuk BtnLupaPwd bisa ditambahkan nanti
+    ' Kode untuk BtnLupaPwd
     Private Sub BtnLupaPwd_Click(sender As Object, e As EventArgs) Handles BtnLupaPwd.Click
         ' 1. Ambil username dari TxtUsername di form login
         Dim usernameYgAkanDireset As String = TxtUsername.Text
 
-        ' 2. Buat instance (objek) dari form ResetPassword 
+        ' 2. Buat instance (objek) dari form ResetPassword
         Dim frmReset As New ResetPassword()
 
         ' 3. Kirim username ke form ResetPassword
@@ -110,10 +114,6 @@ Public Class Login
 
         ' 4. Tampilkan form ResetPassword
         frmReset.ShowDialog()
-
-        ' 5. Logika UPDATE database sudah TIDAK ADA di sini lagi.
     End Sub
-
-
 
 End Class

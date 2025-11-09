@@ -76,6 +76,7 @@ Public Class Kelola_User
     End Sub
 
     Private Sub BtnTambahUser_Click(sender As Object, e As EventArgs) Handles BtnTambahUser.Click
+        ' --- Validasi Input Kosong ---
         If String.IsNullOrWhiteSpace(TxtNama.Text) OrElse
            String.IsNullOrWhiteSpace(TxtUsername.Text) OrElse
            String.IsNullOrWhiteSpace(TxtPassword.Text) OrElse
@@ -84,10 +85,39 @@ Public Class Kelola_User
             Return
         End If
 
+        ' --- Validasi ComboBox ---
         If CmbRole.SelectedIndex = -1 Then
             MessageBox.Show("Silakan pilih Peran (Admin/Kasir).", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+
+        ' --- VALIDASI TELEPON BARU ---
+        Dim telp As String = TxtTelepon.Text.Trim()
+        Dim isValidNumber As Boolean = False
+        Dim numericPart As String = ""
+
+        If telp.StartsWith("08") Then
+            isValidNumber = Long.TryParse(telp, Nothing)
+        ElseIf telp.StartsWith("+628") Then
+            ' Jika diawali "+628", sisa string (setelah '+') harus berupa angka
+            numericPart = telp.Substring(1) ' Ambil "628..."
+            isValidNumber = Long.TryParse(numericPart, Nothing)
+        End If
+
+        ' Jika salah satu cek di atas gagal (isValidNumber masih False)
+        If Not isValidNumber Then
+            MessageBox.Show("Nomor Telepon tidak valid." & vbCrLf & vbCrLf &
+                            "1. Harus diawali '08' (cth: 0812...)" & vbCrLf &
+                            "2. Atau diawali '+628' (cth: +62812...)" & vbCrLf &
+                            "3. Hanya boleh berisi angka (setelah prefix).",
+                            "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            TxtTelepon.Focus()
+            TxtTelepon.SelectAll()
+            Return
+        End If
+        ' --- AKHIR VALIDASI TELEPON ---
+
+        ' --- Akhir Validasi ---
 
         Dim query As String = "INSERT INTO pengguna (nama, username, pass, telp, role) " &
                               "VALUES (@nama, @user, @pass, @telp, @role)"
@@ -102,7 +132,7 @@ Public Class Kelola_User
             cmd.Parameters.AddWithValue("@nama", TxtNama.Text)
             cmd.Parameters.AddWithValue("@user", TxtUsername.Text)
             cmd.Parameters.AddWithValue("@pass", TxtPassword.Text)
-            cmd.Parameters.AddWithValue("@telp", TxtTelepon.Text)
+            cmd.Parameters.AddWithValue("@telp", TxtTelepon.Text) ' Simpan nomor telepon yang sudah divalidasi
             cmd.Parameters.AddWithValue("@role", CmbRole.SelectedItem.ToString())
 
             cmd.ExecuteNonQuery()
