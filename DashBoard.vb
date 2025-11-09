@@ -163,8 +163,6 @@ Public Class DashBoard
 
     Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
         Try
-            Dim f As New Login()
-            f.Show()
             Me.Close()
         Catch ex As Exception
             MessageBox.Show($"Gagal logout: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

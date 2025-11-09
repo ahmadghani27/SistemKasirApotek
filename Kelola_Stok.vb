@@ -329,4 +329,8 @@ Public Class Kelola_Stok
     Private Sub LblJenis_Click(sender As Object, e As EventArgs) Handles LblJenis.Click
         ' (Kosong)
     End Sub
+
+    Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
+        Me.Close()
+    End Sub
 End Class

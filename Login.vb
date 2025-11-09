@@ -45,8 +45,9 @@ Public Class Login
                         userRole = reader.GetString("role")
                         namaPengguna = reader.GetString("nama")
                     Else
-                        ' 7. Jika username atau password salah
-                        MessageBox.Show("Username atau Password salah.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        ' 7. Jika username atau password salah
+                        TxtPassword.Clear()
+                        MessageBox.Show("Username atau Password salah.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
                 End Using
             End Using
@@ -59,23 +60,31 @@ Public Class Login
             Koneksi.TutupKoneksi()
         End Try
 
-
-        ' 10. SETELAH KONEKSI & READER DITUTUP
-        If loginBerhasil Then
+        ' 10. SETELAH KONEKSI & READER DITUTUP
+        If loginBerhasil Then
             MessageBox.Show($"Selamat datang, {namaPengguna}!", "Login Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' 1. Sembunyikan Form Login DULU
+            Me.Hide()
 
             If userRole = "Admin" Then
                 Dim frmDashboard As New DashBoard()
-                frmDashboard.Show()
+                frmDashboard.ShowDialog() ' <-- UBAH DARI .Show()
             ElseIf userRole = "Kasir" Then
                 Dim frmTransaksi As New Transaksi()
-                frmTransaksi.Show()
+                frmTransaksi.ShowDialog() ' <-- UBAH DARI .Show()
             Else
                 MessageBox.Show("Role Anda tidak dikenali.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
 
-            ' Sembunyikan Form Login ini
-            Me.Hide()
+            TxtPassword.Clear()
+            TxtUsername.Clear()
+            TxtUsername.Focus()
+
+            ' Tampilkan kembali Form Login
+            Me.Show()
+
+            ' --- PERUBAHAN SELESAI ---
         End If
 
     End Sub

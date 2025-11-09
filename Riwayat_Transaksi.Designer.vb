@@ -46,6 +46,7 @@ Partial Class Riwayat_Transaksi
         Label2 = New Label()
         BtnCariObat = New Button()
         Label3 = New Label()
+        BtnClearFilter = New Button()
         CType(DgvRiwayat, ComponentModel.ISupportInitialize).BeginInit()
         GbFilter.SuspendLayout()
         CType(DgvDetail, ComponentModel.ISupportInitialize).BeginInit()
@@ -125,7 +126,7 @@ Partial Class Riwayat_Transaksi
         ' 
         BtnKembali.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         BtnKembali.FlatStyle = FlatStyle.Flat
-        BtnKembali.Location = New Point(424, 26)
+        BtnKembali.Location = New Point(597, 26)
         BtnKembali.Name = "BtnKembali"
         BtnKembali.Size = New Size(167, 25)
         BtnKembali.TabIndex = 11
@@ -135,6 +136,7 @@ Partial Class Riwayat_Transaksi
         ' GbFilter
         ' 
         GbFilter.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        GbFilter.Controls.Add(BtnClearFilter)
         GbFilter.Controls.Add(Label1)
         GbFilter.Controls.Add(LblTotalBulanan)
         GbFilter.Controls.Add(LblLabelTotal)
@@ -294,6 +296,17 @@ Partial Class Riwayat_Transaksi
         Label3.Text = "Rp 0"
         Label3.TextAlign = ContentAlignment.MiddleRight
         ' 
+        ' BtnClearFilter
+        ' 
+        BtnClearFilter.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        BtnClearFilter.FlatStyle = FlatStyle.Flat
+        BtnClearFilter.Location = New Point(424, 27)
+        BtnClearFilter.Name = "BtnClearFilter"
+        BtnClearFilter.Size = New Size(167, 25)
+        BtnClearFilter.TabIndex = 16
+        BtnClearFilter.Text = "Bersihkan filter"
+        BtnClearFilter.UseVisualStyleBackColor = True
+        ' 
         ' Riwayat_Transaksi
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -345,4 +358,5 @@ Partial Class Riwayat_Transaksi
     Friend WithEvents PanelHeader As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents LblTotalBulanan As Label
+    Friend WithEvents BtnClearFilter As Button
 End Class
