@@ -27,7 +27,6 @@ Partial Class FormHasilPencarian
         colNama = New DataGridViewTextBoxColumn()
         colHarga = New DataGridViewTextBoxColumn()
         colJumlah = New DataGridViewTextBoxColumn()
-        BtnPilih = New Button()
         Button1 = New Button()
         CType(DgvHasilPencarian, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -74,22 +73,12 @@ Partial Class FormHasilPencarian
         colJumlah.ReadOnly = True
         colJumlah.Width = 80
         ' 
-        ' BtnPilih
-        ' 
-        BtnPilih.FlatStyle = FlatStyle.Flat
-        BtnPilih.Location = New Point(704, 237)
-        BtnPilih.Name = "BtnPilih"
-        BtnPilih.Size = New Size(84, 27)
-        BtnPilih.TabIndex = 12
-        BtnPilih.Text = "Pilih"
-        BtnPilih.UseVisualStyleBackColor = True
-        ' 
         ' Button1
         ' 
         Button1.FlatStyle = FlatStyle.Flat
-        Button1.Location = New Point(614, 237)
+        Button1.Location = New Point(588, 237)
         Button1.Name = "Button1"
-        Button1.Size = New Size(84, 27)
+        Button1.Size = New Size(200, 27)
         Button1.TabIndex = 13
         Button1.Text = "Keluar"
         Button1.UseVisualStyleBackColor = True
@@ -98,9 +87,8 @@ Partial Class FormHasilPencarian
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(800, 274)
         Controls.Add(Button1)
-        Controls.Add(BtnPilih)
         Controls.Add(DgvHasilPencarian)
         Name = "FormHasilPencarian"
         Text = "ujicoba"
@@ -109,7 +97,6 @@ Partial Class FormHasilPencarian
     End Sub
 
     Friend WithEvents DgvHasilPencarian As DataGridView
-    Friend WithEvents BtnPilih As Button
     Friend WithEvents colID As DataGridViewTextBoxColumn
     Friend WithEvents colNama As DataGridViewTextBoxColumn
     Friend WithEvents colHarga As DataGridViewTextBoxColumn

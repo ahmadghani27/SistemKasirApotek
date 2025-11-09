@@ -60,22 +60,8 @@ Public Class FormHasilPencarian
         End If
     End Sub
 
-    Private Sub BtnPilih_Click(sender As Object, e As EventArgs) Handles BtnPilih.Click
-        If DgvHasilPencarian.SelectedRows.Count > 0 Then
-            Dim baris As DataGridViewRow = DgvHasilPencarian.SelectedRows(0)
-            SelectedObatID = baris.Cells(0).Value.ToString()
-            SelectedObatNama = baris.Cells(1).Value.ToString()
-            SelectedObatHarga = Convert.ToDecimal(baris.Cells(2).Value)
-
-            Me.DialogResult = DialogResult.OK
-            Me.Close()
-        Else
-            MessageBox.Show("Pilih obat terlebih dahulu.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
-    End Sub
-
-    Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnPilih.Click
-        Me.DialogResult = DialogResult.Cancel
-        Me.Close()
+    Private Sub BtnKeluar_Click(sender As Object, e As EventArgs)
+        DialogResult = DialogResult.Cancel
+        Close()
     End Sub
 End Class
