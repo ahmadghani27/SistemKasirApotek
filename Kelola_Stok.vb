@@ -2,7 +2,9 @@
 Imports System.Data
 
 Public Class Kelola_Stok
+    ' DataTable untuk menyimpan data obat
     Private dtObat As DataTable
+    ' Inisialisasi form dan muat data saat load
     Private Sub Kelola_Stok_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitTable()
         LoadDataFromDatabase()
@@ -12,6 +14,7 @@ Public Class Kelola_Stok
         ClearInputs()
     End Sub
 
+    ' Muat data obat dari database ke DataTable
     Private Sub LoadDataFromDatabase()
         dtObat.Rows.Clear()
 
@@ -27,6 +30,7 @@ Public Class Kelola_Stok
         Dim dbDataTable As New DataTable()
 
         Try
+            ' Ambil semua data obat ke DataTable sementara
             da.Fill(dbDataTable)
         Catch ex As Exception
             MessageBox.Show("Gagal memuat data obat: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -34,6 +38,7 @@ Public Class Kelola_Stok
             Koneksi.TutupKoneksi()
         End Try
 
+        ' Loop data dari DataTable sementara dan masukkan ke dtObat
         For Each row As DataRow In dbDataTable.Rows
             Try
                 dtObat.Rows.Add(
@@ -45,12 +50,13 @@ Public Class Kelola_Stok
                     row("tgl_expired")
                 )
             Catch ex As Exception
-                ' Handle jika ada error konversi data
+                ' Tangani error konversi data jika ada
+                MessageBox.Show("Gagal memproses data obat: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         Next
     End Sub
 
-
+    ' Inisialisasi struktur DataTable
     Private Sub InitTable()
         dtObat = New DataTable()
         dtObat.Columns.Add("IDObat", GetType(String))
@@ -61,16 +67,19 @@ Public Class Kelola_Stok
         dtObat.Columns.Add("Kadaluarsa", GetType(Date))
     End Sub
 
+    ' Bind DataTable ke DataGridView
     Private Sub BindGrid()
         DgvObat.DataSource = dtObat
     End Sub
 
+    ' Inisialisasi ComboBox Jenis Obat
     Private Sub InitCombo()
         CmbJenis.Items.Clear()
         CmbJenis.Items.AddRange(New String() {"Tablet", "Sirup", "Salep", "Kapsul", "Injeksi", "Lainnya"})
         If CmbJenis.Items.Count > 0 Then CmbJenis.SelectedIndex = 0
     End Sub
 
+    ' Pasang event handler untuk tombol dan DGV
     Private Sub WireEvents()
         AddHandler BtnTambah.Click, AddressOf BtnTambah_Click
         AddHandler BtnUbah.Click, AddressOf BtnUbah_Click
@@ -79,20 +88,23 @@ Public Class Kelola_Stok
         AddHandler DgvObat.SelectionChanged, AddressOf DgvObat_SelectionChanged
     End Sub
 
+    ' Tambah data obat baru
     Private Sub BtnTambah_Click(sender As Object, e As EventArgs)
         Dim id = TxtIDObat.Text.Trim()
+        ' jika id kosong
         If id = "" Then
             MessageBox.Show("ID Obat wajib diisi.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             TxtIDObat.Focus()
             Return
         End If
-
+        ' cek duplikat di DataTable lokal
         If dtObat.Select($"IDObat = '{id.Replace("'", "''")}'").Length > 0 Then
             MessageBox.Show("ID Obat sudah ada. Gunakan ID unik.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             TxtIDObat.Focus()
             Return
         End If
 
+        ' Validasi input lainnya
         Dim nama = TxtNamaObat.Text.Trim()
         If nama = "" Then
             MessageBox.Show("Nama Obat wajib diisi.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -100,6 +112,7 @@ Public Class Kelola_Stok
             Return
         End If
 
+        ' Validasi harga
         Dim hargaDecimal As Decimal
         If Not Decimal.TryParse(TxtHarga.Text.Trim(), hargaDecimal) OrElse hargaDecimal < 0D Then
             MessageBox.Show("Harga harus angka positif.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -107,6 +120,7 @@ Public Class Kelola_Stok
             Return
         End If
 
+        ' Validasi stok
         Dim stokInt As Integer
         If Not Integer.TryParse(TxtStok.Text.Trim(), stokInt) OrElse stokInt < 0 Then
             MessageBox.Show("Stok harus bilangan bulat >= 0.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -114,6 +128,7 @@ Public Class Kelola_Stok
             Return
         End If
 
+        ' Ambil jenis dan kadaluarsa
         Dim jenis = If(CmbJenis.SelectedItem IsNot Nothing, CmbJenis.SelectedItem.ToString(), "")
         Dim kadaluarsa = DtpKadaluarsa.Value.Date
 
@@ -125,6 +140,7 @@ Public Class Kelola_Stok
             Return
         End If
 
+        ' Eksekusi perintah INSERT
         Dim cmd As New MySqlCommand(query, Koneksi.conn)
         Try
             cmd.Parameters.AddWithValue("@id", id)
@@ -158,17 +174,21 @@ Public Class Kelola_Stok
         ClearInputs()
     End Sub
 
+    ' tombol ubah data obat
     Private Sub BtnUbah_Click(sender As Object, e As EventArgs)
+        ' jika tidak ada baris yang dipilih
         If DgvObat.SelectedRows.Count = 0 Then
             MessageBox.Show("Pilih baris data untuk diubah.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
+        ' jika ada baris yang dipilih
         Dim row As DataRow = CType(CType(DgvObat.SelectedRows(0).DataBoundItem, DataRowView).Row, DataRow)
         If row Is Nothing Then Return
 
         Dim id As String = row("IDObat").ToString()
 
+        ' Validasi input
         Dim nama = TxtNamaObat.Text.Trim()
         If nama = "" Then
             Return
@@ -176,19 +196,19 @@ Public Class Kelola_Stok
 
         Dim hargaDecimal As Decimal
         If Not Decimal.TryParse(TxtHarga.Text.Trim(), hargaDecimal) OrElse hargaDecimal < 0D Then
-            ' ... (validasi harga) ...
             Return
         End If
 
         Dim stokInt As Integer
         If Not Integer.TryParse(TxtStok.Text.Trim(), stokInt) OrElse stokInt < 0 Then
-            ' ... (validasi stok) ...
             Return
         End If
 
+        ' Ambil jenis dan kadaluarsa
         Dim jenis = If(CmbJenis.SelectedItem IsNot Nothing, CmbJenis.SelectedItem.ToString(), "")
         Dim kadaluarsa = DtpKadaluarsa.Value.Date
 
+        ' Perintah UPDATE
         Dim query As String = "UPDATE obat SET nama = @nama, jenis = @jenis, harga = @harga, " &
                               "stock = @stok, tgl_expired = @tgl WHERE id_obat = @id"
 
@@ -197,6 +217,7 @@ Public Class Kelola_Stok
             Return
         End If
 
+        ' Eksekusi perintah UPDATE
         Dim cmd As New MySqlCommand(query, Koneksi.conn)
         Try
             cmd.Parameters.AddWithValue("@nama", nama)
@@ -228,18 +249,22 @@ Public Class Kelola_Stok
         ClearInputs()
     End Sub
 
+    ' tombol hapus data obat
     Private Sub BtnHapus_Click(sender As Object, e As EventArgs) Handles BtnHapus.Click
+        ' jika tidak ada baris yang dipilih
         If DgvObat.SelectedRows.Count = 0 Then
             MessageBox.Show("Pilih baris data untuk dihapus.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
+        ' konfirmasi penghapusan
         If MessageBox.Show("Yakin ingin menghapus data obat yang dipilih?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> DialogResult.Yes Then
             Return
         End If
         Dim row As DataRow = CType(CType(DgvObat.SelectedRows(0).DataBoundItem, DataRowView).Row, DataRow)
         If row Is Nothing Then Return
 
+        ' ambil ID dari DataRow
         Dim id = row("IDObat").ToString()
         Dim query As String = "DELETE FROM obat WHERE id_obat = @id"
 
@@ -275,10 +300,12 @@ Public Class Kelola_Stok
         ClearInputs()
     End Sub
 
+    ' tombol bersihkan input
     Private Sub BtnBersih_Click(sender As Object, e As EventArgs)
         ClearInputs()
     End Sub
 
+    ' Bersihkan semua input form
     Private Sub ClearInputs()
         TxtIDObat.Clear()
         TxtNamaObat.Clear()
@@ -290,7 +317,9 @@ Public Class Kelola_Stok
         TxtIDObat.Enabled = True
     End Sub
 
+    ' Event handler saat pemilihan baris di DGV berubah
     Private Sub DgvObat_SelectionChanged(sender As Object, e As EventArgs)
+        ' jika tidak ada baris yang dipilih
         If DgvObat.SelectedRows.Count = 0 Then
             Return
         End If
@@ -300,24 +329,27 @@ Public Class Kelola_Stok
             row = CType(CType(DgvObat.SelectedRows(0).DataBoundItem, DataRowView).Row, DataRow)
             If row Is Nothing Then Return
         Catch ex As Exception
-            Return ' Error saat row belum siap
+            Return
         End Try
-        ' --- AKHIR PERBAIKAN BUG ---
 
+        ' ambil data dari DataRow dan tampilkan di input form
         TxtIDObat.Text = row("IDObat").ToString()
         TxtNamaObat.Text = row("NamaObat").ToString()
 
+        ' Atur ComboBox Jenis
         Dim jenis = row("Jenis").ToString()
+        ' jika jenis tidak ada di daftar, tambahkan
         If CmbJenis.Items.Contains(jenis) Then
             CmbJenis.SelectedItem = jenis
         Else
-            ' Logika ini sudah benar
+            ' jika tidak kosong, tambahkan ke daftar
             If jenis <> "" Then
                 CmbJenis.Items.Add(jenis)
                 CmbJenis.SelectedItem = jenis
             End If
         End If
 
+        ' Atur nilai lainnya
         TxtHarga.Text = Convert.ToDecimal(row("Harga")).ToString("0.##")
         TxtStok.Text = row("Stok").ToString()
         DtpKadaluarsa.Value = Convert.ToDateTime(row("Kadaluarsa"))
@@ -326,10 +358,7 @@ Public Class Kelola_Stok
         TxtIDObat.Enabled = False
     End Sub
 
-    Private Sub LblJenis_Click(sender As Object, e As EventArgs) Handles LblJenis.Click
-        ' (Kosong)
-    End Sub
-
+    ' tombol keluar
     Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
         Me.Close()
     End Sub

@@ -59,6 +59,7 @@ Partial Class ResetPassword
         TxtPasswordBaru.Font = New Font("Segoe UI", 12F)
         TxtPasswordBaru.Location = New Point(315, 141)
         TxtPasswordBaru.Name = "TxtPasswordBaru"
+        TxtPasswordBaru.PasswordChar = "*"c
         TxtPasswordBaru.Size = New Size(333, 29)
         TxtPasswordBaru.TabIndex = 14
         ' 
@@ -115,6 +116,7 @@ Partial Class ResetPassword
         TxtKonfirmasiPassword.Font = New Font("Segoe UI", 12F)
         TxtKonfirmasiPassword.Location = New Point(315, 176)
         TxtKonfirmasiPassword.Name = "TxtKonfirmasiPassword"
+        TxtKonfirmasiPassword.PasswordChar = "*"c
         TxtKonfirmasiPassword.Size = New Size(333, 29)
         TxtKonfirmasiPassword.TabIndex = 18
         ' 

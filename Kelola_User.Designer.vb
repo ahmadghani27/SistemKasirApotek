@@ -71,6 +71,7 @@ Partial Class Kelola_User
         TxtPassword.Location = New Point(121, 72)
         TxtPassword.Margin = New Padding(5)
         TxtPassword.Name = "TxtPassword"
+        TxtPassword.PasswordChar = "*"c
         TxtPassword.Size = New Size(473, 23)
         TxtPassword.TabIndex = 2
         ' 

@@ -3,19 +3,20 @@ Imports MySql.Data.MySqlClient
 Imports System.Data
 
 Public Class Kelola_User
-
+    ' Muat desain DGV dan data awal saat form load
     Private Sub Kelola_User_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DgvUser.AllowUserToAddRows = False
         SetupComboBox()
         LoadData()
         ClearForm()
     End Sub
+    ' Set up ComboBox dengan pilihan role
     Private Sub SetupComboBox()
         Dim roles() As String = {"Admin", "Kasir"}
         CmbRole.DataSource = roles
         CmbRole.DropDownStyle = ComboBoxStyle.DropDownList
     End Sub
-
+    ' Bersihkan form input
     Private Sub ClearForm()
         TxtNama.Clear()
         TxtUsername.Clear()
@@ -25,7 +26,7 @@ Public Class Kelola_User
         DgvUser.ClearSelection()
         TxtNama.Focus()
     End Sub
-
+    ' Muat data pengguna dari database ke DataGridView
     Private Sub LoadData()
         DgvUser.Rows.Clear()
 
@@ -44,6 +45,7 @@ Public Class Kelola_User
         Dim dt As New DataTable()
 
         Try
+            ' Ambil semua data pengguna ke DataTable
             da.Fill(dt)
         Catch ex As Exception
             MessageBox.Show("Terjadi kesalahan saat memuat data pengguna: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -70,13 +72,14 @@ Public Class Kelola_User
             End If
         Next
 
-        ' Update label KPI
+        ' update label total admin & kasir
         LblTotalAdmin.Text = totalAdmin.ToString()
         LblTotalKasir.Text = totalKasir.ToString()
     End Sub
 
+    ' tombol tambah user
     Private Sub BtnTambahUser_Click(sender As Object, e As EventArgs) Handles BtnTambahUser.Click
-        ' --- Validasi Input Kosong ---
+        ' validasi input
         If String.IsNullOrWhiteSpace(TxtNama.Text) OrElse
            String.IsNullOrWhiteSpace(TxtUsername.Text) OrElse
            String.IsNullOrWhiteSpace(TxtPassword.Text) OrElse
@@ -85,13 +88,13 @@ Public Class Kelola_User
             Return
         End If
 
-        ' --- Validasi ComboBox ---
+        ' validasi role dipilih
         If CmbRole.SelectedIndex = -1 Then
             MessageBox.Show("Silakan pilih Peran (Admin/Kasir).", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' --- VALIDASI TELEPON BARU ---
+        ' validasi telepon
         Dim telp As String = TxtTelepon.Text.Trim()
         Dim isValidNumber As Boolean = False
         Dim numericPart As String = ""
@@ -115,9 +118,6 @@ Public Class Kelola_User
             TxtTelepon.SelectAll()
             Return
         End If
-        ' --- AKHIR VALIDASI TELEPON ---
-
-        ' --- Akhir Validasi ---
 
         Dim query As String = "INSERT INTO pengguna (nama, username, pass, telp, role) " &
                               "VALUES (@nama, @user, @pass, @telp, @role)"
@@ -129,6 +129,7 @@ Public Class Kelola_User
 
         Dim cmd As New MySqlCommand(query, Koneksi.conn)
         Try
+            ' Tambahkan parameter untuk mencegah SQL Injection
             cmd.Parameters.AddWithValue("@nama", TxtNama.Text)
             cmd.Parameters.AddWithValue("@user", TxtUsername.Text)
             cmd.Parameters.AddWithValue("@pass", TxtPassword.Text)
@@ -156,7 +157,9 @@ Public Class Kelola_User
         ClearForm()
     End Sub
 
+    ' tombol hapus user
     Private Sub BtnHapusUser_Click(sender As Object, e As EventArgs) Handles BtnHapusUser.Click
+        ' cek apakah ada baris yang dipilih?
         If DgvUser.SelectedRows.Count = 0 Then
             MessageBox.Show("Pilih pengguna di tabel yang ingin dihapus.", "Pilih Baris", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -167,14 +170,14 @@ Public Class Kelola_User
         ' Ambil nilai total admin dari label (pastikan konversi aman)
         Integer.TryParse(LblTotalAdmin.Text, totalAdmin)
 
-        ' Cek 2: Apakah ini Admin terakhir?
+        ' Apakah ini Admin terakhir?
         If peranDipilih = "Admin" AndAlso totalAdmin = 1 Then
             MessageBox.Show("Gagal Menghapus! Anda tidak boleh menghapus Admin terakhir." & vbCrLf &
                             "Sistem harus memiliki minimal satu Admin.", "Logika Bisnis", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        ' Cek 3: Konfirmasi Hapus (Hanya jika lolos cek 1 & 2)
+        ' Konfirmasi Hapus (Hanya jika lolos cek 1 & 2)
         Dim nama As String = DgvUser.SelectedRows(0).Cells("ColNama").Value.ToString()
         If MessageBox.Show($"Yakin ingin menghapus pengguna '{nama}'?", "Konfirmasi Hapus", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
             Return
@@ -207,14 +210,17 @@ Public Class Kelola_User
         ClearForm()
     End Sub
 
+    ' tombol bersihkan form
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
         ClearForm()
     End Sub
 
+    'tombol keluar
     Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
         Me.Close()
     End Sub
 
+    ' Saat pemilihan baris di DGV berubah, tampilkan data di form input
     Private Sub DgvUser_SelectionChanged(sender As Object, e As EventArgs) Handles DgvUser.SelectionChanged
         If DgvUser.SelectedRows.Count = 0 Then
             Return ' Jangan lakukan apa-apa jika tidak ada baris

@@ -11,8 +11,9 @@ Public Class DashBoard
     Private Const TableObat As String = "obat"
     Private Const ColTransaksiTanggal As String = "tgl_transaksi"
 
+    ' Muat desain DGV dan data awal saat form load
     Private Sub DashBoard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Atur format DGV ---
+        ' format DataGridView
         Try
             DgvRiwayatTransaksi.Columns("ColTotalbayar").DefaultCellStyle.Format = "Rp #,##0"
             DgvRiwayatTransaksi.Columns("ColTotalbayar").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -36,40 +37,40 @@ Public Class DashBoard
         End If
 
         Try
-            ' 1. Total Obat (Total obat terdaftar)
+            'Total Obat (Total obat terdaftar)
             Using cmd As New MySqlCommand($"SELECT COUNT(*) FROM {TableObat}", Koneksi.conn)
                 Dim totalObat = Convert.ToInt32(cmd.ExecuteScalar())
                 LblTotalObat.Text = totalObat.ToString("N0")
             End Using
 
-            ' 2. Total Transaksi hari ini
+            'Total Transaksi hari ini
             Using cmd As New MySqlCommand($"SELECT COUNT(*) FROM {TableTransaksi} WHERE DATE({ColTransaksiTanggal}) = CURDATE()", Koneksi.conn)
                 Dim totalToday = Convert.ToInt32(cmd.ExecuteScalar())
                 LblTotalTransaksi.Text = totalToday.ToString("N0")
             End Using
 
-            ' 3. Total Pendapatan hari ini
+            'Total Pendapatan hari ini
             Using cmd As New MySqlCommand($"SELECT SUM(total_bayar) FROM {TableTransaksi} WHERE DATE({ColTransaksiTanggal}) = CURDATE()", Koneksi.conn)
                 Dim totalRevenue As Object = cmd.ExecuteScalar()
                 Dim totalPendapatan As Decimal = 0
+                ' jika NULL, set ke 0
                 If totalRevenue IsNot DBNull.Value AndAlso totalRevenue IsNot Nothing Then
                     totalPendapatan = Convert.ToDecimal(totalRevenue)
                 End If
                 LblTotalPendapatan.Text = totalPendapatan.ToString("Rp #,##0")
             End Using
 
-
-            ' 4. Total Transaksi Bulan Ini
-            ' (Query MySQL: Cek Bulan DAN Tahun saat ini)
+            'Query MySQL untuk Cek Bulan DAN Tahun saat ini
             Using cmd As New MySqlCommand($"SELECT COUNT(*) FROM {TableTransaksi} WHERE MONTH({ColTransaksiTanggal}) = MONTH(CURDATE()) AND YEAR({ColTransaksiTanggal}) = YEAR(CURDATE())", Koneksi.conn)
                 Dim totalMonthCount = Convert.ToInt32(cmd.ExecuteScalar())
                 LblTotalTransaksiBulan.Text = totalMonthCount.ToString("N0")
             End Using
 
-            ' 5. Total Pendapatan Bulan Ini
+            'Total Pendapatan Bulan Ini
             Using cmd As New MySqlCommand($"SELECT SUM(total_bayar) FROM {TableTransaksi} WHERE MONTH({ColTransaksiTanggal}) = MONTH(CURDATE()) AND YEAR({ColTransaksiTanggal}) = YEAR(CURDATE())", Koneksi.conn)
                 Dim totalMonthRevenue As Object = cmd.ExecuteScalar()
                 Dim totalPendapatanBulan As Decimal = 0
+                ' jika NULL, set ke 0
                 If totalMonthRevenue IsNot DBNull.Value AndAlso totalMonthRevenue IsNot Nothing Then
                     totalPendapatanBulan = Convert.ToDecimal(totalMonthRevenue)
                 End If
@@ -77,6 +78,7 @@ Public Class DashBoard
             End Using
 
         Catch ex As Exception
+            ' Jika ada error, set semua label ke "N/A"
             LblTotalObat.Text = "N/A"
             LblTotalTransaksi.Text = "N/A"
             LblTotalPendapatan.Text = "N/A"
@@ -88,6 +90,7 @@ Public Class DashBoard
         End Try
     End Sub
 
+    'Menampilkan riwayat transaksi terbaru di dashboard
     Private Sub LoadTransactions()
         DgvRiwayatTransaksi.Rows.Clear()
 
@@ -103,6 +106,7 @@ Public Class DashBoard
         Dim dt As New DataTable()
 
         Try
+            ' Ambil data transaksi terbaru ke DataTable
             da.Fill(dt)
         Catch ex As Exception
             MessageBox.Show($"Gagal memuat riwayat transaksi: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -111,6 +115,7 @@ Public Class DashBoard
         End Try
 
         Try
+            ' Loop data dari DataTable dan masukkan ke DGV secara manual
             For Each row As DataRow In dt.Rows
                 Dim id As String = row.Item("id_transaksi").ToString()
                 Dim total As Decimal = CDec(row.Item("total_bayar"))
@@ -126,10 +131,10 @@ Public Class DashBoard
         End Try
     End Sub
 
-    ' --- Tombol Navigasi ---
-
+    ' tombol ke form kelola stok
     Private Sub BtnKelolaStok_Click(sender As Object, e As EventArgs) Handles BtnKelolaStok.Click
         Try
+            'Buka form Kelola Stok
             Dim f As New Kelola_Stok()
             f.ShowDialog()
             LoadTotals()
@@ -139,8 +144,10 @@ Public Class DashBoard
         End Try
     End Sub
 
+    ' tombol ke form kelola user
     Private Sub BtnKelolaUser_Click(sender As Object, e As EventArgs) Handles BtnKelolaUser.Click
         Try
+            'Buka form Kelola User
             Dim f As New Kelola_User
             f.ShowDialog()
             LoadTotals()
@@ -150,8 +157,9 @@ Public Class DashBoard
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BtnDetailRiwayat.Click
+    Private Sub BtnDetailRiwayat_Click(sender As Object, e As EventArgs) Handles BtnDetailRiwayat.Click
         Try
+            ' Buka form Riwayat Transaksi
             Dim f As New Riwayat_Transaksi()
             f.ShowDialog()
             LoadTotals()
@@ -161,6 +169,7 @@ Public Class DashBoard
         End Try
     End Sub
 
+    ' Tombol Logout
     Private Sub BtnKeluar_Click(sender As Object, e As EventArgs) Handles BtnKeluar.Click
         Try
             Me.Close()
@@ -169,9 +178,4 @@ Public Class DashBoard
         End Try
     End Sub
 
-    ' --- Event Handler Kosong (biarkan saja) ---
-    Private Sub LblCaptionUser_Click(sender As Object, e As EventArgs) Handles LblCaptionUser.Click
-    End Sub
-    Private Sub PanelCardTransaksi_Paint(sender As Object, e As PaintEventArgs) Handles PanelCardTransaksi.Paint
-    End Sub
 End Class

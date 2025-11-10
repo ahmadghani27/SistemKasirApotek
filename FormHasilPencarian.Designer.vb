@@ -91,6 +91,7 @@ Partial Class FormHasilPencarian
         Controls.Add(Button1)
         Controls.Add(DgvHasilPencarian)
         Name = "FormHasilPencarian"
+        StartPosition = FormStartPosition.CenterParent
         Text = "ujicoba"
         CType(DgvHasilPencarian, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)

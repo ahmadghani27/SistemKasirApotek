@@ -1,5 +1,4 @@
-﻿' Impor library MySQL
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 Imports System.Data
 
 Public Class Lihat_Stok
@@ -11,12 +10,11 @@ Public Class Lihat_Stok
         DgvStokObat.Columns("ColHarga").DefaultCellStyle.Format = "Rp #,##0"
         DgvStokObat.Columns("ColHarga").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-        ' Panggil fungsi untuk memuat data stok
         LoadStok()
     End Sub
 
     Private Sub LoadStok()
-        ' Hapus data lama
+        ' Hapus data lama yang ditampilkan
         DgvStokObat.Rows.Clear()
         Dim query As String = "SELECT id_obat, nama, jenis, stock, tgl_expired, harga FROM obat ORDER BY nama"
 
@@ -29,17 +27,17 @@ Public Class Lihat_Stok
         Dim dt As New DataTable()
 
         Try
-            ' 1. Ambil semua data obat ke DataTable
+            ' Ambil semua data obat ke DataTable
             da.Fill(dt)
 
         Catch ex As Exception
             MessageBox.Show("Terjadi kesalahan saat memuat data obat: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            ' 2. Selalu tutup koneksi setelah data diambil
+            ' Selalu tutup koneksi setelah data diambil
             Koneksi.TutupKoneksi()
         End Try
 
-        ' 3. Loop data dari DataTable dan masukkan ke DGV secara manual
+        ' Loop data dari DataTable dan masukkan ke DGV secara manual
         For Each row As DataRow In dt.Rows
             Dim idObat As String = row.Item("id_obat").ToString()
             Dim nama As String = row.Item("nama").ToString()
@@ -48,7 +46,7 @@ Public Class Lihat_Stok
             Dim tglExpired As Date = CDate(row.Item("tgl_expired"))
             Dim harga As Decimal = CDec(row.Item("harga"))
 
-            ' Tambahkan ke grid (6 kolom sesuai urutan di Petunjuk)
+            ' Tambahkan ke grid 
             DgvStokObat.Rows.Add(idObat, nama, jenis, stok, tglExpired, harga)
         Next
         ' Panggil fungsi untuk memberi warna pada baris
@@ -70,11 +68,11 @@ Public Class Lihat_Stok
 
                 ' Cek kondisi
                 If tglKadaluarsa < hariIni Then
-                    ' SUDAH KADALUARSA
+                    ' Kadaluarsa
                     row.DefaultCellStyle.BackColor = Color.LightCoral
                     row.DefaultCellStyle.ForeColor = Color.DarkRed
                 ElseIf tglKadaluarsa < hariIni.AddDays(batasWajar) Then
-                    ' SEGERA KADALUARSA
+                    ' Akan kadaluarsa dalam 30 hari
                     row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow
                 End If
             End If

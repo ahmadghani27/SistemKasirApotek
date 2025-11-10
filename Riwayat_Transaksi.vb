@@ -1,11 +1,10 @@
-﻿' Impor library MySQL dan System.Data
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 Imports System.Data
 
 Public Class Riwayat_Transaksi
 
     Private Sub Riwayat_Transaksi_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Atur format kolom
+        ' Atur format kolom transaksi (atas)
         DgvRiwayat.Columns("ColTotalH").DefaultCellStyle.Format = "Rp #,##0"
         DgvRiwayat.Columns("ColTotalH").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         DgvRiwayat.Columns("ColWaktu").DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss"
@@ -19,37 +18,25 @@ Public Class Riwayat_Transaksi
 
         LblTotalBulanan.Text = "Rp 0"
 
-        ' --- MODIFIKASI ---
-        ' Panggil LoadRiwayat() tanpa parameter untuk menampilkan semua transaksi
         LoadRiwayat()
-        ' --- AKHIR MODIFIKASI ---
     End Sub
 
+    'tombol cari berdasarkan tanggal
     Private Sub BtnCari_Click(sender As Object, e As EventArgs) Handles BtnCari.Click
-        ' Panggil fungsi untuk memuat riwayat berdasarkan tanggal yang dipilih
         LoadRiwayat(DtpFilter.Value)
     End Sub
 
-    ' --- FUNGSI BARU ---
-    ''' <summary>
-    ''' Membersihkan semua filter dan menampilkan semua riwayat
-    ''' </summary>
+    'tombol bersihkan filter dan assign ke hari ini
     Private Sub BtnClearFilter_Click(sender As Object, e As EventArgs) Handles BtnClearFilter.Click
         DtpFilter.Value = Date.Today
         TxtFilter.Clear()
 
-        ' Panggil LoadRiwayat tanpa parameter untuk menampilkan semua
         LoadRiwayat()
     End Sub
-    ' --- AKHIR FUNGSI BARU ---
 
-
-    ''' <summary>
-    ''' DIPERBARUI: Parameter selectedDate sekarang Opsional.
-    ''' Jika ada, filter berdasarkan tanggal. Jika tidak (Nothing), tampilkan semua.
-    ''' </summary>
+    'fungsi load riwayat transaksi
     Private Sub LoadRiwayat(Optional selectedDate As Date? = Nothing)
-        ' Hapus data lama
+        ' Hapus data lama yang ditampilkan
         DgvRiwayat.Rows.Clear()
         DgvDetail.Rows.Clear()
         LblTotalHarian.Text = "Rp 0"
@@ -59,20 +46,17 @@ Public Class Riwayat_Transaksi
         Dim queryHarian As String = ""
         Dim cmd As New MySqlCommand()
 
-        ' --- MODIFIKASI QUERY HARIAN ---
         If selectedDate.HasValue Then
-            ' 1. Mode Filter Harian (jika tanggal diberikan)
+            ' menampilkan pendapatan harian sesuai tanggal yang dipilih
             queryHarian = "SELECT id_transaksi, tgl_transaksi, total_bayar FROM transaksi " &
                           "WHERE CAST(tgl_transaksi AS DATE) = @Tanggal " &
                           "ORDER BY tgl_transaksi"
             cmd.Parameters.AddWithValue("@Tanggal", selectedDate.Value.ToString("yyyy-MM-dd"))
         Else
-            ' 2. Mode Tampil Semua (jika tidak ada tanggal)
+            ' jika tidak ada filter tanggal, tampilkan semua riwayat
             queryHarian = "SELECT id_transaksi, tgl_transaksi, total_bayar FROM transaksi " &
                           "ORDER BY tgl_transaksi DESC" ' Tampilkan yg terbaru dulu
-            ' Tidak ada parameter
         End If
-        ' --- AKHIR MODIFIKASI ---
 
         cmd.CommandText = queryHarian
         cmd.Connection = Koneksi.conn
@@ -86,11 +70,12 @@ Public Class Riwayat_Transaksi
         Dim dt As New DataTable()
 
         Try
+            ' Isi parameter jika ada filter tanggal
             da.Fill(dt)
         Catch ex As Exception
             MessageBox.Show("Terjadi kesalahan saat memuat riwayat harian: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            Koneksi.TutupKoneksi() ' Tutup koneksi setelah query 1
+            Koneksi.TutupKoneksi()
         End Try
 
         ' Loop data harian/semua
@@ -107,10 +92,7 @@ Public Class Riwayat_Transaksi
         LblTotalHarian.Text = totalHasil.ToString("Rp #,##0")
 
 
-        ' --- MODIFIKASI: KUERI BULANAN ---
-        ' Tentukan tanggal mana yang akan digunakan untuk kalkulasi bulanan
-        ' Jika filter tanggal aktif, gunakan bulan dari filter
-        ' Jika tidak, gunakan bulan HARI INI
+        ' Menghitung total bulanan
         Dim dateForMonthlyCalc As Date = If(selectedDate.HasValue, selectedDate.Value, Date.Today)
 
         Dim queryBulan As String = "SELECT SUM(total_bayar) FROM transaksi " &
@@ -140,14 +122,12 @@ Public Class Riwayat_Transaksi
             MessageBox.Show("Terjadi kesalahan saat memuat total bulanan: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             LblTotalBulanan.Text = "N/A"
         Finally
-            Koneksi.TutupKoneksi() ' Tutup koneksi setelah query 2
+            Koneksi.TutupKoneksi()
         End Try
-        ' --- AKHIR MODIFIKASI ---
     End Sub
 
-
+    ' memilih baris di dgv riwayat untuk menampilkan obat dibeli
     Private Sub DgvRiwayat_SelectionChanged(sender As Object, e As EventArgs) Handles DgvRiwayat.SelectionChanged
-        ' (Tidak ada perubahan di sini)
         If DgvRiwayat.SelectedRows.Count = 0 Then
             DgvDetail.Rows.Clear()
             Return
@@ -157,8 +137,8 @@ Public Class Riwayat_Transaksi
         LoadDetailRiwayat(idTransaksi)
     End Sub
 
+    ' fungsi load detail riwayat berdasarkan id transaksi
     Private Sub LoadDetailRiwayat(idTransaksi As String)
-        ' (Tidak ada perubahan di sini)
         DgvDetail.Rows.Clear()
         Dim query As String = "SELECT o.nama, dt.harga_satuan, dt.jumlah_beli, dt.sub_total " &
                               "FROM detail_transaksi dt " &
@@ -175,6 +155,7 @@ Public Class Riwayat_Transaksi
         Dim dt As New DataTable()
 
         Try
+            ' Isi parameter ID transaksi
             cmd.Parameters.AddWithValue("@IDTransaksi", idTransaksi)
             da.Fill(dt)
         Catch ex As Exception
@@ -183,6 +164,7 @@ Public Class Riwayat_Transaksi
             Koneksi.TutupKoneksi()
         End Try
 
+        ' Loop data detail transaksi
         For Each row As DataRow In dt.Rows
             Dim namaObat As String = row.Item("nama").ToString()
             Dim harga As Decimal = CDec(row.Item("harga_satuan"))
@@ -192,12 +174,14 @@ Public Class Riwayat_Transaksi
         Next
     End Sub
 
+    ' Kembali ke form sebelumnya
     Private Sub BtnKembali_Click(sender As Object, e As EventArgs) Handles BtnKembali.Click
         Close()
     End Sub
 
+    'tombol cari berdasarkan nama obat
     Private Sub BtnCariObat_Click(sender As Object, e As EventArgs) Handles BtnCariObat.Click
-        ' (Tidak ada perubahan di sini)
+        ' Validasi input kosong
         Dim namaObat As String = TxtFilter.Text.Trim()
         If String.IsNullOrWhiteSpace(namaObat) Then
             MessageBox.Show("Masukkan nama obat yang ingin dicari.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -206,8 +190,8 @@ Public Class Riwayat_Transaksi
         LoadRiwayatByObat(namaObat)
     End Sub
 
+    'fungsi load riwayat berdasarkan nama obat
     Private Sub LoadRiwayatByObat(obatName As String)
-        ' (Tidak ada perubahan di sini)
         DgvRiwayat.Rows.Clear()
         DgvDetail.Rows.Clear()
         LblTotalHarian.Text = "Rp 0"
@@ -216,7 +200,6 @@ Public Class Riwayat_Transaksi
         Dim listIDTransaksi As New List(Of String)
         Dim query As String = ""
 
-        ' --- TAHAP 1 ---
         query = "SELECT DISTINCT dt.id_transaksi " &
                 "FROM detail_transaksi dt " &
                 "JOIN obat o ON dt.id_obat = o.id_obat " &
@@ -226,6 +209,7 @@ Public Class Riwayat_Transaksi
         Dim da As New MySqlDataAdapter(cmd)
         Dim dt As New DataTable()
         Try
+            ' Isi parameter nama obat
             cmd.Parameters.AddWithValue("@NamaObat", $"%{obatName}%")
             da.Fill(dt)
         Catch ex As Exception
@@ -233,22 +217,27 @@ Public Class Riwayat_Transaksi
         Finally
             Koneksi.TutupKoneksi()
         End Try
+        ' Jika tidak ada transaksi ditemukan
         If dt.Rows.Count = 0 Then
             MessageBox.Show("Tidak ditemukan transaksi yang mengandung obat tersebut.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
+
+        ' Loop untuk mengumpulkan ID transaksi
         For Each row As DataRow In dt.Rows
             listIDTransaksi.Add(row.Item("id_transaksi").ToString())
         Next
 
-        ' --- TAHAP 2 ---
         Dim paramNames As New List(Of String)
         cmd = New MySqlCommand()
+        ' Buat parameter dinamis untuk IN clause
         For i As Integer = 0 To listIDTransaksi.Count - 1
             Dim paramName As String = $"@id{i}"
             paramNames.Add(paramName)
             cmd.Parameters.AddWithValue(paramName, listIDTransaksi(i))
         Next
+
+        ' Susun query untuk mengambil detail transaksi berdasarkan ID yang ditemukan
         Dim inClause As String = String.Join(",", paramNames)
         query = $"SELECT id_transaksi, tgl_transaksi, total_bayar " &
                 $"FROM transaksi " &
@@ -261,6 +250,7 @@ Public Class Riwayat_Transaksi
         dt = New DataTable()
         Dim totalDitemukan As Decimal = 0
         Try
+            ' Isi parameter sudah dilakukan sebelumnya
             da.Fill(dt)
         Catch ex As Exception
             MessageBox.Show("Terjadi kesalahan saat memuat riwayat: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -268,6 +258,7 @@ Public Class Riwayat_Transaksi
             Koneksi.TutupKoneksi()
         End Try
 
+        ' Loop data transaksi yang ditemukan
         For Each row As DataRow In dt.Rows
             Dim id As String = row.Item("id_transaksi").ToString()
             Dim waktu As Date = CDate(row.Item("tgl_transaksi"))
