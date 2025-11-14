@@ -33,8 +33,9 @@ Public Class Kelola_User
         Dim totalAdmin As Integer = 0
         Dim totalKasir As Integer = 0
 
-        ' Jangan ambil password, tidak aman untuk ditampilkan
-        Dim query As String = "SELECT id_pengguna, nama, telp, role, username FROM pengguna ORDER BY nama"
+        ' Menambahkan "WHERE isActive = true" untuk menyaring pengguna yang aktif
+        Dim query As String = "SELECT id_pengguna, nama, telp, role, username FROM pengguna " &
+                              "WHERE isActive = true ORDER BY nama"
 
         If Not Koneksi.BukaKoneksi() Then
             MessageBox.Show("Gagal terhubung ke database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -53,7 +54,7 @@ Public Class Kelola_User
             Koneksi.TutupKoneksi()
         End Try
 
-        ' Isi DGV dan hitung total
+        ' Isi DGV dan hitung total (sekarang hanya total yang aktif)
         For Each row As DataRow In dt.Rows
             Dim id As Integer = CInt(row.Item("id_pengguna"))
             Dim nama As String = row.Item("nama").ToString()
@@ -61,7 +62,6 @@ Public Class Kelola_User
             Dim peran As String = row.Item("role").ToString()
             Dim username As String = row.Item("username").ToString()
 
-            ' Tambahkan ke grid (sesuai urutan di gambar/petunjuk)
             DgvUser.Rows.Add(id, nama, telp, peran, username)
 
             ' Hitung total
@@ -159,7 +159,7 @@ Public Class Kelola_User
 
     ' tombol hapus user
     Private Sub BtnHapusUser_Click(sender As Object, e As EventArgs) Handles BtnHapusUser.Click
-        ' cek apakah ada baris yang dipilih?
+        ' Cek 1: Apakah ada baris yang dipilih?
         If DgvUser.SelectedRows.Count = 0 Then
             MessageBox.Show("Pilih pengguna di tabel yang ingin dihapus.", "Pilih Baris", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -167,26 +167,27 @@ Public Class Kelola_User
 
         Dim peranDipilih As String = DgvUser.SelectedRows(0).Cells("ColRole").Value.ToString()
         Dim totalAdmin As Integer = 0
-        ' Ambil nilai total admin dari label (pastikan konversi aman)
         Integer.TryParse(LblTotalAdmin.Text, totalAdmin)
 
-        ' Apakah ini Admin terakhir?
+        ' Cek 2: Apakah ini Admin terakhir? (Logika ini tetap penting)
         If peranDipilih = "Admin" AndAlso totalAdmin = 1 Then
-            MessageBox.Show("Gagal Menghapus! Anda tidak boleh menghapus Admin terakhir." & vbCrLf &
-                            "Sistem harus memiliki minimal satu Admin.", "Logika Bisnis", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Gagal Menonaktifkan! Anda tidak boleh menonaktifkan Admin terakhir." & vbCrLf &
+                            "Sistem harus memiliki minimal satu Admin aktif.", "Logika Bisnis", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        ' Konfirmasi Hapus (Hanya jika lolos cek 1 & 2)
+        ' Cek 3: Konfirmasi Nonaktifkan
         Dim nama As String = DgvUser.SelectedRows(0).Cells("ColNama").Value.ToString()
-        If MessageBox.Show($"Yakin ingin menghapus pengguna '{nama}'?", "Konfirmasi Hapus", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+        If MessageBox.Show($"Yakin ingin menonaktifkan pengguna '{nama}'?" & vbCrLf &
+                           "Pengguna ini tidak akan bisa login lagi.",
+                           "Konfirmasi Nonaktifkan", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
             Return
         End If
 
         ' Ambil ID dari baris yang dipilih
         Dim idPengguna As String = DgvUser.SelectedRows(0).Cells("ColId").Value.ToString()
 
-        Dim query As String = "DELETE FROM pengguna WHERE id_pengguna = @id"
+        Dim query As String = "UPDATE pengguna SET isActive = false WHERE id_pengguna = @id"
 
         If Not Koneksi.BukaKoneksi() Then
             MessageBox.Show("Gagal terhubung ke database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -197,15 +198,17 @@ Public Class Kelola_User
         Try
             cmd.Parameters.AddWithValue("@id", idPengguna)
             cmd.ExecuteNonQuery()
-            MessageBox.Show("Pengguna berhasil dihapus.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            MessageBox.Show("Pengguna berhasil dinonaktifkan.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
-            MessageBox.Show("Terjadi kesalahan saat menghapus: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Terjadi kesalahan saat menonaktifkan pengguna: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             Koneksi.TutupKoneksi()
         End Try
 
         ' Muat ulang data dan bersihkan form
+        ' (LoadData() akan otomatis menghapus user dari DGV karena sudah tidak aktif)
         LoadData()
         ClearForm()
     End Sub
