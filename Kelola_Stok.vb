@@ -250,56 +250,53 @@ Public Class Kelola_Stok
     End Sub
 
     ' tombol hapus data obat
-    Private Sub BtnHapus_Click(sender As Object, e As EventArgs) Handles BtnHapus.Click
-        ' jika tidak ada baris yang dipilih
+    Private Sub BtnHapus_Click(sender As Object, e As EventArgs)
         If DgvObat.SelectedRows.Count = 0 Then
             MessageBox.Show("Pilih baris data untuk dihapus.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
-        ' konfirmasi penghapusan
         If MessageBox.Show("Yakin ingin menghapus data obat yang dipilih?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> DialogResult.Yes Then
             Return
         End If
+
         Dim row As DataRow = CType(CType(DgvObat.SelectedRows(0).DataBoundItem, DataRowView).Row, DataRow)
+        ' Validasi tambahan jika row null (jarang terjadi tapi aman)
         If row Is Nothing Then Return
 
-        ' ambil ID dari DataRow
         Dim id = row("IDObat").ToString()
         Dim query As String = "DELETE FROM obat WHERE id_obat = @id"
-
         If Not Koneksi.BukaKoneksi() Then
             MessageBox.Show("Gagal terhubung ke database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
         Dim cmd As New MySqlCommand(query, Koneksi.conn)
+
         Try
             cmd.Parameters.AddWithValue("@id", id)
             cmd.ExecuteNonQuery()
+
+            row.Delete()
+            ClearInputs()
+            MessageBox.Show("Data berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         Catch ex As MySqlException
+            ' Handle Error Constraint (Data terpakai)
             If ex.Number = 1451 Then
-                MessageBox.Show("Gagal menghapus! Obat ini sudah pernah digunakan dalam transaksi.", "Error Relasi", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Gagal menghapus! Obat ini sudah pernah digunakan dalam transaksi/resep.", "Gagal Hapus", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Else
-                MessageBox.Show("Gagal menghapus data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Terjadi kesalahan database: " & ex.Message, "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
-            Koneksi.TutupKoneksi()
-            Return
+
         Catch ex As Exception
             MessageBox.Show("Gagal menghapus data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Koneksi.TutupKoneksi()
-            Return
+
         Finally
-            If Koneksi.conn.State = ConnectionState.Open Then
-                Koneksi.TutupKoneksi()
-            End If
+            ' Tutup koneksi
+            Koneksi.TutupKoneksi()
         End Try
-
-        ' Jika sukses, baru hapus dari DataTable lokal
-        row.Delete()
-        ClearInputs()
     End Sub
-
     ' tombol bersihkan input
     Private Sub BtnBersih_Click(sender As Object, e As EventArgs)
         ClearInputs()

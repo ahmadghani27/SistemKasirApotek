@@ -187,28 +187,41 @@ Public Class Kelola_User
         ' Ambil ID dari baris yang dipilih
         Dim idPengguna As String = DgvUser.SelectedRows(0).Cells("ColId").Value.ToString()
 
-        Dim query As String = "UPDATE pengguna SET isActive = false WHERE id_pengguna = @id"
-
         If Not Koneksi.BukaKoneksi() Then
             MessageBox.Show("Gagal terhubung ke database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        Dim cmd As New MySqlCommand(query, Koneksi.conn)
         Try
-            cmd.Parameters.AddWithValue("@id", idPengguna)
-            cmd.ExecuteNonQuery()
+            ' Cek apakah pengguna sudah pernah melakukan transaksi
+            Dim queryCek As String = "SELECT COUNT(*) FROM transaksi WHERE id_pengguna = @id"
+            Dim cmdCek As New MySqlCommand(queryCek, Koneksi.conn)
+            cmdCek.Parameters.AddWithValue("@id", idPengguna)
+            Dim jumlahTransaksi As Integer = Convert.ToInt32(cmdCek.ExecuteScalar())
 
-            MessageBox.Show("Pengguna berhasil dinonaktifkan.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            If jumlahTransaksi = 0 Then
+                ' Jika belum ada transaksi, HAPUS pengguna
+                Dim queryDel As String = "DELETE FROM pengguna WHERE id_pengguna = @id"
+                Dim cmdDel As New MySqlCommand(queryDel, Koneksi.conn)
+                cmdDel.Parameters.AddWithValue("@id", idPengguna)
+                cmdDel.ExecuteNonQuery()
+                MessageBox.Show("Pengguna berhasil dihapus.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                ' Jika sudah ada transaksi, NONAKTIFKAN pengguna
+                Dim queryUpdate As String = "UPDATE pengguna SET isActive = false WHERE id_pengguna = @id"
+                Dim cmdUpdate As New MySqlCommand(queryUpdate, Koneksi.conn)
+                cmdUpdate.Parameters.AddWithValue("@id", idPengguna)
+                cmdUpdate.ExecuteNonQuery()
+                MessageBox.Show("Pengguna berhasil dihapus.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
 
         Catch ex As Exception
-            MessageBox.Show("Terjadi kesalahan saat menonaktifkan pengguna: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Terjadi kesalahan: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             Koneksi.TutupKoneksi()
         End Try
 
         ' Muat ulang data dan bersihkan form
-        ' (LoadData() akan otomatis menghapus user dari DGV karena sudah tidak aktif)
         LoadData()
         ClearForm()
     End Sub
