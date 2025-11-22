@@ -49,6 +49,7 @@ Partial Class DashBoard
         Panel2 = New Panel()
         Label4 = New Label()
         LblTotalPendapatanBulan = New Label()
+        Label3 = New Label()
         PanelHeader.SuspendLayout()
         PanelCardObat.SuspendLayout()
         PanelCardTransaksi.SuspendLayout()
@@ -67,23 +68,27 @@ Partial Class DashBoard
         PanelHeader.Dock = DockStyle.Top
         PanelHeader.Location = New Point(0, 0)
         PanelHeader.Name = "PanelHeader"
-        PanelHeader.Size = New Size(800, 64)
+        PanelHeader.Size = New Size(804, 39)
         PanelHeader.TabIndex = 16
         ' 
         ' BtnKeluar
         ' 
-        BtnKeluar.Location = New Point(720, 12)
+        BtnKeluar.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnKeluar.Cursor = Cursors.Hand
+        BtnKeluar.FlatStyle = FlatStyle.Popup
+        BtnKeluar.Font = New Font("Segoe UI", 12F)
+        BtnKeluar.Location = New Point(664, 3)
         BtnKeluar.Name = "BtnKeluar"
-        BtnKeluar.Size = New Size(68, 40)
+        BtnKeluar.Size = New Size(137, 33)
         BtnKeluar.TabIndex = 2
         BtnKeluar.Text = "Keluar"
-        BtnKeluar.UseVisualStyleBackColor = True
+        BtnKeluar.UseVisualStyleBackColor = False
         ' 
         ' LblTitle
         ' 
         LblTitle.Font = New Font("Segoe UI", 16F, FontStyle.Bold)
         LblTitle.ForeColor = Color.White
-        LblTitle.Location = New Point(12, 12)
+        LblTitle.Location = New Point(12, 0)
         LblTitle.Name = "LblTitle"
         LblTitle.Size = New Size(400, 40)
         LblTitle.TabIndex = 0
@@ -96,9 +101,9 @@ Partial Class DashBoard
         PanelCardObat.BorderStyle = BorderStyle.FixedSingle
         PanelCardObat.Controls.Add(LblCaptionObat)
         PanelCardObat.Controls.Add(LblTotalObat)
-        PanelCardObat.Location = New Point(12, 84)
+        PanelCardObat.Location = New Point(13, 45)
         PanelCardObat.Name = "PanelCardObat"
-        PanelCardObat.Size = New Size(97, 90)
+        PanelCardObat.Size = New Size(97, 60)
         PanelCardObat.TabIndex = 15
         ' 
         ' LblCaptionObat
@@ -106,7 +111,7 @@ Partial Class DashBoard
         LblCaptionObat.AutoSize = True
         LblCaptionObat.Font = New Font("Segoe UI", 9F)
         LblCaptionObat.ForeColor = Color.DarkSlateGray
-        LblCaptionObat.Location = New Point(12, 12)
+        LblCaptionObat.Location = New Point(5, 4)
         LblCaptionObat.Name = "LblCaptionObat"
         LblCaptionObat.Size = New Size(62, 15)
         LblCaptionObat.TabIndex = 0
@@ -116,8 +121,8 @@ Partial Class DashBoard
         ' 
         LblTotalObat.AutoSize = True
         LblTotalObat.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalObat.ForeColor = Color.Black
-        LblTotalObat.Location = New Point(12, 30)
+        LblTotalObat.ForeColor = Color.FromArgb(CByte(192), CByte(64), CByte(0))
+        LblTotalObat.Location = New Point(3, 15)
         LblTotalObat.Name = "LblTotalObat"
         LblTotalObat.Size = New Size(33, 37)
         LblTotalObat.TabIndex = 1
@@ -129,9 +134,9 @@ Partial Class DashBoard
         PanelCardTransaksi.BorderStyle = BorderStyle.FixedSingle
         PanelCardTransaksi.Controls.Add(LblCaptionTransaksi)
         PanelCardTransaksi.Controls.Add(LblTotalTransaksi)
-        PanelCardTransaksi.Location = New Point(115, 84)
+        PanelCardTransaksi.Location = New Point(116, 45)
         PanelCardTransaksi.Name = "PanelCardTransaksi"
-        PanelCardTransaksi.Size = New Size(120, 90)
+        PanelCardTransaksi.Size = New Size(120, 60)
         PanelCardTransaksi.TabIndex = 14
         ' 
         ' LblCaptionTransaksi
@@ -139,7 +144,7 @@ Partial Class DashBoard
         LblCaptionTransaksi.AutoSize = True
         LblCaptionTransaksi.Font = New Font("Segoe UI", 9F)
         LblCaptionTransaksi.ForeColor = Color.DarkSlateGray
-        LblCaptionTransaksi.Location = New Point(12, 12)
+        LblCaptionTransaksi.Location = New Point(5, 4)
         LblCaptionTransaksi.Name = "LblCaptionTransaksi"
         LblCaptionTransaksi.Size = New Size(96, 15)
         LblCaptionTransaksi.TabIndex = 0
@@ -149,8 +154,8 @@ Partial Class DashBoard
         ' 
         LblTotalTransaksi.AutoSize = True
         LblTotalTransaksi.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalTransaksi.ForeColor = Color.Black
-        LblTotalTransaksi.Location = New Point(12, 30)
+        LblTotalTransaksi.ForeColor = Color.FromArgb(CByte(0), CByte(192), CByte(192))
+        LblTotalTransaksi.Location = New Point(3, 15)
         LblTotalTransaksi.Name = "LblTotalTransaksi"
         LblTotalTransaksi.Size = New Size(33, 37)
         LblTotalTransaksi.TabIndex = 1
@@ -162,9 +167,9 @@ Partial Class DashBoard
         PanelCardUser.BorderStyle = BorderStyle.FixedSingle
         PanelCardUser.Controls.Add(LblCaptionUser)
         PanelCardUser.Controls.Add(LblTotalPendapatan)
-        PanelCardUser.Location = New Point(367, 84)
+        PanelCardUser.Location = New Point(368, 45)
         PanelCardUser.Name = "PanelCardUser"
-        PanelCardUser.Size = New Size(192, 90)
+        PanelCardUser.Size = New Size(192, 60)
         PanelCardUser.TabIndex = 13
         ' 
         ' LblCaptionUser
@@ -172,7 +177,7 @@ Partial Class DashBoard
         LblCaptionUser.AutoSize = True
         LblCaptionUser.Font = New Font("Segoe UI", 9F)
         LblCaptionUser.ForeColor = Color.DarkSlateGray
-        LblCaptionUser.Location = New Point(12, 12)
+        LblCaptionUser.Location = New Point(5, 4)
         LblCaptionUser.Name = "LblCaptionUser"
         LblCaptionUser.Size = New Size(140, 15)
         LblCaptionUser.TabIndex = 0
@@ -182,8 +187,8 @@ Partial Class DashBoard
         ' 
         LblTotalPendapatan.AutoSize = True
         LblTotalPendapatan.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalPendapatan.ForeColor = Color.Black
-        LblTotalPendapatan.Location = New Point(12, 30)
+        LblTotalPendapatan.ForeColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
+        LblTotalPendapatan.Location = New Point(3, 15)
         LblTotalPendapatan.Name = "LblTotalPendapatan"
         LblTotalPendapatan.Size = New Size(33, 37)
         LblTotalPendapatan.TabIndex = 1
@@ -191,10 +196,11 @@ Partial Class DashBoard
         ' 
         ' GroupBoxActions
         ' 
+        GroupBoxActions.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GroupBoxActions.Controls.Add(BtnDetailRiwayat)
         GroupBoxActions.Controls.Add(BtnKelolaUser)
         GroupBoxActions.Controls.Add(BtnKelolaStok)
-        GroupBoxActions.Location = New Point(536, 190)
+        GroupBoxActions.Location = New Point(536, 117)
         GroupBoxActions.Name = "GroupBoxActions"
         GroupBoxActions.Size = New Size(252, 248)
         GroupBoxActions.TabIndex = 12
@@ -203,39 +209,58 @@ Partial Class DashBoard
         ' 
         ' BtnDetailRiwayat
         ' 
+        BtnDetailRiwayat.BackColor = Color.PaleGoldenrod
+        BtnDetailRiwayat.Cursor = Cursors.Hand
+        BtnDetailRiwayat.FlatStyle = FlatStyle.Popup
+        BtnDetailRiwayat.Font = New Font("Segoe UI", 12F)
         BtnDetailRiwayat.Location = New Point(6, 174)
         BtnDetailRiwayat.Name = "BtnDetailRiwayat"
-        BtnDetailRiwayat.Size = New Size(240, 68)
+        BtnDetailRiwayat.Size = New Size(240, 62)
         BtnDetailRiwayat.TabIndex = 2
         BtnDetailRiwayat.Text = "Detail Riwayat"
-        BtnDetailRiwayat.UseVisualStyleBackColor = True
+        BtnDetailRiwayat.UseVisualStyleBackColor = False
         ' 
         ' BtnKelolaUser
         ' 
+        BtnKelolaUser.BackColor = Color.LavenderBlush
+        BtnKelolaUser.Cursor = Cursors.Hand
+        BtnKelolaUser.FlatStyle = FlatStyle.Popup
+        BtnKelolaUser.Font = New Font("Segoe UI", 12F)
         BtnKelolaUser.Location = New Point(6, 99)
         BtnKelolaUser.Name = "BtnKelolaUser"
-        BtnKelolaUser.Size = New Size(240, 69)
+        BtnKelolaUser.Size = New Size(240, 63)
         BtnKelolaUser.TabIndex = 1
         BtnKelolaUser.Text = "Kelola Pengguna"
-        BtnKelolaUser.UseVisualStyleBackColor = True
+        BtnKelolaUser.UseVisualStyleBackColor = False
         ' 
         ' BtnKelolaStok
         ' 
+        BtnKelolaStok.BackColor = Color.AliceBlue
+        BtnKelolaStok.Cursor = Cursors.Hand
+        BtnKelolaStok.FlatStyle = FlatStyle.Popup
+        BtnKelolaStok.Font = New Font("Segoe UI", 12F)
         BtnKelolaStok.Location = New Point(6, 22)
         BtnKelolaStok.Name = "BtnKelolaStok"
-        BtnKelolaStok.Size = New Size(240, 71)
+        BtnKelolaStok.Size = New Size(240, 65)
         BtnKelolaStok.TabIndex = 0
         BtnKelolaStok.Text = "Kelola Stok"
-        BtnKelolaStok.UseVisualStyleBackColor = True
+        BtnKelolaStok.UseVisualStyleBackColor = False
         ' 
         ' DgvRiwayatTransaksi
         ' 
+        DgvRiwayatTransaksi.AllowUserToAddRows = False
+        DgvRiwayatTransaksi.AllowUserToDeleteRows = False
+        DgvRiwayatTransaksi.AllowUserToResizeColumns = False
+        DgvRiwayatTransaksi.AllowUserToResizeRows = False
         DgvRiwayatTransaksi.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        DgvRiwayatTransaksi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvRiwayatTransaksi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         DgvRiwayatTransaksi.Columns.AddRange(New DataGridViewColumn() {ColIDTransaksi, ColTotalbayar, ColTglTransaksi})
-        DgvRiwayatTransaksi.Location = New Point(12, 212)
+        DgvRiwayatTransaksi.EditMode = DataGridViewEditMode.EditOnF2
+        DgvRiwayatTransaksi.Location = New Point(12, 139)
         DgvRiwayatTransaksi.Name = "DgvRiwayatTransaksi"
-        DgvRiwayatTransaksi.Size = New Size(518, 226)
+        DgvRiwayatTransaksi.ReadOnly = True
+        DgvRiwayatTransaksi.ShowEditingIcon = False
+        DgvRiwayatTransaksi.Size = New Size(518, 345)
         DgvRiwayatTransaksi.TabIndex = 10
         ' 
         ' ColIDTransaksi
@@ -244,12 +269,14 @@ Partial Class DashBoard
         ColIDTransaksi.HeaderText = "Id Transaksi"
         ColIDTransaksi.MinimumWidth = 130
         ColIDTransaksi.Name = "ColIDTransaksi"
+        ColIDTransaksi.ReadOnly = True
         ' 
         ' ColTotalbayar
         ' 
         ColTotalbayar.HeaderText = "Total Bayar"
         ColTotalbayar.MinimumWidth = 120
         ColTotalbayar.Name = "ColTotalbayar"
+        ColTotalbayar.ReadOnly = True
         ColTotalbayar.Width = 120
         ' 
         ' ColTglTransaksi
@@ -257,16 +284,17 @@ Partial Class DashBoard
         ColTglTransaksi.HeaderText = "Tanggal"
         ColTglTransaksi.MinimumWidth = 120
         ColTglTransaksi.Name = "ColTglTransaksi"
+        ColTglTransaksi.ReadOnly = True
         ColTglTransaksi.Width = 120
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 9F)
+        Label1.Font = New Font("Segoe UI", 12F)
         Label1.ForeColor = Color.DarkSlateGray
-        Label1.Location = New Point(12, 194)
+        Label1.Location = New Point(13, 115)
         Label1.Name = "Label1"
-        Label1.Size = New Size(97, 15)
+        Label1.Size = New Size(131, 21)
         Label1.TabIndex = 2
         Label1.Text = "Riwayat transaksi"
         ' 
@@ -276,9 +304,9 @@ Partial Class DashBoard
         Panel1.BorderStyle = BorderStyle.FixedSingle
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(LblTotalTransaksiBulan)
-        Panel1.Location = New Point(241, 84)
+        Panel1.Location = New Point(242, 45)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(120, 90)
+        Panel1.Size = New Size(120, 60)
         Panel1.TabIndex = 15
         ' 
         ' Label2
@@ -286,7 +314,7 @@ Partial Class DashBoard
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI", 9F)
         Label2.ForeColor = Color.DarkSlateGray
-        Label2.Location = New Point(12, 12)
+        Label2.Location = New Point(5, 4)
         Label2.Name = "Label2"
         Label2.Size = New Size(101, 15)
         Label2.TabIndex = 0
@@ -296,8 +324,8 @@ Partial Class DashBoard
         ' 
         LblTotalTransaksiBulan.AutoSize = True
         LblTotalTransaksiBulan.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalTransaksiBulan.ForeColor = Color.Black
-        LblTotalTransaksiBulan.Location = New Point(12, 30)
+        LblTotalTransaksiBulan.ForeColor = Color.Teal
+        LblTotalTransaksiBulan.Location = New Point(3, 15)
         LblTotalTransaksiBulan.Name = "LblTotalTransaksiBulan"
         LblTotalTransaksiBulan.Size = New Size(33, 37)
         LblTotalTransaksiBulan.TabIndex = 1
@@ -309,9 +337,9 @@ Partial Class DashBoard
         Panel2.BorderStyle = BorderStyle.FixedSingle
         Panel2.Controls.Add(Label4)
         Panel2.Controls.Add(LblTotalPendapatanBulan)
-        Panel2.Location = New Point(565, 84)
+        Panel2.Location = New Point(566, 45)
         Panel2.Name = "Panel2"
-        Panel2.Size = New Size(223, 90)
+        Panel2.Size = New Size(223, 60)
         Panel2.TabIndex = 14
         ' 
         ' Label4
@@ -319,7 +347,7 @@ Partial Class DashBoard
         Label4.AutoSize = True
         Label4.Font = New Font("Segoe UI", 9F)
         Label4.ForeColor = Color.DarkSlateGray
-        Label4.Location = New Point(12, 12)
+        Label4.Location = New Point(5, 4)
         Label4.Name = "Label4"
         Label4.Size = New Size(145, 15)
         Label4.TabIndex = 0
@@ -329,18 +357,31 @@ Partial Class DashBoard
         ' 
         LblTotalPendapatanBulan.AutoSize = True
         LblTotalPendapatanBulan.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalPendapatanBulan.ForeColor = Color.Black
-        LblTotalPendapatanBulan.Location = New Point(12, 30)
+        LblTotalPendapatanBulan.ForeColor = Color.Green
+        LblTotalPendapatanBulan.Location = New Point(3, 15)
         LblTotalPendapatanBulan.Name = "LblTotalPendapatanBulan"
         LblTotalPendapatanBulan.Size = New Size(33, 37)
         LblTotalPendapatanBulan.TabIndex = 1
         LblTotalPendapatanBulan.Text = "0"
         ' 
+        ' Label3
+        ' 
+        Label3.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        Label3.ForeColor = Color.Black
+        Label3.Location = New Point(536, 368)
+        Label3.Name = "Label3"
+        Label3.RightToLeft = RightToLeft.No
+        Label3.Size = New Size(252, 116)
+        Label3.TabIndex = 3
+        Label3.Text = "Apotek Obat-Obatan"
+        Label3.TextAlign = ContentAlignment.MiddleCenter
+        ' 
         ' DashBoard
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(804, 496)
+        Controls.Add(Label3)
         Controls.Add(Panel2)
         Controls.Add(Panel1)
         Controls.Add(Label1)
@@ -351,6 +392,7 @@ Partial Class DashBoard
         Controls.Add(PanelCardObat)
         Controls.Add(PanelHeader)
         Name = "DashBoard"
+        StartPosition = FormStartPosition.CenterParent
         Text = "DashBoard"
         PanelHeader.ResumeLayout(False)
         PanelCardObat.ResumeLayout(False)
@@ -396,4 +438,5 @@ Partial Class DashBoard
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label4 As Label
     Friend WithEvents LblTotalPendapatanBulan As Label
+    Friend WithEvents Label3 As Label
 End Class

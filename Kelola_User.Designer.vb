@@ -63,7 +63,7 @@ Partial Class Kelola_User
         TxtUsername.Location = New Point(121, 39)
         TxtUsername.Margin = New Padding(5)
         TxtUsername.Name = "TxtUsername"
-        TxtUsername.Size = New Size(473, 23)
+        TxtUsername.Size = New Size(497, 23)
         TxtUsername.TabIndex = 1
         ' 
         ' TxtPassword
@@ -72,7 +72,7 @@ Partial Class Kelola_User
         TxtPassword.Margin = New Padding(5)
         TxtPassword.Name = "TxtPassword"
         TxtPassword.PasswordChar = "*"c
-        TxtPassword.Size = New Size(473, 23)
+        TxtPassword.Size = New Size(497, 23)
         TxtPassword.TabIndex = 2
         ' 
         ' CmbRole
@@ -86,30 +86,43 @@ Partial Class Kelola_User
         ' 
         ' BtnHapusUser
         ' 
-        BtnHapusUser.Location = New Point(432, 102)
+        BtnHapusUser.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnHapusUser.Cursor = Cursors.Hand
+        BtnHapusUser.FlatStyle = FlatStyle.Popup
+        BtnHapusUser.Font = New Font("Segoe UI", 12F)
+        BtnHapusUser.Location = New Point(432, 101)
         BtnHapusUser.Name = "BtnHapusUser"
-        BtnHapusUser.Size = New Size(86, 57)
+        BtnHapusUser.Size = New Size(86, 60)
         BtnHapusUser.TabIndex = 13
         BtnHapusUser.Text = "Hapus"
-        BtnHapusUser.UseVisualStyleBackColor = True
+        BtnHapusUser.UseVisualStyleBackColor = False
         ' 
         ' BtnTambahUser
         ' 
+        BtnTambahUser.BackColor = Color.LightSkyBlue
+        BtnTambahUser.Cursor = Cursors.Hand
+        BtnTambahUser.FlatStyle = FlatStyle.Popup
+        BtnTambahUser.Font = New Font("Segoe UI", 12F)
         BtnTambahUser.Location = New Point(339, 101)
         BtnTambahUser.Name = "BtnTambahUser"
-        BtnTambahUser.Size = New Size(87, 58)
+        BtnTambahUser.Size = New Size(87, 60)
         BtnTambahUser.TabIndex = 12
         BtnTambahUser.Text = "Tambah"
-        BtnTambahUser.UseVisualStyleBackColor = True
+        BtnTambahUser.UseVisualStyleBackColor = False
         ' 
         ' DgvUser
         ' 
+        DgvUser.AllowUserToAddRows = False
+        DgvUser.AllowUserToDeleteRows = False
+        DgvUser.AllowUserToResizeColumns = False
+        DgvUser.AllowUserToResizeRows = False
         DgvUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvUser.Columns.AddRange(New DataGridViewColumn() {ColId, ColNama, ColTelp, ColRole, ColUsername})
-        DgvUser.Location = New Point(12, 257)
+        DgvUser.Location = New Point(12, 223)
         DgvUser.Name = "DgvUser"
+        DgvUser.ReadOnly = True
         DgvUser.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DgvUser.Size = New Size(776, 181)
+        DgvUser.Size = New Size(776, 261)
         DgvUser.TabIndex = 11
         ' 
         ' ColId
@@ -117,6 +130,7 @@ Partial Class Kelola_User
         ColId.HeaderText = "Id"
         ColId.MinimumWidth = 60
         ColId.Name = "ColId"
+        ColId.ReadOnly = True
         ColId.Width = 60
         ' 
         ' ColNama
@@ -124,18 +138,21 @@ Partial Class Kelola_User
         ColNama.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
         ColNama.HeaderText = "Nama Lengkap"
         ColNama.Name = "ColNama"
+        ColNama.ReadOnly = True
         ' 
         ' ColTelp
         ' 
         ColTelp.HeaderText = "Telepon"
         ColTelp.MinimumWidth = 100
         ColTelp.Name = "ColTelp"
+        ColTelp.ReadOnly = True
         ' 
         ' ColRole
         ' 
         ColRole.HeaderText = "Peran"
         ColRole.MinimumWidth = 80
         ColRole.Name = "ColRole"
+        ColRole.ReadOnly = True
         ColRole.Width = 80
         ' 
         ' ColUsername
@@ -143,6 +160,7 @@ Partial Class Kelola_User
         ColUsername.HeaderText = "Username"
         ColUsername.MinimumWidth = 130
         ColUsername.Name = "ColUsername"
+        ColUsername.ReadOnly = True
         ColUsername.Width = 130
         ' 
         ' TxtTelepon
@@ -157,7 +175,7 @@ Partial Class Kelola_User
         ' 
         LblTitle.Font = New Font("Segoe UI", 16F, FontStyle.Bold)
         LblTitle.ForeColor = Color.White
-        LblTitle.Location = New Point(12, 12)
+        LblTitle.Location = New Point(3, -1)
         LblTitle.Name = "LblTitle"
         LblTitle.Size = New Size(400, 40)
         LblTitle.TabIndex = 0
@@ -172,24 +190,28 @@ Partial Class Kelola_User
         PanelHeader.Dock = DockStyle.Top
         PanelHeader.Location = New Point(0, 0)
         PanelHeader.Name = "PanelHeader"
-        PanelHeader.Size = New Size(800, 64)
+        PanelHeader.Size = New Size(804, 39)
         PanelHeader.TabIndex = 15
         ' 
         ' BtnKeluar
         ' 
-        BtnKeluar.Location = New Point(720, 12)
+        BtnKeluar.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnKeluar.Cursor = Cursors.Hand
+        BtnKeluar.FlatStyle = FlatStyle.Popup
+        BtnKeluar.Font = New Font("Segoe UI", 12F)
+        BtnKeluar.Location = New Point(664, 3)
         BtnKeluar.Name = "BtnKeluar"
-        BtnKeluar.Size = New Size(68, 40)
+        BtnKeluar.Size = New Size(137, 33)
         BtnKeluar.TabIndex = 18
         BtnKeluar.Text = "Keluar"
-        BtnKeluar.UseVisualStyleBackColor = True
+        BtnKeluar.UseVisualStyleBackColor = False
         ' 
         ' TxtNama
         ' 
         TxtNama.Location = New Point(121, 6)
         TxtNama.Margin = New Padding(5)
         TxtNama.Name = "TxtNama"
-        TxtNama.Size = New Size(473, 23)
+        TxtNama.Size = New Size(497, 23)
         TxtNama.TabIndex = 16
         ' 
         ' PanelFormCard
@@ -209,19 +231,23 @@ Partial Class Kelola_User
         PanelFormCard.Controls.Add(CmbRole)
         PanelFormCard.Controls.Add(TxtPassword)
         PanelFormCard.Controls.Add(TxtUsername)
-        PanelFormCard.Location = New Point(12, 79)
+        PanelFormCard.Location = New Point(12, 45)
         PanelFormCard.Name = "PanelFormCard"
-        PanelFormCard.Size = New Size(613, 172)
+        PanelFormCard.Size = New Size(637, 172)
         PanelFormCard.TabIndex = 6
         ' 
         ' BtnClear
         ' 
-        BtnClear.Location = New Point(524, 104)
+        BtnClear.BackColor = Color.White
+        BtnClear.Cursor = Cursors.Hand
+        BtnClear.FlatStyle = FlatStyle.Popup
+        BtnClear.Font = New Font("Segoe UI", 12F)
+        BtnClear.Location = New Point(524, 101)
         BtnClear.Name = "BtnClear"
-        BtnClear.Size = New Size(70, 57)
+        BtnClear.Size = New Size(94, 60)
         BtnClear.TabIndex = 17
         BtnClear.Text = "Bersihkan"
-        BtnClear.UseVisualStyleBackColor = True
+        BtnClear.UseVisualStyleBackColor = False
         ' 
         ' LblID
         ' 
@@ -286,11 +312,11 @@ Partial Class Kelola_User
         ' LblCaptionUser
         ' 
         LblCaptionUser.AutoSize = True
-        LblCaptionUser.Font = New Font("Segoe UI", 9F)
+        LblCaptionUser.Font = New Font("Segoe UI", 12F)
         LblCaptionUser.ForeColor = Color.DarkSlateGray
-        LblCaptionUser.Location = New Point(12, 12)
+        LblCaptionUser.Location = New Point(4, 4)
         LblCaptionUser.Name = "LblCaptionUser"
-        LblCaptionUser.Size = New Size(72, 15)
+        LblCaptionUser.Size = New Size(92, 21)
         LblCaptionUser.TabIndex = 0
         LblCaptionUser.Text = "Total Admin"
         ' 
@@ -298,8 +324,8 @@ Partial Class Kelola_User
         ' 
         LblTotalAdmin.AutoSize = True
         LblTotalAdmin.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalAdmin.ForeColor = Color.Black
-        LblTotalAdmin.Location = New Point(12, 30)
+        LblTotalAdmin.ForeColor = Color.Maroon
+        LblTotalAdmin.Location = New Point(8, 33)
         LblTotalAdmin.Name = "LblTotalAdmin"
         LblTotalAdmin.Size = New Size(33, 37)
         LblTotalAdmin.TabIndex = 1
@@ -307,34 +333,34 @@ Partial Class Kelola_User
         ' 
         ' PanelCardUser
         ' 
-        PanelCardUser.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
+        PanelCardUser.BackColor = Color.MintCream
         PanelCardUser.BorderStyle = BorderStyle.FixedSingle
         PanelCardUser.Controls.Add(LblCaptionUser)
         PanelCardUser.Controls.Add(LblTotalAdmin)
-        PanelCardUser.Location = New Point(631, 79)
+        PanelCardUser.Location = New Point(655, 45)
         PanelCardUser.Name = "PanelCardUser"
-        PanelCardUser.Size = New Size(157, 84)
+        PanelCardUser.Size = New Size(133, 84)
         PanelCardUser.TabIndex = 16
         ' 
         ' Panel1
         ' 
-        Panel1.BackColor = Color.FromArgb(CByte(249), CByte(250), CByte(251))
+        Panel1.BackColor = Color.WhiteSmoke
         Panel1.BorderStyle = BorderStyle.FixedSingle
         Panel1.Controls.Add(Label1)
         Panel1.Controls.Add(LblTotalKasir)
-        Panel1.Location = New Point(631, 169)
+        Panel1.Location = New Point(655, 135)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(157, 82)
+        Panel1.Size = New Size(133, 82)
         Panel1.TabIndex = 17
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 9F)
+        Label1.Font = New Font("Segoe UI", 12F)
         Label1.ForeColor = Color.DarkSlateGray
-        Label1.Location = New Point(12, 12)
+        Label1.Location = New Point(5, 5)
         Label1.Name = "Label1"
-        Label1.Size = New Size(61, 15)
+        Label1.Size = New Size(80, 21)
         Label1.TabIndex = 0
         Label1.Text = "Total Kasir"
         ' 
@@ -342,8 +368,8 @@ Partial Class Kelola_User
         ' 
         LblTotalKasir.AutoSize = True
         LblTotalKasir.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
-        LblTotalKasir.ForeColor = Color.Black
-        LblTotalKasir.Location = New Point(12, 30)
+        LblTotalKasir.ForeColor = Color.Green
+        LblTotalKasir.Location = New Point(8, 33)
         LblTotalKasir.Name = "LblTotalKasir"
         LblTotalKasir.Size = New Size(33, 37)
         LblTotalKasir.TabIndex = 1
@@ -353,13 +379,14 @@ Partial Class Kelola_User
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(804, 496)
         Controls.Add(Panel1)
         Controls.Add(PanelCardUser)
         Controls.Add(PanelFormCard)
         Controls.Add(PanelHeader)
         Controls.Add(DgvUser)
         Name = "Kelola_User"
+        StartPosition = FormStartPosition.CenterParent
         Text = "Kelola_User"
         CType(DgvUser, ComponentModel.ISupportInitialize).EndInit()
         PanelHeader.ResumeLayout(False)

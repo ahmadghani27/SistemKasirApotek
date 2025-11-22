@@ -58,23 +58,27 @@ Partial Class Kelola_Stok
         PanelHeader.Dock = DockStyle.Top
         PanelHeader.Location = New Point(0, 0)
         PanelHeader.Name = "PanelHeader"
-        PanelHeader.Size = New Size(804, 64)
+        PanelHeader.Size = New Size(804, 39)
         PanelHeader.TabIndex = 13
         ' 
         ' BtnKeluar
         ' 
-        BtnKeluar.Location = New Point(724, 12)
+        BtnKeluar.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnKeluar.Cursor = Cursors.Hand
+        BtnKeluar.FlatStyle = FlatStyle.Popup
+        BtnKeluar.Font = New Font("Segoe UI", 12F)
+        BtnKeluar.Location = New Point(664, 3)
         BtnKeluar.Name = "BtnKeluar"
-        BtnKeluar.Size = New Size(68, 40)
+        BtnKeluar.Size = New Size(137, 33)
         BtnKeluar.TabIndex = 3
         BtnKeluar.Text = "Keluar"
-        BtnKeluar.UseVisualStyleBackColor = True
+        BtnKeluar.UseVisualStyleBackColor = False
         ' 
         ' LblTitle
         ' 
         LblTitle.Font = New Font("Segoe UI", 16F, FontStyle.Bold)
         LblTitle.ForeColor = Color.White
-        LblTitle.Location = New Point(12, 12)
+        LblTitle.Location = New Point(3, -1)
         LblTitle.Name = "LblTitle"
         LblTitle.Size = New Size(400, 40)
         LblTitle.TabIndex = 0
@@ -97,9 +101,9 @@ Partial Class Kelola_Stok
         PanelFormCard.Controls.Add(TxtStok)
         PanelFormCard.Controls.Add(LblKadaluarsa)
         PanelFormCard.Controls.Add(DtpKadaluarsa)
-        PanelFormCard.Location = New Point(12, 84)
+        PanelFormCard.Location = New Point(12, 45)
         PanelFormCard.Name = "PanelFormCard"
-        PanelFormCard.Size = New Size(588, 243)
+        PanelFormCard.Size = New Size(588, 196)
         PanelFormCard.TabIndex = 12
         ' 
         ' LblID
@@ -107,7 +111,7 @@ Partial Class Kelola_Stok
         LblID.AutoSize = True
         LblID.Font = New Font("Segoe UI", 9F)
         LblID.ForeColor = Color.DarkSlateGray
-        LblID.Location = New Point(16, 16)
+        LblID.Location = New Point(16, 6)
         LblID.Name = "LblID"
         LblID.Size = New Size(47, 15)
         LblID.TabIndex = 0
@@ -115,9 +119,9 @@ Partial Class Kelola_Stok
         ' 
         ' TxtIDObat
         ' 
-        TxtIDObat.Location = New Point(16, 36)
+        TxtIDObat.Location = New Point(16, 23)
         TxtIDObat.Name = "TxtIDObat"
-        TxtIDObat.Size = New Size(532, 23)
+        TxtIDObat.Size = New Size(554, 23)
         TxtIDObat.TabIndex = 0
         ' 
         ' LblNama
@@ -125,7 +129,7 @@ Partial Class Kelola_Stok
         LblNama.AutoSize = True
         LblNama.Font = New Font("Segoe UI", 9F)
         LblNama.ForeColor = Color.DarkSlateGray
-        LblNama.Location = New Point(16, 72)
+        LblNama.Location = New Point(16, 49)
         LblNama.Name = "LblNama"
         LblNama.Size = New Size(68, 15)
         LblNama.TabIndex = 1
@@ -133,9 +137,9 @@ Partial Class Kelola_Stok
         ' 
         ' TxtNamaObat
         ' 
-        TxtNamaObat.Location = New Point(16, 92)
+        TxtNamaObat.Location = New Point(16, 67)
         TxtNamaObat.Name = "TxtNamaObat"
-        TxtNamaObat.Size = New Size(532, 23)
+        TxtNamaObat.Size = New Size(554, 23)
         TxtNamaObat.TabIndex = 1
         ' 
         ' LblJenis
@@ -143,7 +147,7 @@ Partial Class Kelola_Stok
         LblJenis.AutoSize = True
         LblJenis.Font = New Font("Segoe UI", 9F)
         LblJenis.ForeColor = Color.DarkSlateGray
-        LblJenis.Location = New Point(16, 128)
+        LblJenis.Location = New Point(16, 93)
         LblJenis.Name = "LblJenis"
         LblJenis.Size = New Size(32, 15)
         LblJenis.TabIndex = 2
@@ -153,7 +157,7 @@ Partial Class Kelola_Stok
         ' 
         CmbJenis.DropDownStyle = ComboBoxStyle.DropDownList
         CmbJenis.FormattingEnabled = True
-        CmbJenis.Location = New Point(16, 148)
+        CmbJenis.Location = New Point(16, 111)
         CmbJenis.Name = "CmbJenis"
         CmbJenis.Size = New Size(180, 23)
         CmbJenis.TabIndex = 2
@@ -163,7 +167,7 @@ Partial Class Kelola_Stok
         LblHarga.AutoSize = True
         LblHarga.Font = New Font("Segoe UI", 9F)
         LblHarga.ForeColor = Color.DarkSlateGray
-        LblHarga.Location = New Point(212, 128)
+        LblHarga.Location = New Point(212, 93)
         LblHarga.Name = "LblHarga"
         LblHarga.Size = New Size(39, 15)
         LblHarga.TabIndex = 3
@@ -171,7 +175,7 @@ Partial Class Kelola_Stok
         ' 
         ' TxtHarga
         ' 
-        TxtHarga.Location = New Point(212, 148)
+        TxtHarga.Location = New Point(212, 111)
         TxtHarga.Name = "TxtHarga"
         TxtHarga.Size = New Size(184, 23)
         TxtHarga.TabIndex = 3
@@ -181,7 +185,7 @@ Partial Class Kelola_Stok
         LblStok.AutoSize = True
         LblStok.Font = New Font("Segoe UI", 9F)
         LblStok.ForeColor = Color.DarkSlateGray
-        LblStok.Location = New Point(16, 184)
+        LblStok.Location = New Point(16, 137)
         LblStok.Name = "LblStok"
         LblStok.Size = New Size(30, 15)
         LblStok.TabIndex = 4
@@ -189,7 +193,7 @@ Partial Class Kelola_Stok
         ' 
         ' TxtStok
         ' 
-        TxtStok.Location = New Point(16, 204)
+        TxtStok.Location = New Point(16, 155)
         TxtStok.Name = "TxtStok"
         TxtStok.Size = New Size(180, 23)
         TxtStok.TabIndex = 4
@@ -199,7 +203,7 @@ Partial Class Kelola_Stok
         LblKadaluarsa.AutoSize = True
         LblKadaluarsa.Font = New Font("Segoe UI", 9F)
         LblKadaluarsa.ForeColor = Color.DarkSlateGray
-        LblKadaluarsa.Location = New Point(212, 184)
+        LblKadaluarsa.Location = New Point(212, 137)
         LblKadaluarsa.Name = "LblKadaluarsa"
         LblKadaluarsa.Size = New Size(64, 15)
         LblKadaluarsa.TabIndex = 5
@@ -207,8 +211,9 @@ Partial Class Kelola_Stok
         ' 
         ' DtpKadaluarsa
         ' 
-        DtpKadaluarsa.Format = DateTimePickerFormat.Short
-        DtpKadaluarsa.Location = New Point(212, 204)
+        DtpKadaluarsa.CustomFormat = "dd MMM yyyy"
+        DtpKadaluarsa.Format = DateTimePickerFormat.Custom
+        DtpKadaluarsa.Location = New Point(212, 155)
         DtpKadaluarsa.Name = "DtpKadaluarsa"
         DtpKadaluarsa.Size = New Size(184, 23)
         DtpKadaluarsa.TabIndex = 5
@@ -219,46 +224,63 @@ Partial Class Kelola_Stok
         PanelActions.Controls.Add(BtnUbah)
         PanelActions.Controls.Add(BtnHapus)
         PanelActions.Controls.Add(BtnBersih)
-        PanelActions.Location = New Point(630, 84)
+        PanelActions.Location = New Point(606, 45)
         PanelActions.Name = "PanelActions"
-        PanelActions.Size = New Size(158, 243)
+        PanelActions.Size = New Size(182, 196)
         PanelActions.TabIndex = 11
         ' 
         ' BtnTambah
         ' 
+        BtnTambah.BackColor = Color.LightSkyBlue
+        BtnTambah.Cursor = Cursors.Hand
+        BtnTambah.FlatStyle = FlatStyle.Popup
+        BtnTambah.Font = New Font("Segoe UI", 12F)
+        BtnTambah.ForeColor = SystemColors.ControlText
         BtnTambah.Location = New Point(16, 16)
         BtnTambah.Name = "BtnTambah"
-        BtnTambah.Size = New Size(124, 36)
+        BtnTambah.Size = New Size(150, 36)
         BtnTambah.TabIndex = 6
         BtnTambah.Text = "Tambah"
-        BtnTambah.UseVisualStyleBackColor = True
+        BtnTambah.UseVisualStyleBackColor = False
         ' 
         ' BtnUbah
         ' 
-        BtnUbah.Location = New Point(16, 64)
+        BtnUbah.BackColor = Color.LightYellow
+        BtnUbah.Cursor = Cursors.Hand
+        BtnUbah.FlatStyle = FlatStyle.Popup
+        BtnUbah.Font = New Font("Segoe UI", 12F)
+        BtnUbah.Location = New Point(16, 60)
         BtnUbah.Name = "BtnUbah"
-        BtnUbah.Size = New Size(124, 36)
+        BtnUbah.Size = New Size(150, 36)
         BtnUbah.TabIndex = 7
         BtnUbah.Text = "Ubah"
-        BtnUbah.UseVisualStyleBackColor = True
+        BtnUbah.UseVisualStyleBackColor = False
         ' 
         ' BtnHapus
         ' 
-        BtnHapus.Location = New Point(16, 112)
+        BtnHapus.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnHapus.Cursor = Cursors.Hand
+        BtnHapus.FlatStyle = FlatStyle.Popup
+        BtnHapus.Font = New Font("Segoe UI", 12F)
+        BtnHapus.Location = New Point(16, 106)
         BtnHapus.Name = "BtnHapus"
-        BtnHapus.Size = New Size(124, 36)
+        BtnHapus.Size = New Size(150, 36)
         BtnHapus.TabIndex = 8
         BtnHapus.Text = "Hapus"
-        BtnHapus.UseVisualStyleBackColor = True
+        BtnHapus.UseVisualStyleBackColor = False
         ' 
         ' BtnBersih
         ' 
-        BtnBersih.Location = New Point(16, 160)
+        BtnBersih.BackColor = Color.White
+        BtnBersih.Cursor = Cursors.Hand
+        BtnBersih.FlatStyle = FlatStyle.Popup
+        BtnBersih.Font = New Font("Segoe UI", 12F)
+        BtnBersih.Location = New Point(16, 148)
         BtnBersih.Name = "BtnBersih"
-        BtnBersih.Size = New Size(124, 36)
+        BtnBersih.Size = New Size(150, 36)
         BtnBersih.TabIndex = 9
         BtnBersih.Text = "Bersih"
-        BtnBersih.UseVisualStyleBackColor = True
+        BtnBersih.UseVisualStyleBackColor = False
         ' 
         ' DgvObat
         ' 
@@ -267,19 +289,19 @@ Partial Class Kelola_Stok
         DgvObat.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvObat.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DgvObat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvObat.Location = New Point(12, 333)
+        DgvObat.Location = New Point(12, 247)
         DgvObat.MultiSelect = False
         DgvObat.Name = "DgvObat"
         DgvObat.ReadOnly = True
         DgvObat.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DgvObat.Size = New Size(776, 230)
+        DgvObat.Size = New Size(776, 237)
         DgvObat.TabIndex = 10
         ' 
         ' Kelola_Stok
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(804, 575)
+        ClientSize = New Size(804, 496)
         Controls.Add(DgvObat)
         Controls.Add(PanelActions)
         Controls.Add(PanelFormCard)

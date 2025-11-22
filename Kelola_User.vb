@@ -251,5 +251,4 @@ Public Class Kelola_User
 
         TxtPassword.Clear()
     End Sub
-
 End Class

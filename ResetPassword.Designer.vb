@@ -36,28 +36,36 @@ Partial Class ResetPassword
         ' 
         ' BtnKembali
         ' 
+        BtnKembali.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnKembali.BackgroundImageLayout = ImageLayout.None
+        BtnKembali.Cursor = Cursors.Hand
+        BtnKembali.FlatStyle = FlatStyle.Popup
         BtnKembali.Font = New Font("Segoe UI", 12F)
-        BtnKembali.Location = New Point(211, 236)
+        BtnKembali.Location = New Point(49, 211)
         BtnKembali.Name = "BtnKembali"
         BtnKembali.Size = New Size(213, 38)
         BtnKembali.TabIndex = 20
         BtnKembali.Text = "Kembali"
-        BtnKembali.UseVisualStyleBackColor = True
+        BtnKembali.UseVisualStyleBackColor = False
         ' 
         ' BtnReset
         ' 
+        BtnReset.BackColor = Color.LightGray
+        BtnReset.BackgroundImageLayout = ImageLayout.None
+        BtnReset.Cursor = Cursors.Hand
+        BtnReset.FlatStyle = FlatStyle.Popup
         BtnReset.Font = New Font("Segoe UI", 12F)
-        BtnReset.Location = New Point(430, 236)
+        BtnReset.Location = New Point(268, 211)
         BtnReset.Name = "BtnReset"
         BtnReset.Size = New Size(218, 38)
         BtnReset.TabIndex = 19
         BtnReset.Text = "Reset"
-        BtnReset.UseVisualStyleBackColor = True
+        BtnReset.UseVisualStyleBackColor = False
         ' 
         ' TxtPasswordBaru
         ' 
         TxtPasswordBaru.Font = New Font("Segoe UI", 12F)
-        TxtPasswordBaru.Location = New Point(315, 141)
+        TxtPasswordBaru.Location = New Point(193, 124)
         TxtPasswordBaru.Name = "TxtPasswordBaru"
         TxtPasswordBaru.PasswordChar = "*"c
         TxtPasswordBaru.Size = New Size(333, 29)
@@ -66,7 +74,7 @@ Partial Class ResetPassword
         ' TxtUsername
         ' 
         TxtUsername.Font = New Font("Segoe UI", 12F)
-        TxtUsername.Location = New Point(315, 109)
+        TxtUsername.Location = New Point(193, 92)
         TxtUsername.Name = "TxtUsername"
         TxtUsername.Size = New Size(333, 29)
         TxtUsername.TabIndex = 13
@@ -75,7 +83,7 @@ Partial Class ResetPassword
         ' 
         Label4.AutoSize = True
         Label4.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label4.Location = New Point(134, 144)
+        Label4.Location = New Point(12, 127)
         Label4.Name = "Label4"
         Label4.Size = New Size(76, 21)
         Label4.TabIndex = 12
@@ -85,7 +93,7 @@ Partial Class ResetPassword
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(134, 112)
+        Label3.Location = New Point(12, 95)
         Label3.Name = "Label3"
         Label3.Size = New Size(81, 21)
         Label3.TabIndex = 11
@@ -94,10 +102,10 @@ Partial Class ResetPassword
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(348, 67)
+        Label2.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(220, 48)
         Label2.Name = "Label2"
-        Label2.Size = New Size(114, 21)
+        Label2.Size = New Size(137, 25)
         Label2.TabIndex = 10
         Label2.Text = "Lupa Password"
         ' 
@@ -105,7 +113,7 @@ Partial Class ResetPassword
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(202, 21)
+        Label1.Location = New Point(87, 9)
         Label1.Name = "Label1"
         Label1.Size = New Size(408, 30)
         Label1.TabIndex = 9
@@ -114,7 +122,7 @@ Partial Class ResetPassword
         ' TxtKonfirmasiPassword
         ' 
         TxtKonfirmasiPassword.Font = New Font("Segoe UI", 12F)
-        TxtKonfirmasiPassword.Location = New Point(315, 176)
+        TxtKonfirmasiPassword.Location = New Point(193, 159)
         TxtKonfirmasiPassword.Name = "TxtKonfirmasiPassword"
         TxtKonfirmasiPassword.PasswordChar = "*"c
         TxtKonfirmasiPassword.Size = New Size(333, 29)
@@ -124,7 +132,7 @@ Partial Class ResetPassword
         ' 
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label5.Location = New Point(134, 179)
+        Label5.Location = New Point(12, 162)
         Label5.Name = "Label5"
         Label5.Size = New Size(155, 21)
         Label5.TabIndex = 17
@@ -134,7 +142,7 @@ Partial Class ResetPassword
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(557, 264)
         Controls.Add(TxtKonfirmasiPassword)
         Controls.Add(Label5)
         Controls.Add(BtnKembali)
@@ -146,6 +154,7 @@ Partial Class ResetPassword
         Controls.Add(Label2)
         Controls.Add(Label1)
         Name = "ResetPassword"
+        StartPosition = FormStartPosition.CenterParent
         Text = "Register"
         ResumeLayout(False)
         PerformLayout()

@@ -27,7 +27,8 @@ Partial Class FormHasilPencarian
         colNama = New DataGridViewTextBoxColumn()
         colHarga = New DataGridViewTextBoxColumn()
         colJumlah = New DataGridViewTextBoxColumn()
-        Button1 = New Button()
+        BtnKeluar = New Button()
+        LblLabelJumlah = New Label()
         CType(DgvHasilPencarian, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -73,28 +74,42 @@ Partial Class FormHasilPencarian
         colJumlah.ReadOnly = True
         colJumlah.Width = 80
         ' 
-        ' Button1
+        ' BtnKeluar
         ' 
-        Button1.FlatStyle = FlatStyle.Flat
-        Button1.Location = New Point(588, 237)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(200, 27)
-        Button1.TabIndex = 13
-        Button1.Text = "Keluar"
-        Button1.UseVisualStyleBackColor = True
+        BtnKeluar.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnKeluar.Cursor = Cursors.Hand
+        BtnKeluar.FlatStyle = FlatStyle.Popup
+        BtnKeluar.Location = New Point(588, 237)
+        BtnKeluar.Name = "BtnKeluar"
+        BtnKeluar.Size = New Size(200, 27)
+        BtnKeluar.TabIndex = 13
+        BtnKeluar.Text = "Keluar"
+        BtnKeluar.UseVisualStyleBackColor = False
+        ' 
+        ' LblLabelJumlah
+        ' 
+        LblLabelJumlah.AutoSize = True
+        LblLabelJumlah.ForeColor = Color.FromArgb(CByte(192), CByte(0), CByte(0))
+        LblLabelJumlah.Location = New Point(12, 243)
+        LblLabelJumlah.Name = "LblLabelJumlah"
+        LblLabelJumlah.Size = New Size(144, 15)
+        LblLabelJumlah.TabIndex = 14
+        LblLabelJumlah.Text = "! Klik 2 Kali untuk memilih"
         ' 
         ' FormHasilPencarian
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 274)
-        Controls.Add(Button1)
+        Controls.Add(LblLabelJumlah)
+        Controls.Add(BtnKeluar)
         Controls.Add(DgvHasilPencarian)
         Name = "FormHasilPencarian"
         StartPosition = FormStartPosition.CenterParent
         Text = "ujicoba"
         CType(DgvHasilPencarian, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents DgvHasilPencarian As DataGridView
@@ -102,5 +117,6 @@ Partial Class FormHasilPencarian
     Friend WithEvents colNama As DataGridViewTextBoxColumn
     Friend WithEvents colHarga As DataGridViewTextBoxColumn
     Friend WithEvents colJumlah As DataGridViewTextBoxColumn
-    Friend WithEvents Button1 As Button
+    Friend WithEvents BtnKeluar As Button
+    Friend WithEvents LblLabelJumlah As Label
 End Class

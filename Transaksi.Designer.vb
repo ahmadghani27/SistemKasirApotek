@@ -73,36 +73,41 @@ Partial Class Transaksi
         ' 
         ' TxtJumlah
         ' 
-        TxtJumlah.Location = New Point(217, 30)
+        TxtJumlah.Location = New Point(205, 24)
         TxtJumlah.Name = "TxtJumlah"
-        TxtJumlah.Size = New Size(74, 23)
+        TxtJumlah.Size = New Size(85, 23)
         TxtJumlah.TabIndex = 3
         ' 
         ' BtnTambah
         ' 
         BtnTambah.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        BtnTambah.FlatStyle = FlatStyle.Flat
-        BtnTambah.Location = New Point(311, 28)
+        BtnTambah.BackColor = Color.FromArgb(CByte(255), CByte(192), CByte(128))
+        BtnTambah.Cursor = Cursors.Hand
+        BtnTambah.FlatStyle = FlatStyle.Popup
+        BtnTambah.Location = New Point(310, 22)
         BtnTambah.Name = "BtnTambah"
         BtnTambah.Size = New Size(75, 27)
         BtnTambah.TabIndex = 4
         BtnTambah.Text = "Tambah"
-        BtnTambah.UseVisualStyleBackColor = True
+        BtnTambah.UseVisualStyleBackColor = False
         ' 
         ' BtnSimpan
         ' 
-        BtnSimpan.FlatStyle = FlatStyle.Flat
-        BtnSimpan.Location = New Point(15, 28)
+        BtnSimpan.BackColor = Color.LightSkyBlue
+        BtnSimpan.Cursor = Cursors.Hand
+        BtnSimpan.FlatStyle = FlatStyle.Popup
+        BtnSimpan.Location = New Point(15, 22)
         BtnSimpan.Name = "BtnSimpan"
         BtnSimpan.Size = New Size(84, 27)
         BtnSimpan.TabIndex = 5
         BtnSimpan.Text = "Simpan"
-        BtnSimpan.UseVisualStyleBackColor = True
+        BtnSimpan.UseVisualStyleBackColor = False
         ' 
         ' BtnBatal
         ' 
-        BtnBatal.FlatStyle = FlatStyle.Flat
-        BtnBatal.Location = New Point(111, 28)
+        BtnBatal.Cursor = Cursors.Hand
+        BtnBatal.FlatStyle = FlatStyle.Popup
+        BtnBatal.Location = New Point(105, 22)
         BtnBatal.Name = "BtnBatal"
         BtnBatal.Size = New Size(84, 27)
         BtnBatal.TabIndex = 6
@@ -111,23 +116,27 @@ Partial Class Transaksi
         ' 
         ' BtnHapusItem
         ' 
-        BtnHapusItem.FlatStyle = FlatStyle.Flat
-        BtnHapusItem.Location = New Point(207, 28)
+        BtnHapusItem.BackColor = Color.FromArgb(CByte(255), CByte(192), CByte(128))
+        BtnHapusItem.Cursor = Cursors.Hand
+        BtnHapusItem.FlatStyle = FlatStyle.Popup
+        BtnHapusItem.Location = New Point(195, 22)
         BtnHapusItem.Name = "BtnHapusItem"
         BtnHapusItem.Size = New Size(84, 27)
         BtnHapusItem.TabIndex = 7
         BtnHapusItem.Text = "Hapus Item"
-        BtnHapusItem.UseVisualStyleBackColor = True
+        BtnHapusItem.UseVisualStyleBackColor = False
         ' 
         ' BtnKeluar
         ' 
-        BtnKeluar.FlatStyle = FlatStyle.Flat
-        BtnKeluar.Location = New Point(303, 28)
+        BtnKeluar.BackColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        BtnKeluar.Cursor = Cursors.Hand
+        BtnKeluar.FlatStyle = FlatStyle.Popup
+        BtnKeluar.Location = New Point(302, 22)
         BtnKeluar.Name = "BtnKeluar"
         BtnKeluar.Size = New Size(84, 27)
         BtnKeluar.TabIndex = 8
         BtnKeluar.Text = "Keluar"
-        BtnKeluar.UseVisualStyleBackColor = True
+        BtnKeluar.UseVisualStyleBackColor = False
         ' 
         ' LblTotalBayar
         ' 
@@ -152,7 +161,7 @@ Partial Class Transaksi
         DgvListTransaksi.Name = "DgvListTransaksi"
         DgvListTransaksi.ReadOnly = True
         DgvListTransaksi.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DgvListTransaksi.Size = New Size(787, 219)
+        DgvListTransaksi.Size = New Size(787, 256)
         DgvListTransaksi.TabIndex = 10
         ' 
         ' colID
@@ -193,6 +202,7 @@ Partial Class Transaksi
         ' GbInputObat
         ' 
         GbInputObat.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        GbInputObat.BackColor = Color.AliceBlue
         GbInputObat.Controls.Add(Label1)
         GbInputObat.Controls.Add(TxtHarga)
         GbInputObat.Controls.Add(BtnCari)
@@ -226,13 +236,14 @@ Partial Class Transaksi
         ' BtnCari
         ' 
         BtnCari.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        BtnCari.BackColor = Color.LightSkyBlue
         BtnCari.FlatStyle = FlatStyle.Flat
         BtnCari.Location = New Point(485, 30)
         BtnCari.Name = "BtnCari"
         BtnCari.Size = New Size(54, 27)
         BtnCari.TabIndex = 9
         BtnCari.Text = "Cari"
-        BtnCari.UseVisualStyleBackColor = True
+        BtnCari.UseVisualStyleBackColor = False
         ' 
         ' LblLabelNamaObat
         ' 
@@ -255,7 +266,7 @@ Partial Class Transaksi
         ' LblLabelJumlah
         ' 
         LblLabelJumlah.AutoSize = True
-        LblLabelJumlah.Location = New Point(164, 34)
+        LblLabelJumlah.Location = New Point(146, 28)
         LblLabelJumlah.Name = "LblLabelJumlah"
         LblLabelJumlah.Size = New Size(48, 15)
         LblLabelJumlah.TabIndex = 8
@@ -263,13 +274,14 @@ Partial Class Transaksi
         ' 
         ' GbAksi
         ' 
+        GbAksi.BackColor = Color.White
         GbAksi.Controls.Add(BtnSimpan)
         GbAksi.Controls.Add(BtnBatal)
         GbAksi.Controls.Add(BtnHapusItem)
         GbAksi.Controls.Add(BtnKeluar)
-        GbAksi.Location = New Point(12, 91)
+        GbAksi.Location = New Point(12, 75)
         GbAksi.Name = "GbAksi"
-        GbAksi.Size = New Size(401, 71)
+        GbAksi.Size = New Size(421, 62)
         GbAksi.TabIndex = 1
         GbAksi.TabStop = False
         GbAksi.Text = "Aksi Transaksi"
@@ -278,9 +290,9 @@ Partial Class Transaksi
         ' 
         GbKeranjang.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GbKeranjang.Controls.Add(DgvListTransaksi)
-        GbKeranjang.Location = New Point(12, 180)
+        GbKeranjang.Location = New Point(12, 143)
         GbKeranjang.Name = "GbKeranjang"
-        GbKeranjang.Size = New Size(818, 261)
+        GbKeranjang.Size = New Size(818, 298)
         GbKeranjang.TabIndex = 2
         GbKeranjang.TabStop = False
         GbKeranjang.Text = "Keranjang Belanja"
@@ -298,34 +310,41 @@ Partial Class Transaksi
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.BackColor = Color.AliceBlue
         GroupBox1.Controls.Add(LblLabelJumlah)
         GroupBox1.Controls.Add(BtnTambah)
         GroupBox1.Controls.Add(TxtJumlah)
-        GroupBox1.Location = New Point(429, 91)
+        GroupBox1.Location = New Point(429, 75)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(401, 71)
+        GroupBox1.Size = New Size(401, 62)
         GroupBox1.TabIndex = 9
         GroupBox1.TabStop = False
         ' 
         ' BtnLihatStok
         ' 
-        BtnLihatStok.FlatStyle = FlatStyle.Flat
-        BtnLihatStok.Location = New Point(27, 455)
+        BtnLihatStok.BackColor = Color.AliceBlue
+        BtnLihatStok.Cursor = Cursors.Hand
+        BtnLihatStok.FlatStyle = FlatStyle.Popup
+        BtnLihatStok.Font = New Font("Segoe UI", 12F)
+        BtnLihatStok.Location = New Point(27, 450)
         BtnLihatStok.Name = "BtnLihatStok"
-        BtnLihatStok.Size = New Size(106, 27)
+        BtnLihatStok.Size = New Size(127, 35)
         BtnLihatStok.TabIndex = 12
         BtnLihatStok.Text = "Lihat Stok"
-        BtnLihatStok.UseVisualStyleBackColor = True
+        BtnLihatStok.UseVisualStyleBackColor = False
         ' 
         ' BtnRiwayat
         ' 
-        BtnRiwayat.FlatStyle = FlatStyle.Flat
-        BtnRiwayat.Location = New Point(139, 455)
+        BtnRiwayat.BackColor = Color.PaleGoldenrod
+        BtnRiwayat.Cursor = Cursors.Hand
+        BtnRiwayat.FlatStyle = FlatStyle.Popup
+        BtnRiwayat.Font = New Font("Segoe UI", 12F)
+        BtnRiwayat.Location = New Point(160, 450)
         BtnRiwayat.Name = "BtnRiwayat"
-        BtnRiwayat.Size = New Size(106, 27)
+        BtnRiwayat.Size = New Size(131, 35)
         BtnRiwayat.TabIndex = 13
         BtnRiwayat.Text = "Riwayat"
-        BtnRiwayat.UseVisualStyleBackColor = True
+        BtnRiwayat.UseVisualStyleBackColor = False
         ' 
         ' Transaksi
         ' 
@@ -341,7 +360,7 @@ Partial Class Transaksi
         Controls.Add(GbInputObat)
         Controls.Add(LblTotalBayar)
         MaximizeBox = False
-        MinimumSize = New Size(858, 536)
+        MinimumSize = New Size(820, 535)
         Name = "Transaksi"
         StartPosition = FormStartPosition.CenterParent
         Text = "Transaksi - Kasir Apotek"
